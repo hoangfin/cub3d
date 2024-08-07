@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/06 15:46:09 by hoatran           #+#    #+#             */
-/*   Updated: 2024/08/07 14:30:12 by emansoor         ###   ########.fr       */
+/*   Created: 2024/08/07 14:24:39 by emansoor          #+#    #+#             */
+/*   Updated: 2024/08/07 14:42:22 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "libft.h"
-#include "cub.h"
+#ifndef MAP_H
+# define MAP_H
 
-int	main(int argc, char **argv)
+typedef struct s_map
 {
-	t_cub	cub;
-	
-	if (
-		validate(argc, argv) == false
-		|| init_cub(&cub) != 0
-		|| start(&cub) != 0
-	)
-		return (EXIT_FAILURE);
-	destroy_cub(&cub);
-	return (EXIT_SUCCESS);
-}
+	char	**content;
+	int		width;
+	int		height;
+	int		row_count;
+	int		col_count;
+}	t_map;
+
+t_map	*load_map(const char *map_file);
+void	delete_map(t_map *map);
+
+#endif

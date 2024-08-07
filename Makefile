@@ -16,8 +16,9 @@ MLX42 := $(MLX42_DIR)/build/libmlx42.a
 
 CC := cc
 CFLAGS :=	-Wall -Wextra -Werror \
+			-Iinclude \
 			-I$(LIBFT_DIR) \
-			-I$(MLX42_DIR)/include \
+			-I$(MLX42_DIR)/include/MLX42 \
 
 SOURCES :=	main.c
 
@@ -27,8 +28,12 @@ OBJECTS := $(SOURCES:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(MLX42) $(OBJECTS)
-	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) $(MLX42) -ldl -lglfw -pthread -lm -o $(NAME)
+# $(NAME): $(LIBFT) $(MLX42) $(OBJECTS)
+# 	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) $(MLX42) -ldl -lglfw -pthread -lm -o $(NAME)
+# 	@printf "$(YELLOW)$@$(RESET) created.\n"
+
+$(NAME): $(LIBFT) $(OBJECTS)
+	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) $(MLX42) -ldl -pthread -lm -o $(NAME)
 	@printf "$(YELLOW)$@$(RESET) created.\n"
 
 $(BUILD_DIR):

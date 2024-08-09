@@ -22,7 +22,11 @@ CFLAGS :=	-Wall -Wextra -Werror \
 			-I$(LIBFT_DIR) \
 			-I$(MLX42_DIR)/include/MLX42 \
 
-SOURCES :=	main.c
+SOURCES :=	main.c \
+			init.c \
+			start.c \
+			destroy.c \
+			load_map.c \
 
 OBJECTS := $(SOURCES:.c=.o)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:34:37 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/08 23:52:57 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/08/09 14:37:58 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,20 @@ static int	init_rays(t_cub3D *cub3D)
 		cub3D->rays[i].start_y = cub3D->player->y;
 		// cub3D->rays[i].end_x = cub3D->player->x;
 		// cub3D->rays[i].end_y = cub3D->player->y;
-		cub3D->rays[i].length = sqrt();
+		// cub3D->rays[i].length = sqrt();
 		i++;
 	}
 	return (0);
 }
 
-int	init_cub(t_cub3D *cub3D, const char *pathname)
+int	init(t_cub3D *cub3D, const char *pathname)
 {
 	ft_bzero(cub3D, sizeof(t_cub3D));
 	cub3D->mlx = mlx_init(800, 600, "cub3D", false);
 	cub3D->map = load_map(pathname);
 	if (cub3D->map == NULL)
+		return (destroy(cub3D), -1);
+	if (init_rays(cub3D) != 0)
 		return (destroy(cub3D), -1);
 	if (init_player(cub3D) != 0)
 		return (destroy(cub3D), -1);

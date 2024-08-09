@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:32:55 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/08 23:30:05 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/08/09 14:39:57 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 t_map	*load_map(const char *pathname)
 {
-
+	(void)pathname;
+	return (NULL);
 }
 

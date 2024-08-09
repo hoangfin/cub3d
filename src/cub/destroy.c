@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destroy_cub.c                                      :+:      :+:    :+:   */
+/*   destroy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 20:08:54 by hoatran           #+#    #+#             */
-/*   Updated: 2024/08/08 23:06:59 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/08/09 14:36:10 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	destroy_cub(t_cub3D *cub)
+void	destroy(t_cub3D *cub3D)
 {
-
+	(void)cub3D;
+	// delete_map();
+	// delete_player();
+	// delete_ray()
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/08 23:29:45 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/08/09 14:16:52 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,25 @@
 
 # define RENDER_PIXELS 32
 
+# define DOOR_CHAR 'D'
+# define ENEMY_CHAR 'F'
+
 # include "libft.h"
 # include "MLX42.h"
 
 typedef struct s_map
 {
-	char	**grid;
-	int		width;
-	int		height;
-	int		row_count;
-	int		col_count;
+	char		**grid;
+	int			width;
+	int			height;
+	int			row_count;
+	int			col_count;
+	mlx_image_t	*north_wall;
+	mlx_image_t	*south_wall;
+	mlx_image_t	*east_wall;
+	mlx_image_t	*west_wall;
+	int			floor_colors[3];
+	int			ceiling_colors[3];
 }	t_map;
 
 typedef struct s_ray
@@ -34,6 +43,7 @@ typedef struct s_ray
 	int		end_x;
 	int		end_y;
 	double	length;
+	double	angle;
 }	t_ray;
 
 typedef enum e_character_state

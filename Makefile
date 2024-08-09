@@ -28,13 +28,13 @@ SOURCES :=	main.c \
 			destroy.c \
 			load_map.c \
 
-OBJECTS := $(SOURCES:.c=.o)
+OBJECTS := $(SOURCES:%.c=$(BUILD_DIR)/%.o)
 
 .PHONY = all clean fclean re
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(MLX42) $(OBJECTS)
+$(NAME): $(BUILD_DIR) $(LIBFT) $(MLX42) $(OBJECTS)
 	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) $(MLX42) -ldl -lglfw -pthread -lm -o $(NAME)
 	@printf "$(YELLOW)$@$(RESET) created.\n"
 

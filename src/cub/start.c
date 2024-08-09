@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub.h                                              :+:      :+:    :+:   */
+/*   start.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/07 14:35:48 by emansoor         ###   ########.fr       */
+/*   Created: 2024/08/07 20:08:01 by hoatran           #+#    #+#             */
+/*   Updated: 2024/08/09 14:36:52 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB_H
-# define CUB_H
+#include "cub3D.h"
 
-# include "map.h"
-
-typedef struct s_cub
+int		start(t_cub3D *cub3D)
 {
-	t_map	*map;
-}	t_cub;
-
-int		init_cub(t_cub *cub, const char *map_file);
-void	destroy_cub(t_cub *cub);
-
-#endif
+	(void)cub3D;
+	// draw_floor();
+	// draw_ceiling();
+	// draw_minimap(cub);
+	return (0);
+}

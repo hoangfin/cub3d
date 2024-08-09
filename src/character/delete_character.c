@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_cub.c                                         :+:      :+:    :+:   */
+/*   delete_character.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/07 14:34:37 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/07 14:40:53 by emansoor         ###   ########.fr       */
+/*   Created: 2024/08/07 23:50:12 by hoatran           #+#    #+#             */
+/*   Updated: 2024/08/08 23:08:41 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "cub.h"
+#include "cub3D.h"
 
-int	init_cub(t_cub *cub, const char *map_file)
+void	delete_character(mlx_t *mlx, t_character *character)
 {
-	cub->map = load_map(map_file);
-	if (cub->map == NULL)
-		return (destroy_cub(cub), -1);
+	if (character == NULL)
+		return ;
+	mlx_delete_image(mlx, character->image);
+	free(character);
 }

@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:32:55 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/09 10:40:12 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/09 14:52:39 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	process_contents(t_map *specs, int fd)
 	return (0);
 }
 
-t_map	*load_map(const char *map_file)
+t_map	*load_map(const char *pathname)
 {
 	int	fd;
 	t_map	map_specs;

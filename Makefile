@@ -5,7 +5,9 @@ GREEN := \033[0;32m
 YELLOW := \033[0;33m
 RESET := \033[0m
 
-VPATH := src
+VPATH :=	src \
+			src/cub \
+			src/map
 
 BUILD_DIR := build
 LIBFT_DIR := libs/libft
@@ -20,20 +22,20 @@ CFLAGS :=	-Wall -Wextra -Werror \
 			-I$(LIBFT_DIR) \
 			-I$(MLX42_DIR)/include/MLX42 \
 
-SOURCES :=	main.c
+SOURCES :=	main.c \
+			init.c \
+			start.c \
+			destroy.c \
+			load_map.c \
 
-OBJECTS := $(SOURCES:.c=.o)
+OBJECTS := $(SOURCES:%.c=$(BUILD_DIR)/%.o)
 
 .PHONY = all clean fclean re
 
 all: $(NAME)
 
-# $(NAME): $(LIBFT) $(MLX42) $(OBJECTS)
-# 	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) $(MLX42) -ldl -lglfw -pthread -lm -o $(NAME)
-# 	@printf "$(YELLOW)$@$(RESET) created.\n"
-
-$(NAME): $(LIBFT) $(OBJECTS)
-	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) $(MLX42) -ldl -pthread -lm -o $(NAME)
+$(NAME): $(BUILD_DIR) $(LIBFT) $(MLX42) $(OBJECTS)
+	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) $(MLX42) -ldl -lglfw -pthread -lm -o $(NAME)
 	@printf "$(YELLOW)$@$(RESET) created.\n"
 
 $(BUILD_DIR):

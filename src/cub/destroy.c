@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub.h                                              :+:      :+:    :+:   */
+/*   destroy_cub.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/07 14:35:48 by emansoor         ###   ########.fr       */
+/*   Created: 2024/08/07 20:08:54 by hoatran           #+#    #+#             */
+/*   Updated: 2024/08/08 23:06:59 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB_H
-# define CUB_H
+#include "cub3D.h"
 
-# include "map.h"
-
-typedef struct s_cub
+void	destroy_cub(t_cub3D *cub)
 {
-	t_map	*map;
-}	t_cub;
 
-int		init_cub(t_cub *cub, const char *map_file);
-void	destroy_cub(t_cub *cub);
-
-#endif
+}

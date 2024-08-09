@@ -5,7 +5,9 @@ GREEN := \033[0;32m
 YELLOW := \033[0;33m
 RESET := \033[0m
 
-VPATH := src
+VPATH :=	src \
+			src/cub \
+			src/map
 
 BUILD_DIR := build
 LIBFT_DIR := libs/libft
@@ -28,12 +30,8 @@ OBJECTS := $(SOURCES:.c=.o)
 
 all: $(NAME)
 
-# $(NAME): $(LIBFT) $(MLX42) $(OBJECTS)
-# 	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) $(MLX42) -ldl -lglfw -pthread -lm -o $(NAME)
-# 	@printf "$(YELLOW)$@$(RESET) created.\n"
-
-$(NAME): $(LIBFT) $(OBJECTS)
-	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) $(MLX42) -ldl -pthread -lm -o $(NAME)
+$(NAME): $(LIBFT) $(MLX42) $(OBJECTS)
+	@$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) $(MLX42) -ldl -lglfw -pthread -lm -o $(NAME)
 	@printf "$(YELLOW)$@$(RESET) created.\n"
 
 $(BUILD_DIR):

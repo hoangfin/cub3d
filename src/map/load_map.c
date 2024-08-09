@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   load_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:32:55 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/07 14:34:06 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/08 23:30:05 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
+#include "cub3D.h"
 
-t_map	*load_map(const char *map_file)
+t_map	*load_map(const char *pathname)
 {
 
 }

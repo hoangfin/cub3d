@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_cub.c                                         :+:      :+:    :+:   */
+/*   delate_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/07 14:34:37 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/07 14:40:53 by emansoor         ###   ########.fr       */
+/*   Created: 2024/08/07 14:33:21 by emansoor          #+#    #+#             */
+/*   Updated: 2024/08/08 23:13:05 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "cub.h"
+#include "cub3D.h"
 
-int	init_cub(t_cub *cub, const char *map_file)
+void	delete_map(t_map *map)
 {
-	cub->map = load_map(map_file);
-	if (cub->map == NULL)
-		return (destroy_cub(cub), -1);
+
 }

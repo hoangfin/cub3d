@@ -6,40 +6,44 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 12:47:03 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/09 12:49:26 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/14 11:57:37 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static int	verify_colors(int *colors, char **color)
+static int	save_color(t_map *specs, int color, int id, int index)
 {
-	colors[0] = ft_atoi(color[0]);
-	if (colors[0] < 0 || colors[0] > 255)
+	if (id == 1 && specs->floor_colors[index] != -1 || id == 2 && specs->ceiling_colors[index])
+		return (1);
+}
+
+static int	verify_colors(t_map *specs, char **colors, int id)
+{
+	t_bool	overflow;
+	int		color;
+	int		index;
+	
+	index = 0;
+	overflow = false;
+	while (index < 3)
 	{
-		ft_matrix_delete(&color);
-		return (print_content_error(colors));
-	}
-	colors[1] = ft_atoi(color[1]);
-	if (colors[1] < 0 || colors[1] > 255)
-	{
-		ft_matrix_delete(&color);
-		return (print_content_error(colors));
-	}
-	colors[2] = ft_atoi(color[2]);
-	if (colors[2] < 0 || colors[2] > 255)
-	{
-		ft_matrix_delete(&color);
-		return (print_content_error(colors));
+		color = ft_atoi(colors[index], &overflow);
+		if (overflow || color < 0 || color > 255
+			|| save_color(specs, color, id, index) > 0)
+		{
+			ft_matrix_delete(&colors);
+			return (print_content_error(NULL));
+		}
+		index++;
 	}
 	return (0);
 }
 
-static int	copy_colors(t_map *specs, int *colors, char **color, int id)
+/* static int	copy_colors(t_map *specs, char **color, int id)
 {
-	if (verify_colors(colors, color) > 0)
+	if (verify_colors(color) > 0)
 		return (1);
-	ft_matrix_delete(&color);
 	if (id == 1 && specs->f)
 		return (print_content_error(colors));
 	else if (id == 1 && !specs->f)
@@ -49,17 +53,16 @@ static int	copy_colors(t_map *specs, int *colors, char **color, int id)
 	else if (id == 2 && !specs->c)
 		specs->c = colors;
 	return (0);
-}
+} */
 
-static int	extract_clor(t_map *specs, char *line, int identifier)
+static int	extract_color(t_map *specs, char *line, int identifier)
 {
 	char	*extract;
 	char	**color;
-	int		*colors;
 
 	extract = ft_strtrim(line + 1, " ");
-	if (!extract) // print error?
-		return (1);
+	if (!extract || extract[0] == '\0')
+		return (print_content_error(extract));
 	color = ft_split(extract, ',');
 	if (!color)
 		return (print_content_error(extract)); // what if malloc fails in split??
@@ -69,27 +72,22 @@ static int	extract_clor(t_map *specs, char *line, int identifier)
 		ft_matrix_delete(&color);
 		return (print_content_error(NULL));
 	}
-	colors = (int *)malloc(sizeof(int) * 3);
-	if (!colors)
-	{
-		ft_matrix_delete(&color);
-		return (1);
-	}
-	return (copy_colors(specs, colors, color, identifier));
+	//return (copy_colors(specs, color, identifier));
 }
 
 int	get_color(t_map *specs, char *data)
 {
 	char	*content;
 	
-	if (specs->no && specs->so && specs->we && specs->ea)
+	if (specs->north_wall && specs->south_wall
+		&& specs->west_wall && specs->east_wall)
 	{
 		content = data;
 		if (ft_strnstr(content, "F", 1))
 			return (extract_color(specs, content, 1));
 		content = data;
 		if (ft_strnstr(content, "C", 1))
-			return (extract_color(specs, content, 1));
+			return (extract_color(specs, content, 2));
 	}
 	return (print_content_error(NULL));
 }

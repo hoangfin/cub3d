@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:46:11 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/14 09:51:36 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/14 13:43:22 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ static int	save_texture(mlx_t *mlx, t_map *specs, char *texture, int identifier)
 	if (!txture)
 		return (1);
 	if (identifier == 1)
-		specs->north_wall = mlx_texture_to_image(mlx, txture);
+		specs->walls[0] = mlx_texture_to_image(mlx, txture);
 	else if (identifier == 2)
-		specs->south_wall = mlx_texture_to_image(mlx, txture);
+		specs->walls[1] = mlx_texture_to_image(mlx, txture);
 	else if (identifier == 3)
-		specs->west_wall = mlx_texture_to_image(mlx, txture);
+		specs->walls[2] = mlx_texture_to_image(mlx, txture);
 	else if (identifier == 4)
-		specs->east_wall = mlx_texture_to_image(mlx, txture);
+		specs->walls[3] = mlx_texture_to_image(mlx, txture);
 	mlx_delete_texture(txture);
 	return (0);
 }
@@ -58,10 +58,10 @@ static int	extract_texture(mlx_t *mlx, t_map *specs, char *line, int identifier)
 	texture = ft_strtrim(line + 2, " "); // print error?
 	if (!texture || verify_texture(texture) < 0)
 		return (1);
-	if (identifier == 1 && specs->north_wall
-		|| identifier == 2 && specs->south_wall
-		|| identifier == 3 && specs->west_wall
-		|| identifier == 4 && specs->east_wall)
+	if (identifier == 1 && specs->walls[0]
+		|| identifier == 2 && specs->walls[1]
+		|| identifier == 3 && specs->walls[2]
+		|| identifier == 4 && specs->walls[3])
 		return (print_content_error(texture));
 	if (save_texture(mlx, specs, texture, identifier) > 0)
 	{
@@ -80,13 +80,13 @@ static int	get_texture(mlx_t *mlx, t_map *specs, char *data)
 	if (ft_strnstr(content, "NO", 2))
 		return (extract_texture(mlx, specs, content, 1));
 	content = data;
-	if (ft_strnstr(content, "SO", 2))
+	if (ft_strnstr(content, "EA", 2))
 		return (extract_texture(mlx, specs, content, 2));
 	content = data;
-	if (ft_strnstr(content, "WE", 2))
+	if (ft_strnstr(content, "SO", 2))
 		return (extract_texture(mlx, specs, content, 3));
 	content = data;
-	if (ft_strnstr(content, "EA", 2))
+	if (ft_strnstr(content, "WE", 2))
 		return (extract_texture(mlx, specs, content, 4));
 	return (0);
 }

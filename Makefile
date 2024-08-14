@@ -7,7 +7,8 @@ RESET := \033[0m
 
 VPATH :=	src \
 			src/cub \
-			src/map
+			src/map \
+			src/utility
 
 BUILD_DIR := build
 LIBFT_DIR := libs/libft
@@ -27,6 +28,11 @@ SOURCES :=	main.c \
 			start.c \
 			destroy.c \
 			load_map.c \
+			\
+			color.c \
+			copy_pixels.c \
+			fill.c \
+			load_png.c
 
 OBJECTS := $(SOURCES:%.c=$(BUILD_DIR)/%.o)
 
@@ -57,7 +63,7 @@ clean:
 	@$(MAKE) -C $(LIBFT_DIR) clean --silent
 	@rm -rf $(BUILD_DIR)
 	@printf "$(RED)$(BUILD_DIR)/$(RESET) deleted.\n"
-	@rm -rf $(MLX42_DIR)/build
+#	@rm -rf $(MLX42_DIR)/build
 	@printf "$(RED)$(MLX42_DIR)/build/$(RESET) deleted.\n"
 
 fclean: clean

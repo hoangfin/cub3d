@@ -3,42 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/14 14:19:46 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/17 15:56:48 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define RENDER_PIXELS 32
+# define WIDTH 1280
+# define HEIGHT 960
 
-# define DOOR_CHAR 'D'
-# define ENEMY_CHAR 'F'
+# define MAP_SPACE ' '
+# define MAP_PATH '0'
+# define MAP_WALL '1'
+# define MAP_DOOR 'D'
+# define MAP_FOE 'F'
+# define MAP_CELL_SIZE 16
+
+# define MINIMAP_SIZE 256
 
 # include "libft.h"
 # include "MLX42.h"
 
+typedef struct s_image
+{
+	mlx_image_t	*walls[4];
+	mlx_image_t	*ceiling;
+	mlx_image_t	*floor;
+	mlx_image_t	*obstacle;
+	mlx_image_t	*dot;
+	mlx_image_t	*path;
+	mlx_image_t	*minimap;
+	mlx_image_t	*map;
+}	t_image;
+
 typedef struct s_map
 {
 	char		**grid;
+	char		*wall_paths[4];
 	uint32_t	width;
 	uint32_t	height;
 	uint32_t	row_count;
 	uint32_t	col_count;
 	uint32_t	color_floor;
 	uint32_t	color_ceiling;
-	mlx_image_t	*walls[4];
-	mlx_image_t	*ceiling;
-	mlx_image_t	*floor;
-	mlx_image_t	*minimap;
-	mlx_image_t	*map;
-	mlx_image_t	*map_wall;
-	mlx_image_t	*map_player;
-	mlx_image_t	*map_path;
-	mlx_image_t	*map_space;
 }	t_map;
 
 typedef struct s_ray

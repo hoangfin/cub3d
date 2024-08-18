@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 09:26:40 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/18 14:53:58 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/18 15:04:29 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	copy_line(t_map *map, char *line, unsigned int index)
 	i = 0;
 	if (line)
 	{
-		while (line[i])
+		while (line[i] && line[i] != '\n')
 		{
 			map->grid[index][i] = line[i];
 			i++;

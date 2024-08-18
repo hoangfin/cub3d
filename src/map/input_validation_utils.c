@@ -6,13 +6,14 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 10:01:10 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/14 09:34:18 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/18 10:53:32 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "cub3D.h"
 
-t_bool	ft_has_spaces_only_cubed(const char *str)
+t_bool	ft_has_spaces_only_cubed(char *str)
 {
 	int	i;
 	
@@ -26,10 +27,11 @@ t_bool	ft_has_spaces_only_cubed(const char *str)
 	return (true);
 }
 
-int	print_content_error(void *str)
+int	print_content_error(void *str, double i)
 {
 	if (str)
 		free(str);
-	write(STDERR_FILENO, "Error\nInvalid file contents\n", 28);
+	printf("error id: %f\n", i);
+	write(STDERR_FILENO, "Error\nInvalid map file contents\n", 32);
 	return (1);
 }

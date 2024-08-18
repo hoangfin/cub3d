@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_validation.c                                 :+:      :+:    :+:   */
+/*   validate_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 06:52:15 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/14 09:52:05 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/18 10:12:46 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <fcntl.h>
 #include "cub3D.h"
 
-int	check_file_permissions(const char *file)
+int	check_file_permissions(char *file)
 {
 	int	fd;
 

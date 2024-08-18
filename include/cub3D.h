@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/17 15:56:48 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/08/18 14:54:20 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,10 @@ typedef struct s_cub3D
 	int			fov;
 }	t_cub3D;
 
-t_map	*load_map(const char *map_file);
-void	delete_map(t_map *map);
-
 t_character	*new_character(mlx_t *mlx, int32_t x, int32_t y, int32_t angle);
 
-int		init(t_cub3D *cub3D, const char *pathname);
+//int		init(t_cub3D *cub3D, const char *pathname);
+int		init(t_cub3D *cub3D, char *pathname);
 int		start(t_cub3D *cub3D);
 void	destroy(t_cub3D *cub3D);
 
@@ -105,5 +103,19 @@ uint32_t	color(int32_t r, int32_t g, int32_t b, int32_t a);
 void		fill(mlx_image_t *image, uint32_t color);
 mlx_image_t	*load_png(mlx_t *mlx, const char *pathname);
 void		copy_pixels(mlx_image_t *dest,mlx_image_t *src,int32_t offset);
+
+/*							PARSING							*/
+t_map	*load_map(char *pathname);
+int	check_file_permissions(char *file);
+int	verify_fileformat(char *filename, char *filetype);
+int	validate(char *map_file);
+int	extract_data(t_map *specs, char *data);
+int	get_color(t_map *specs, char *data);
+int	get_texture(t_map *specs, char *data);
+int	get_map(t_map *map, char *data, int fd, char *pathname);
+t_bool	ft_has_spaces_only_cubed(char *str);
+int	print_content_error(void *str, double i);
+int	missing_map(t_map *specs);
+void	delete_map(t_map *map);
 
 #endif

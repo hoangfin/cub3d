@@ -6,99 +6,26 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 07:46:11 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/14 13:43:22 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/18 14:03:08 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "cub3D.h"
 
-static int	verify_texture(char *texture)
+int	missing_map(t_map *specs)
 {
-	int	fd;
-	
-	if (texture[0] == '\0' || verify_fileformat(texture, ".png") != 0)
-	{
-		free(texture);
-		write(STDERR_FILENO, "Error\nInvalid texture file format\n", 34);
-		return (-1);
-	}
-	fd = check_file_permissions(texture);
-	if (fd < 0)
-	{
-		free(texture);
-		return (-1);
-	}
-	close(fd);
+	if (specs->wall_paths[0] && specs->wall_paths[1] && specs->wall_paths[2]
+		&& specs->wall_paths[3] && specs->color_ceiling && specs->color_floor
+		&& !specs->grid)
+		return (1);
 	return (0);
 }
 
-static int	save_texture(mlx_t *mlx, t_map *specs, char *texture, int identifier)
+int	extract_data(t_map *specs, char *data)
 {
-	mlx_texture_t	*txture;
-
-	txture = mlx_load_png(texture);
-	if (!txture)
-		return (1);
-	if (identifier == 1)
-		specs->walls[0] = mlx_texture_to_image(mlx, txture);
-	else if (identifier == 2)
-		specs->walls[1] = mlx_texture_to_image(mlx, txture);
-	else if (identifier == 3)
-		specs->walls[2] = mlx_texture_to_image(mlx, txture);
-	else if (identifier == 4)
-		specs->walls[3] = mlx_texture_to_image(mlx, txture);
-	mlx_delete_texture(txture);
-	return (0);
-}
-
-static int	extract_texture(mlx_t *mlx, t_map *specs, char *line, int identifier)
-{
-	char	*texture;
-
-	texture = ft_strtrim(line + 2, " "); // print error?
-	if (!texture || verify_texture(texture) < 0)
-		return (1);
-	if (identifier == 1 && specs->walls[0]
-		|| identifier == 2 && specs->walls[1]
-		|| identifier == 3 && specs->walls[2]
-		|| identifier == 4 && specs->walls[3])
-		return (print_content_error(texture));
-	if (save_texture(mlx, specs, texture, identifier) > 0)
-	{
-		free(texture);
-		return (1);
-	}
-	free(texture);
-	return (0);
-}
-
-static int	get_texture(mlx_t *mlx, t_map *specs, char *data)
-{
-	char	*content;
-	
-	content = data;
-	if (ft_strnstr(content, "NO", 2))
-		return (extract_texture(mlx, specs, content, 1));
-	content = data;
-	if (ft_strnstr(content, "EA", 2))
-		return (extract_texture(mlx, specs, content, 2));
-	content = data;
-	if (ft_strnstr(content, "SO", 2))
-		return (extract_texture(mlx, specs, content, 3));
-	content = data;
-	if (ft_strnstr(content, "WE", 2))
-		return (extract_texture(mlx, specs, content, 4));
-	return (0);
-}
-
-// how to differentiate return values for: A) faulty file content (free and exit), B) data processing failure (free and exit), C) didn't find what I was looking for & D) succesfully extracted data
-int	extract_data(mlx_t *mlx, t_map *specs, char *data)
-{
-	if (get_texture(mlx, specs, data) > 0)
-		return (1);
-	if (get_color(specs, data) > 0)
-		return (1);
-	if (get_map(specs, data) > 0)
+	//printf("current line: |%s|\n", data);
+	if (get_texture(specs, data) > 0 || get_color(specs, data) > 0)
 		return (1);
 	return (0);
 }

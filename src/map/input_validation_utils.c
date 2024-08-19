@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 10:01:10 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/18 10:53:32 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/19 13:48:00 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,20 @@ int	print_content_error(void *str, double i)
 	printf("error id: %f\n", i);
 	write(STDERR_FILENO, "Error\nInvalid map file contents\n", 32);
 	return (1);
+}
+
+void	copy_line(t_map *map, char *line, unsigned int index)
+{
+	int	i;
+
+	i = 0;
+	if (line)
+	{
+		while (line[i] && line[i] != '\n')
+		{
+			map->grid[index][i] = line[i];
+			i++;
+		}
+		map->grid[index][i] = '\0';
+	}
 }

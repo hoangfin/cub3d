@@ -6,24 +6,49 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:32:55 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/18 14:50:38 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/19 14:08:20 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "cub3D.h"
 
-static int	data_complete(t_map *specs)
+static int	data_complete(t_map *map, char *data)
 {
-	if (specs->wall_paths[0] && specs->wall_paths[1] && specs->wall_paths[2]
-		&& specs->wall_paths[3] && specs->color_ceiling && specs->color_floor
-		&& specs->grid)
+	if (
+		map->wall_paths[0]
+		&& map->wall_paths[1]
+		&& map->wall_paths[2]
+		&& map->wall_paths[3]
+		&& map->color_ceiling
+		&& map->color_floor
+		&& map->grid
+	)
 		return (1);
-	print_content_error(NULL, 5);
+	if (data == NULL)
+		print_content_error(NULL, 5);
 	return (0);
 }
 
-static int	process_contents(t_map *map, char *pathname, int fd)
+static int	save_file_contents(t_map *map, char *pathname, int fd, char *data)
+{
+	if (data_complete(map, data) > 0)
+	{
+		print_content_error(NULL, 6);
+		return (1);
+	}
+	if (missing_map(map) > 0)
+	{
+		if (end_of_grid(data) > )
+		if (get_map(map, data, fd, pathname) > 0)
+			return (1);
+	}
+	if (extract_data(map, data) > 0)
+		return (1);
+	return (0);
+}
+
+static int	process_mapfile(t_map *map, char *pathname, int fd)
 {
 	char	*data;
 	int		status;
@@ -33,16 +58,7 @@ static int	process_contents(t_map *map, char *pathname, int fd)
 	{
 		if (ft_strcmp(data, "\n") != 0 && !ft_has_spaces_only_cubed(data))
 		{
-			// add a check here when file contains additional data && data_complete > 0
-			if (missing_map(map) > 0)
-			{
-				if (get_map(map, data, fd, pathname) > 0)
-				{
-					free(data);
-					return (1);
-				}
-			}
-			if (extract_data(map, data) > 0)
+			if (save_file_contents(map, pathname, fd, data) > 0)
 			{
 				free(data);
 				return (1);
@@ -52,7 +68,7 @@ static int	process_contents(t_map *map, char *pathname, int fd)
 		status = get_next_line(fd, &data);
 	}
 	free(data);
-	if (data_complete(map) > 0)
+	if (data_complete(map, NULL) > 0)
 		return (0);
 	return (1);
 }
@@ -61,40 +77,22 @@ t_map	*load_map(char *pathname)
 {
 	int		fd;
 	t_map	*map;
-	int		i;
 
 	fd = validate(pathname);
 	if (fd < 0)
 		return (NULL);
 	map = (t_map *)ft_calloc(1, sizeof(t_map));
-	if (map == NULL || process_contents(map, pathname, fd) > 0)
+	if (map == NULL || process_mapfile(map, pathname, fd) > 0)
 	{
+		delete_map(map);
 		close(fd);
 		return (NULL);
 	}
 	if (close(fd) != 0)
-		return (NULL);
-	if (map->wall_paths[0])
-		printf("north wall texture: %s\n", map->wall_paths[0]);
-	if (map->wall_paths[1])
-		printf("east wall texture: %s\n", map->wall_paths[1]);
-	if (map->wall_paths[2])
-		printf("south wall texture: %s\n", map->wall_paths[2]);
-	if (map->wall_paths[3])
-		printf("north wall texture: %s\n", map->wall_paths[3]);
-	if (map->color_ceiling)
-		printf("ceiling color: %u\n", map->color_ceiling);
-	if (map->color_floor)
-		printf("floor color: %u\n", map->color_floor);
-	if (map->grid != NULL)
 	{
-		i = 0;
-		while (map->grid[i])
-		{
-			printf("map->grid[%d] = %s\n", i, map->grid[i]);
-			i++;
-		}
-	}
+		delete_map(map); 
+		return (NULL);
+	}	
 	return (map);
 }
 

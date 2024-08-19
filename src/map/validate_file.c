@@ -6,11 +6,13 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 06:52:15 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/18 10:12:46 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/19 13:40:34 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
+#include <string.h>
+#include <errno.h>
 #include "cub3D.h"
 
 int	check_file_permissions(char *file)
@@ -20,9 +22,7 @@ int	check_file_permissions(char *file)
 	fd = open(file, O_DIRECTORY);
 	if (fd > -1)
 	{
-		write(STDERR_FILENO, "Error\n", 6);
-		ft_putstr_fd(file, STDERR_FILENO);
-		write(STDERR_FILENO, " is a directory\n", 16);
+		ft_fprintf(STDERR_FILENO, "Error\n%s\n", strerror(errno));
 		close(fd);
 		return (-1);
 	}

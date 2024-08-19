@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 20:08:54 by hoatran           #+#    #+#             */
-/*   Updated: 2024/08/09 14:36:10 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/19 09:10:01 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 void	destroy(t_cub3D *cub3D)
 {
-	(void)cub3D;
-	// delete_map();
+	delete_map(cub3D->map);
 	// delete_player();
 	// delete_ray()
 }

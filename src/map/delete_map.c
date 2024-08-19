@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:33:21 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/18 14:54:58 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/19 11:58:48 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	delete_map(t_map *map)
 {
 	int	i;
 
+	if (map == NULL)
+		return ;
 	i = 0;
 	while (i < 4)
 		free(map->wall_paths[i++]);

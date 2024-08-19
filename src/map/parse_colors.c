@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_colors.c                                       :+:      :+:    :+:   */
+/*   parse_colors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 12:47:03 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/18 11:12:12 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/19 13:46:11 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,16 @@ static int	extract_color(t_map *specs, char *line, int identifier)
 	set[0] = '\n';
 	set[1] = ' ';
 	extract = ft_strtrim(line + 1, set);
-	if (!extract || extract[0] == '\0')
+	if (!extract)
+	{
+		write(STDERR_FILENO, "Error\nft_strtrim\n", 17);
+		return (1);
+	}
+	if (extract[0] == '\0')
 		return (print_content_error(extract, 2.1));
 	color = ft_split(extract, ',');
 	if (!color)
-		return (print_content_error(extract, 2.2)); // what if malloc fails in split??
+		return (print_content_error(extract, 2.2));
 	free(extract);
 	if (ft_matrix_count_rows(color) != 3)
 	{

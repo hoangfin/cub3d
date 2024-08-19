@@ -22,7 +22,7 @@ CFLAGS :=	-Wall -Wextra -Werror \
 			-Iinclude \
 			-I$(LIBFT_DIR) \
 			-I$(MLX42_DIR)/include/MLX42 \
-#			-g -fsanitize=address
+			-g -fsanitize=address
 
 SOURCES :=	main.c \
 			init.c \

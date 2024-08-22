@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 12:47:03 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/19 13:46:11 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/22 09:29:40 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int32_t	color_check(char **colors, int index)
 {
 	t_bool	overflow;
 	int32_t	color;
-	
+
 	if (!colors[index] || ft_strcmp(colors[index], "\0") == 0)
 		return (-1);
 	overflow = false;
@@ -28,19 +28,19 @@ static int32_t	color_check(char **colors, int index)
 	return (color);
 }
 
-static int	verify_colors(t_map *specs, char **colors, int id)
+static int	verify_colors(t_map *specs, char **colors, int id, int *error)
 {
 	int32_t	red;
 	int32_t	green;
 	int32_t	blue;
-	
+
 	red = color_check(colors, 0);
 	green = color_check(colors, 1);
 	blue = color_check(colors, 2);
 	ft_matrix_delete(&colors);
 	if (red < 0 || green < 0 || blue < 0)
 	{
-		return (print_content_error(NULL, 2.4));
+		return (print_content_error(NULL, 2.4, error));
 	}
 	if (id == 1)
 		specs->color_floor = color(red, green, blue, 1.0);
@@ -49,7 +49,7 @@ static int	verify_colors(t_map *specs, char **colors, int id)
 	return (0);
 }
 
-static int	extract_color(t_map *specs, char *line, int identifier)
+static int	extract_color(t_map *specs, char *line, int identifier, int *error)
 {
 	char	*extract;
 	char	**color;
@@ -57,35 +57,35 @@ static int	extract_color(t_map *specs, char *line, int identifier)
 
 	set[0] = '\n';
 	set[1] = ' ';
+	color = NULL;
 	extract = ft_strtrim(line + 1, set);
 	if (!extract)
 	{
+		*error = 1;
 		write(STDERR_FILENO, "Error\nft_strtrim\n", 17);
 		return (1);
 	}
-	if (extract[0] == '\0')
-		return (print_content_error(extract, 2.1));
 	color = ft_split(extract, ',');
-	if (!color)
-		return (print_content_error(extract, 2.2));
+	if (extract[0] == '\0' || !color)
+		return (print_content_error(extract, 2.2, error));
 	free(extract);
 	if (ft_matrix_count_rows(color) != 3)
 	{
 		ft_matrix_delete(&color);
-		return (print_content_error(NULL, 2.3));
+		return (print_content_error(NULL, 2.3, error));
 	}
-	return (verify_colors(specs, color, identifier));
+	return (verify_colors(specs, color, identifier, error));
 }
 
-int	get_color(t_map *specs, char *data)
+int	get_color(t_map *specs, char *data, int *error)
 {
 	char	*content;
-	
-	content = data;
-	if (ft_strnstr(content, "F", 1))
-		return (extract_color(specs, content, 1));
-	content = data;
-	if (ft_strnstr(content, "C", 1))
-		return (extract_color(specs, content, 2));
+
+	content = ft_strnstr(data, "F", 1);
+	if (content)
+		return (extract_color(specs, content, 1, error));
+	content = ft_strnstr(data, "C", 1);
+	if (content)
+		return (extract_color(specs, content, 2, error));
 	return (0);
 }

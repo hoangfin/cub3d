@@ -6,11 +6,10 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 10:01:10 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/22 09:28:15 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/23 11:43:42 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "cub3D.h"
 
 t_bool	ft_has_spaces_only_cubed(char *str)
@@ -27,30 +26,34 @@ t_bool	ft_has_spaces_only_cubed(char *str)
 	return (true);
 }
 
-int	print_content_error(void *str, double i, int *error)
+int	print_content_error(void *str, int *error)
 {
 	if (str)
 		free(str);
 	if (error)
 		*error = 1;
-	printf("error id: %f\n", i);
 	write(STDERR_FILENO, "Error\nInvalid map file contents\n", 32);
 	return (1);
 }
 
-void	copy_line(t_map *map, char *line, unsigned int index)
+void	copy_line(t_map *map, char *line, unsigned int row)
 {
-	int	i;
+	uint32_t	index;
 
-	i = 0;
+	index = 0;
 	if (line)
 	{
-		while (line[i] && line[i] != '\n')
+		while (line[index] && line[index] != '\n' && index < map->col_count)
 		{
-			map->grid[index][i] = line[i];
-			i++;
+			map->grid[row][index] = line[index];
+			index++;
 		}
-		map->grid[index][i] = '\0';
+		while (index < map->col_count)
+		{
+			map->grid[row][index] = MAP_SPACE;
+			index++;
+		}
+		map->grid[row][index] = '\0';
 	}
 }
 

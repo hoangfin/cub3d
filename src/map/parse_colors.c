@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 12:47:03 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/22 09:29:40 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/23 11:45:30 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	verify_colors(t_map *specs, char **colors, int id, int *error)
 	ft_matrix_delete(&colors);
 	if (red < 0 || green < 0 || blue < 0)
 	{
-		return (print_content_error(NULL, 2.4, error));
+		return (print_content_error(NULL, error));
 	}
 	if (id == 1)
 		specs->color_floor = color(red, green, blue, 1.0);
@@ -67,12 +67,12 @@ static int	extract_color(t_map *specs, char *line, int identifier, int *error)
 	}
 	color = ft_split(extract, ',');
 	if (extract[0] == '\0' || !color)
-		return (print_content_error(extract, 2.2, error));
+		return (print_content_error(extract, error));
 	free(extract);
 	if (ft_matrix_count_rows(color) != 3)
 	{
 		ft_matrix_delete(&color);
-		return (print_content_error(NULL, 2.3, error));
+		return (print_content_error(NULL, error));
 	}
 	return (verify_colors(specs, color, identifier, error));
 }
@@ -81,10 +81,12 @@ int	get_color(t_map *specs, char *data, int *error)
 {
 	char	*content;
 
-	content = ft_strnstr(data, "F", 1);
+	content = data;
+	content = ft_strnstr(content, "F", 1);
 	if (content)
 		return (extract_color(specs, content, 1, error));
-	content = ft_strnstr(data, "C", 1);
+	content = data;
+	content = ft_strnstr(content, "C", 1);
 	if (content)
 		return (extract_color(specs, content, 2, error));
 	return (0);

@@ -22,7 +22,7 @@ CFLAGS :=	-Wall -Wextra -Werror \
 			-Iinclude \
 			-I$(LIBFT_DIR) \
 			-I$(MLX42_DIR)/include/MLX42 \
-			-g -fsanitize=address
+#			-g -fsanitize=address
 
 SOURCES :=	main.c \
 			init.c \
@@ -41,6 +41,8 @@ SOURCES :=	main.c \
 			parse_colors.c \
 			get_map.c \
 			extract_data.c \
+			map_validation.c \
+			is_enclosed.c \
 			delete_map.c \
 
 OBJECTS := $(SOURCES:%.c=$(BUILD_DIR)/%.o)

@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 09:26:40 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/22 09:27:30 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/23 12:21:48 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	get_map_size(t_map *map, char *data, int fd)
 
 static int	save_row(t_map *map, char *line, unsigned int index)
 {
-	map->grid[index] = (char *)malloc(sizeof(char) * (map->col_count + 2));
+	map->grid[index] = (char *)malloc(sizeof(char) * (map->col_count + 1));
 	if (!map->grid[index])
 	{
 		ft_fprintf(STDERR_FILENO, "Error\n%s\n", strerror(errno));
@@ -60,7 +60,7 @@ static int	save_grid(t_map *map, int fd, char *data)
 {
 	char				*line;
 	int					status;
-	unsigned int		index;
+	unsigned int		row;
 
 	map->grid = (char **)malloc(sizeof(char *) * (map->row_count + 1));
 	if (!map->grid)
@@ -68,20 +68,20 @@ static int	save_grid(t_map *map, int fd, char *data)
 		ft_fprintf(STDERR_FILENO, "Error\n%s\n", strerror(errno));
 		return (1);
 	}
-	index = 0;
-	if (save_row(map, data, index) > 0)
+	row = 0;
+	if (save_row(map, data, row) > 0)
 		return (1);
-	index++;
+	row++;
 	status = get_next_line(fd, &line);
-	while (status > -1 && line && index < map->row_count)
+	while (status > -1 && line && row < map->row_count)
 	{
-		if (save_row(map, line, index) > 0)
+		if (save_row(map, line, row) > 0)
 			return (1);
 		status = get_next_line(fd, &line);
-		index++;
+		row++;
 	}
 	free(line);
-	map->grid[index] = NULL;
+	map->grid[row] = NULL;
 	return (0);
 }
 
@@ -95,12 +95,9 @@ static int	find_grid_start(t_map *map, int fd, char *data)
 	{
 		if (ft_strcmp(line, data) == 0)
 		{
-			if (save_grid(map, fd, data) > 0)
-			{
-				free(line);
-				return (1);
-			}
 			free(line);
+			if (save_grid(map, fd, data) > 0)
+				return (1);
 			return (0);
 		}
 		free(line);
@@ -121,6 +118,7 @@ int	get_map(t_map *map, char *data, int fd, char *pathname)
 	if (second_read < 0)
 		return (1);
 	grid_status = find_grid_start(map, second_read, data);
-	close(second_read);
+	if (close(second_read) != 0)
+		return (1);
 	return (grid_status);
 }

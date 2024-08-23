@@ -6,11 +6,10 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:32:55 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/22 09:29:14 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/23 12:19:53 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "cub3D.h"
 
 static int	data_complete(t_map *map)
@@ -36,7 +35,7 @@ static char	*get_wall_specs(t_map *map, int fd, int *error)
 	status = get_next_line(fd, &data);
 	while (status > -1 && data)
 	{
-		if (ft_strcmp(data, "\n") != 0 && !ft_has_spaces_only_cubed(data)) // change this if space-only row is valid
+		if (ft_strcmp(data, "\n") != 0 && !ft_has_spaces_only_cubed(data))
 		{
 			if (map_edge(data) == 0)
 				break ;
@@ -64,16 +63,16 @@ static int	process_mapfile(t_map *map, int fd, char *pathname)
 		if (get_map(map, first_map_row, fd, pathname) > 0)
 		{
 			free(first_map_row);
-			return (print_content_error(NULL, 5.1, NULL));
+			return (print_content_error(NULL, NULL));
 		}
 		free(first_map_row);
 		if (data_complete(map) > 0)
 			return (0);
-		return (print_content_error(NULL, 5.2, NULL));
+		return (print_content_error(NULL, NULL));
 	}
 	free(first_map_row);
 	if (!error)
-		return (print_content_error(NULL, 5, NULL));
+		return (print_content_error(NULL, NULL));
 	return (1);
 }
 
@@ -81,7 +80,6 @@ t_map	*load_map(char *pathname)
 {
 	int		fd;
 	t_map	*map;
-	//int		i;
 
 	fd = validate(pathname);
 	if (fd < 0)
@@ -98,11 +96,11 @@ t_map	*load_map(char *pathname)
 		delete_map(map);
 		return (NULL);
 	}
-/* 	i = 0;
-	while (map->grid[i])
+	if (validate_map(map) > 0)
 	{
-		printf("row: |%s|\n", map->grid[i]);
-		i++;
-	} */
+		print_content_error(NULL, NULL);
+		delete_map(map);
+		return (NULL);
+	}
 	return (map);
 }

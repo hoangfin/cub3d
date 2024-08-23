@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 09:24:10 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/22 09:27:45 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/23 11:44:00 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	extract_texture(t_map *map, char *line, int identifier, int *error)
 		|| (identifier == 2 && map->wall_paths[1])
 		|| (identifier == 3 && map->wall_paths[2])
 		|| (identifier == 4 && map->wall_paths[3]))
-		return (print_content_error(NULL, 1, error));
+		return (print_content_error(NULL, error));
 	return (save_texture(map, line, identifier, error));
 }
 
@@ -74,16 +74,20 @@ int	get_texture(t_map *map, char *data, int *error)
 {
 	char	*content;
 
-	content = ft_strnstr(data, "NO", 2);
+	content = data;
+	content = ft_strnstr(content, "NO", 2);
 	if (content)
 		return (extract_texture(map, content, 1, error));
-	content = ft_strnstr(data, "EA", 2);
+	content = data;
+	content = ft_strnstr(content, "EA", 2);
 	if (content)
 		return (extract_texture(map, content, 2, error));
-	content = ft_strnstr(data, "SO", 2);
+	content = data;
+	content = ft_strnstr(content, "SO", 2);
 	if (content)
 		return (extract_texture(map, content, 3, error));
-	content = ft_strnstr(data, "WE", 2);
+	content = data;
+	content = ft_strnstr(content, "WE", 2);
 	if (content)
 		return (extract_texture(map, content, 4, error));
 	return (0);

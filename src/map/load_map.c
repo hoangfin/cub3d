@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:32:55 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/27 09:50:18 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:05:19 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,24 @@ static int	data_complete(t_map *map)
 	return (0);
 }
 
+static t_bool	has_all_walls(t_map *map)
+{
+	if (map->wall_paths[0]
+		&& map->wall_paths[1]
+		&& map->wall_paths[2]
+		&& map->wall_paths[3]
+	)
+		return (true);
+	return (false);
+}
+
 static char	*get_wall_specs(t_map *map, int fd, int *error)
 {
 	char	*data;
 	int		status;
+	int		colors;
 
+	colors = 0;
 	status = get_next_line(fd, &data);
 	while (status > -1 && data)
 	{
@@ -39,17 +52,17 @@ static char	*get_wall_specs(t_map *map, int fd, int *error)
 		{
 			if (map_edge(data) == 0)
 				break ;
-			if (get_texture(map, data, error) > 0
-				|| get_color(map, data, error) > 0)
-			{
-				free(data);
-				return (NULL);
-			}
+			get_texture(map, data, error);
+			get_color(map, data, error, &colors);
 		}
 		free(data);
 		status = get_next_line(fd, &data);
 	}
-	return (data);
+	if (colors >= 2 && has_all_walls(map) && !*error)
+		return (data);
+	free(data);
+	check_file_end(fd);
+	return (NULL);
 }
 
 static int	process_mapfile(t_map *map, int fd, char *pathname)

@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 07:13:14 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/23 11:42:18 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:29:56 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,40 @@ static t_bool	has_valid_chars(t_map *map)
 	return (true);
 }
 
+static	t_bool	door_check(t_map *map)
+{
+	unsigned int	row;
+	unsigned int	col;
+
+	row = 0;
+	while (map->grid[row])
+	{
+		col = 0;
+		while (map->grid[row][col])
+		{
+			if (col > 0 && col < map->col_count
+				&& row > 0 && row < map->row_count
+				&& map->grid[row][col] == MAP_DOOR)
+			{
+				if ((map->grid[row][col - 1] != MAP_WALL
+					&& map->grid[row][col + 1] != MAP_WALL)
+					|| (map->grid[row - 1][col] != MAP_WALL
+					&& map->grid[row + 1][col] != MAP_WALL))
+					return (false);
+			}
+			col++;
+		}
+		row++;
+	}
+	return (true);
+}
+
 int	validate_map(t_map *map)
 {
 	if (has_valid_chars(map)
 		&& is_enclosed(map)
-		&& has_one_player(map))
+		&& has_one_player(map)
+		&& door_check(map))
 		return (0);
 	return (1);
 }

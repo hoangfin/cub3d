@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 09:24:10 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/27 09:50:47 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:30:22 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	verify_texture(char *texture, int *error)
 {
 	int	fd;
 
-	if (texture[0] == '\0' || verify_fileformat(texture, ".xpm") != 0) // change back to png!
+	if (texture[0] == '\0' || verify_fileformat(texture, ".png") != 0)
 	{
 		*error = 1;
 		write(STDERR_FILENO, "Error\nInvalid texture\n", 23);

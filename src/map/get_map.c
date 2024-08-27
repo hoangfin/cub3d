@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 09:26:40 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/27 09:50:31 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/27 14:04:19 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ static int	fill_grid(t_map *map, int fd, char *data)
 	char			*line;
 	int				status;
 	unsigned int	row;
+	int				error;
 
+	error = 0;
 	row = 0;
 	copy_line(map, data, row);
 	row++;
@@ -53,10 +55,7 @@ static int	fill_grid(t_map *map, int fd, char *data)
 	while (status > -1 && line && row < map->row_count)
 	{
 		if (ft_strcmp(line, "\n") == 0 || ft_has_spaces_only_cubed(line))
-		{
-			free(line);
-			return (1);
-		}
+			error = 1;
 		copy_line(map, line, row);
 		free(line);
 		status = get_next_line(fd, &line);
@@ -64,7 +63,8 @@ static int	fill_grid(t_map *map, int fd, char *data)
 	}
 	free(line);
 	map->grid[row] = NULL;
-	if (status < 0)
+	check_file_end(fd);
+	if (status < 0 || error)
 		return (1);
 	return (0);
 }

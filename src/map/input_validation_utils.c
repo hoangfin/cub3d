@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 10:01:10 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/26 14:59:29 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/27 13:08:44 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,18 +75,19 @@ int	check_file_end(int fd)
 {
 	int		status;
 	char	*line;
+	int		extra_content;
 
+	extra_content = 0;
 	status = get_next_line(fd, &line);
 	while (status > -1 && line)
 	{
 		if (ft_strcmp(line, "\n") != 0 && !ft_has_spaces_only_cubed(line))
 		{
-			free(line);
-			return (1);
+			extra_content = 1;
 		}
 		free(line);
 		status = get_next_line(fd, &line);
 	}
 	free(line);
-	return (0);
+	return (extra_content);
 }

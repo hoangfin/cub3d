@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 09:26:40 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/23 12:21:48 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/27 09:50:31 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,38 @@ static int	get_map_size(t_map *map, char *data, int fd)
 	return (0);
 }
 
-static int	save_row(t_map *map, char *line, unsigned int index)
+static int	fill_grid(t_map *map, int fd, char *data)
 {
-	map->grid[index] = (char *)malloc(sizeof(char) * (map->col_count + 1));
-	if (!map->grid[index])
+	char			*line;
+	int				status;
+	unsigned int	row;
+
+	row = 0;
+	copy_line(map, data, row);
+	row++;
+	status = get_next_line(fd, &line);
+	while (status > -1 && line && row < map->row_count)
 	{
-		ft_fprintf(STDERR_FILENO, "Error\n%s\n", strerror(errno));
-		if (index > 0)
+		if (ft_strcmp(line, "\n") == 0 || ft_has_spaces_only_cubed(line))
+		{
 			free(line);
-		return (1);
-	}
-	copy_line(map, line, index);
-	if (index > 0)
+			return (1);
+		}
+		copy_line(map, line, row);
 		free(line);
+		status = get_next_line(fd, &line);
+		row++;
+	}
+	free(line);
+	map->grid[row] = NULL;
+	if (status < 0)
+		return (1);
 	return (0);
 }
 
-static int	save_grid(t_map *map, int fd, char *data)
+static int	allocate_grid(t_map *map)
 {
-	char				*line;
-	int					status;
-	unsigned int		row;
+	unsigned int	row;
 
 	map->grid = (char **)malloc(sizeof(char *) * (map->row_count + 1));
 	if (!map->grid)
@@ -69,23 +80,20 @@ static int	save_grid(t_map *map, int fd, char *data)
 		return (1);
 	}
 	row = 0;
-	if (save_row(map, data, row) > 0)
-		return (1);
-	row++;
-	status = get_next_line(fd, &line);
-	while (status > -1 && line && row < map->row_count)
+	while (row < map->row_count)
 	{
-		if (save_row(map, line, row) > 0)
+		map->grid[row] = (char *)malloc(sizeof(char) * (map->col_count + 1));
+		if (!map->grid[row])
+		{
+			ft_fprintf(STDERR_FILENO, "Error\n%s\n", strerror(errno));
 			return (1);
-		status = get_next_line(fd, &line);
+		}
 		row++;
 	}
-	free(line);
-	map->grid[row] = NULL;
 	return (0);
 }
 
-static int	find_grid_start(t_map *map, int fd, char *data)
+static int	get_grid(t_map *map, int fd, char *data)
 {
 	int		status;
 	char	*line;
@@ -94,17 +102,14 @@ static int	find_grid_start(t_map *map, int fd, char *data)
 	while (status > -1 && line)
 	{
 		if (ft_strcmp(line, data) == 0)
-		{
-			free(line);
-			if (save_grid(map, fd, data) > 0)
-				return (1);
-			return (0);
-		}
+			break ;
 		free(line);
 		status = get_next_line(fd, &line);
 	}
 	free(line);
-	return (0);
+	if (allocate_grid(map) > 0)
+		return (1);
+	return (fill_grid(map, fd, data));
 }
 
 int	get_map(t_map *map, char *data, int fd, char *pathname)
@@ -117,7 +122,7 @@ int	get_map(t_map *map, char *data, int fd, char *pathname)
 	second_read = open(pathname, O_RDONLY, 0666);
 	if (second_read < 0)
 		return (1);
-	grid_status = find_grid_start(map, second_read, data);
+	grid_status = get_grid(map, second_read, data);
 	if (close(second_read) != 0)
 		return (1);
 	return (grid_status);

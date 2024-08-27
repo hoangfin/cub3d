@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 12:47:03 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/23 11:45:30 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/26 13:40:27 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int32_t	color_check(char **colors, int index)
 	return (color);
 }
 
-static int	verify_colors(t_map *specs, char **colors, int id, int *error)
+static int	verify_colors(t_map *map, char **colors, int id, int *error)
 {
 	int32_t	red;
 	int32_t	green;
@@ -43,13 +43,13 @@ static int	verify_colors(t_map *specs, char **colors, int id, int *error)
 		return (print_content_error(NULL, error));
 	}
 	if (id == 1)
-		specs->color_floor = color(red, green, blue, 1.0);
+		map->color_floor = color(red, green, blue, 1.0);
 	else if (id == 2)
-		specs->color_ceiling = color(red, green, blue, 1.0);
+		map->color_ceiling = color(red, green, blue, 1.0);
 	return (0);
 }
 
-static int	extract_color(t_map *specs, char *line, int identifier, int *error)
+static int	extract_color(t_map *map, char *line, int identifier, int *error)
 {
 	char	*extract;
 	char	**color;
@@ -74,20 +74,20 @@ static int	extract_color(t_map *specs, char *line, int identifier, int *error)
 		ft_matrix_delete(&color);
 		return (print_content_error(NULL, error));
 	}
-	return (verify_colors(specs, color, identifier, error));
+	return (verify_colors(map, color, identifier, error));
 }
 
-int	get_color(t_map *specs, char *data, int *error)
+int	get_color(t_map *map, char *data, int *error)
 {
 	char	*content;
 
 	content = data;
 	content = ft_strnstr(content, "F", 1);
 	if (content)
-		return (extract_color(specs, content, 1, error));
+		return (extract_color(map, content, 1, error));
 	content = data;
 	content = ft_strnstr(content, "C", 1);
 	if (content)
-		return (extract_color(specs, content, 2, error));
+		return (extract_color(map, content, 2, error));
 	return (0);
 }

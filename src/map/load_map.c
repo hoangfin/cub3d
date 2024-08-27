@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:32:55 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/23 12:19:53 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/27 09:50:18 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static char	*get_wall_specs(t_map *map, int fd, int *error)
 		{
 			if (map_edge(data) == 0)
 				break ;
-			if (extract_data(map, data, error) > 0)
+			if (get_texture(map, data, error) > 0
+				|| get_color(map, data, error) > 0)
 			{
 				free(data);
 				return (NULL);
@@ -58,19 +59,17 @@ static int	process_mapfile(t_map *map, int fd, char *pathname)
 
 	error = 0;
 	first_map_row = get_wall_specs(map, fd, &error);
-	if (first_map_row && missing_map > 0)
+	if (first_map_row)
 	{
 		if (get_map(map, first_map_row, fd, pathname) > 0)
 		{
-			free(first_map_row);
-			return (print_content_error(NULL, NULL));
+			return (print_content_error(first_map_row, NULL));
 		}
 		free(first_map_row);
 		if (data_complete(map) > 0)
 			return (0);
 		return (print_content_error(NULL, NULL));
 	}
-	free(first_map_row);
 	if (!error)
 		return (print_content_error(NULL, NULL));
 	return (1);

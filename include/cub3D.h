@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/23 11:43:35 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:06:40 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,11 @@ t_map	*load_map(char *pathname);
 int		check_file_permissions(char *file);
 int		verify_fileformat(char *filename, char *filetype);
 int		validate(char *map_file);
-int		extract_data(t_map *specs, char *data, int *error);
 int		get_color(t_map *specs, char *data, int *error);
 int		get_texture(t_map *specs, char *data, int *error);
 int		get_map(t_map *map, char *data, int fd, char *pathname);
 t_bool	ft_has_spaces_only_cubed(char *str);
 int		print_content_error(void *str, int *error);
-int		missing_map(t_map *specs);
 int		map_edge(char *line);
 int		check_file_end(int fd);
 void	copy_line(t_map *map, char *line, unsigned int index);

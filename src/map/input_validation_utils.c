@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 10:01:10 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/27 13:08:44 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:29:32 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,23 +71,20 @@ int	map_edge(char *line)
 	return (0);
 }
 
-int	check_file_end(int fd)
+t_bool	too_many_commas(char *str)
 {
-	int		status;
-	char	*line;
-	int		extra_content;
+	int	index;
+	int	commas;
 
-	extra_content = 0;
-	status = get_next_line(fd, &line);
-	while (status > -1 && line)
+	index = 0;
+	commas = 0;
+	while (str[index])
 	{
-		if (ft_strcmp(line, "\n") != 0 && !ft_has_spaces_only_cubed(line))
-		{
-			extra_content = 1;
-		}
-		free(line);
-		status = get_next_line(fd, &line);
+		if (str[index] == ',')
+			commas++;
+		index++;
 	}
-	free(line);
-	return (extra_content);
+	if (commas != 2)
+		return (true);
+	return (false);
 }

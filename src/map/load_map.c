@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:32:55 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/27 14:05:19 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:35:52 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ static char	*get_wall_specs(t_map *map, int fd, int *error)
 	status = get_next_line(fd, &data);
 	while (status > -1 && data)
 	{
-		if (ft_strcmp(data, "\n") != 0 && !ft_has_spaces_only_cubed(data))
+		if (ft_strcmp(data, "\n") != 0 && !ft_has_spaces_only_cubed(data)
+			&& !*error)
 		{
 			if (map_edge(data) == 0)
 				break ;

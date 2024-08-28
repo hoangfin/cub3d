@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/27 13:50:47 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:29:53 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ int		check_file_end(int fd);
 void	copy_line(t_map *map, char *line, unsigned int index);
 int		validate_map(t_map *map);
 t_bool	is_enclosed(t_map *map);
+t_bool	too_many_commas(char *str);
 void	delete_map(t_map *map);
 
 #endif

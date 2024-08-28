@@ -6,10 +6,11 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 12:47:03 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/27 13:56:08 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/28 10:32:30 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "cub3D.h"
 
 static int32_t	color_check(char **colors, int index)
@@ -64,7 +65,7 @@ static char	*extract_color(char *line, int *error)
 		write(STDERR_FILENO, "Error\nft_strtrim\n", 17);
 		return (NULL);
 	}
-	if (extract[0] == '\0')
+	if (extract[0] == '\0' || too_many_commas(extract))
 	{
 		print_content_error(extract, error);
 		return (NULL);

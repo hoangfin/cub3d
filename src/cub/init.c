@@ -6,20 +6,21 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:34:37 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/14 14:36:39 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/19 11:56:13 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <math.h>
 #include "cub3D.h"
 
-static int	init_player(t_cub3D *cub)
-{
-	cub->player = ft_calloc(1, sizeof(t_character));
-	if (cub->player == NULL)
-		return (-1);
-	return (0);
-}
+// static int	init_player(t_cub3D *cub)
+// {
+// 	cub->player = ft_calloc(1, sizeof(t_character));
+// 	if (cub->player == NULL)
+// 		return (-1);
+// 	return (0);
+// }
 
 // static int	init_rays(t_cub3D *cub3D)
 // {
@@ -42,16 +43,18 @@ static int	init_player(t_cub3D *cub)
 // 	return (0);
 // }
 
-int	init(t_cub3D *cub3D, const char *pathname)
+int	init(t_cub3D *cub3D, char *pathname)
 {
 	ft_bzero(cub3D, sizeof(t_cub3D));
-	cub3D->mlx = mlx_init(800, 600, "cub3D", false);
+	//cub3D->mlx = mlx_init(800, 600, "cub3D", false);
 	cub3D->map = load_map(pathname);
 	if (cub3D->map == NULL)
 		return (destroy(cub3D), -1);
+	// delete_map(cub3D->map, NULL);
+	// exit(0);
 	// if (init_rays(cub3D) != 0)
 	// 	return (destroy(cub3D), -1);
-	if (init_player(cub3D) != 0)
-		return (destroy(cub3D), -1);
+	// if (init_player(cub3D) != 0)
+		// return (destroy(cub3D), -1);
 	return (0);
 }

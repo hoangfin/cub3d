@@ -1,7 +1,7 @@
-NO textures/wolfenstein/grey_stone.xpm
-SO textures/wolfenstein/purple_stone.xpm
-WE textures/wolfenstein/red_brick.xpm
-EA textures/wolfenstein/wood.xpm
+NO assets/textures/test/north.png
+SO assets/textures/test/south.png
+WE assets/textures/test/west.png
+EA assets/textures/test/east.png
 
 F 220,100,0
 C 225,30,0

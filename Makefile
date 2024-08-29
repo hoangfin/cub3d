@@ -22,6 +22,7 @@ CFLAGS :=	-Wall -Wextra -Werror \
 			-Iinclude \
 			-I$(LIBFT_DIR) \
 			-I$(MLX42_DIR)/include/MLX42 \
+			-g
 
 SOURCES :=	main.c \
 			init.c \
@@ -32,7 +33,16 @@ SOURCES :=	main.c \
 			color.c \
 			copy_pixels.c \
 			fill.c \
-			load_png.c
+			load_png.c \
+			\
+			validate_file.c \
+			input_validation_utils.c \
+			get_texture.c \
+			parse_colors.c \
+			get_map.c \
+			map_validation.c \
+			is_enclosed.c \
+			delete_map.c \
 
 OBJECTS := $(SOURCES:%.c=$(BUILD_DIR)/%.o)
 

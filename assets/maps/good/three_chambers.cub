@@ -1,7 +1,7 @@
-NO assets/textures/test/north.xpm
-SO assets/textures/test/south.xpm
-WE assets/textures/test/west.xpm
-EA assets/textures/test/east.xpm
+NO assets/textures/test/north.png
+SO assets/textures/test/south.png
+WE assets/textures/test/west.png
+EA assets/textures/test/east.png
 
 C 35,19,73
 F 15,6,40
@@ -21,7 +21,7 @@ F 15,6,40
                       111111101111111
                             101
                             101  
-111111111111111       111111101111111
+111111111111111       1111111D1111111
 111111000111111       111111000111111
 111110000011111       111110000011111
 1111000N0001111       111100000001111

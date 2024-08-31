@@ -1,13 +1,13 @@
-   WE                            assets/textures/test/west.png 
-NO      assets/textures/test/north.png
+   WE                            assets/textures/west.png
+NO      assets/textures/north.png
 
 
 
-SO assets/textures/test/south.png
+SO assets/textures/south.png
 
 F   69, 222, 199
 
-EA assets/textures/test/east.png
+EA assets/textures/east.png
 
 
 

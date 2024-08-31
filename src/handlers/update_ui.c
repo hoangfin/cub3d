@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   delete_character.c                                 :+:      :+:    :+:   */
+/*   update_ui.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/07 23:50:12 by hoatran           #+#    #+#             */
-/*   Updated: 2024/08/08 23:08:41 by hoatran          ###   ########.fr       */
+/*   Created: 2024/08/24 15:11:29 by hoatran           #+#    #+#             */
+/*   Updated: 2024/08/29 23:19:06 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	delete_character(mlx_t *mlx, t_character *character)
+void	update_ui(t_cub3D *cub3d, double elapsed_time)
 {
-	if (character == NULL)
-		return ;
-	mlx_delete_image(mlx, character->image);
-	free(character);
+	(void)elapsed_time;
+	draw_map(cub3d->image.map, cub3d);
+	draw_minimap(cub3d->image.minimap, cub3d);
 }

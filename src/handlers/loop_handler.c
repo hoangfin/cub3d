@@ -1,40 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   copy_pixels.c                                      :+:      :+:    :+:   */
+/*   loop_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 00:13:38 by hoatran           #+#    #+#             */
-/*   Updated: 2024/08/28 16:48:38 by hoatran          ###   ########.fr       */
+/*   Created: 2024/08/24 00:13:59 by hoatran           #+#    #+#             */
+/*   Updated: 2024/08/29 16:51:56 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	copy_pixels(
-	mlx_image_t *dest,
-	mlx_image_t *src,
-	int32_t offset_x,
-	int32_t offset_y
-)
+void	loop_handler(void *param)
 {
-	int32_t		x;
-	int32_t		y;
-	uint32_t	*dest_pixels;
-	uint32_t	*src_pixels;
+	t_cub3D	*cub3d;
 
-	y = 0;
-	while (y < offset_y)
-	{
-		x = 0;
-		while (x < offset_x)
-		{
-			dest_pixels = (uint32_t *)get_pixels(dest, x, y);
-			src_pixels = (uint32_t *)get_pixels(src, x, y);
-			*dest_pixels = *src_pixels;
-			x++;
-		}
-		y++;
-	}
+	cub3d = (t_cub3D *)param;
+	process_input(cub3d);
+	update(cub3d, cub3d->mlx->delta_time);
+	// handle_collisions(cub3d);
+	update_ui(cub3d, cub3d->mlx->delta_time);
 }

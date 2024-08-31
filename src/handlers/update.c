@@ -1,40 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   copy_pixels.c                                      :+:      :+:    :+:   */
+/*   update.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 00:13:38 by hoatran           #+#    #+#             */
-/*   Updated: 2024/08/28 16:48:38 by hoatran          ###   ########.fr       */
+/*   Created: 2024/08/24 15:10:15 by hoatran           #+#    #+#             */
+/*   Updated: 2024/08/31 14:35:54 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	copy_pixels(
-	mlx_image_t *dest,
-	mlx_image_t *src,
-	int32_t offset_x,
-	int32_t offset_y
-)
+void	update(t_cub3D *cub3d, double elapsed_time)
 {
-	int32_t		x;
-	int32_t		y;
-	uint32_t	*dest_pixels;
-	uint32_t	*src_pixels;
-
-	y = 0;
-	while (y < offset_y)
-	{
-		x = 0;
-		while (x < offset_x)
-		{
-			dest_pixels = (uint32_t *)get_pixels(dest, x, y);
-			src_pixels = (uint32_t *)get_pixels(src, x, y);
-			*dest_pixels = *src_pixels;
-			x++;
-		}
-		y++;
-	}
+	update_player(cub3d, elapsed_time);
+	// update_minimap(cub3D);
 }

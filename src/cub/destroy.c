@@ -3,18 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   destroy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 20:08:54 by hoatran           #+#    #+#             */
-/*   Updated: 2024/08/19 09:10:01 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/31 17:30:33 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	destroy(t_cub3D *cub3D)
+static void	delete_assets(t_cub3D *cub3d)
 {
-	delete_map(cub3D->map);
-	// delete_player();
+	int	i;
+
+	i = 0;
+	while (i < 4)
+		mlx_delete_image(cub3d->mlx, cub3d->asset.walls[i++]);
+	mlx_delete_image(cub3d->mlx, cub3d->asset.obstacle);
+	mlx_delete_image(cub3d->mlx, cub3d->asset.navigator);
+}
+
+static void	delete_images(t_cub3D *cub3d)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+		mlx_delete_image(cub3d->mlx, cub3d->image.walls[i++]);
+	mlx_delete_image(cub3d->mlx, cub3d->image.ceiling);
+	mlx_delete_image(cub3d->mlx, cub3d->image.floor);
+	mlx_delete_image(cub3d->mlx, cub3d->image.obstacle);
+	mlx_delete_image(cub3d->mlx, cub3d->image.nav);
+	mlx_delete_image(cub3d->mlx, cub3d->image.minimap);
+	mlx_delete_image(cub3d->mlx, cub3d->image.minimap_bg);
+	mlx_delete_image(cub3d->mlx, cub3d->image.map);
+}
+
+void	destroy(t_cub3D *cub3d)
+{
+	if (cub3d->mlx != NULL)
+		mlx_close_window(cub3d->mlx);
+	delete_map(cub3d->map);
+	delete_images(cub3d);
+	delete_assets(cub3d);
+	free(cub3d->rays);
 	// delete_ray()
+	if (cub3d->mlx != NULL)
+		mlx_terminate(cub3d->mlx);
 }

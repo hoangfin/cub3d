@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_colors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 12:47:03 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/28 10:32:30 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/31 15:59:26 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ static void	verify_colors(t_map *map, char **colors, int id, int *error)
 		return ;
 	}
 	if (id == 1)
-		map->color_floor = color(red, green, blue, 1.0);
+		map->color_floor = color(red, green, blue, 255);
 	else if (id == 2)
-		map->color_ceiling = color(red, green, blue, 1.0);
+		map->color_ceiling = color(red, green, blue, 255);
 }
 
 static char	*extract_color(char *line, int *error)

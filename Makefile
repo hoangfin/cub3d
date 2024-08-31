@@ -6,8 +6,12 @@ YELLOW := \033[0;33m
 RESET := \033[0m
 
 VPATH :=	src \
+			src/character \
 			src/cub \
+			src/draw \
+			src/handlers \
 			src/map \
+			src/update \
 			src/utility
 
 BUILD_DIR := build
@@ -18,31 +22,47 @@ LIBFT := $(LIBFT_DIR)/libft.a
 MLX42 := $(MLX42_DIR)/build/libmlx42.a
 
 CC := cc
-CFLAGS :=	-Wall -Wextra -Werror \
+CFLAGS :=	-Wall -Wextra -Werror\
 			-Iinclude \
 			-I$(LIBFT_DIR) \
 			-I$(MLX42_DIR)/include/MLX42 \
-			-g
+			-g -fsanitize=address
 
 SOURCES :=	main.c \
-			init.c \
-			start.c \
+			set_character_pos.c \
+			\
 			destroy.c \
-			load_map.c \
+			create_images.c \
+			init_player.c \
+			init.c \
+			\
+			draw_map.c \
+			draw_minimap.c \
+			\
+			close_handler.c \
+			loop_handler.c \
+			process_input.c \
+			update_ui.c \
+			update.c \
 			\
 			color.c \
 			copy_pixels.c \
 			fill.c \
+			get_pixels.c \
 			load_png.c \
+			max.c \
 			\
-			validate_file.c \
-			input_validation_utils.c \
-			get_texture.c \
-			parse_colors.c \
-			get_map.c \
-			map_validation.c \
-			is_enclosed.c \
 			delete_map.c \
+			get_map.c \
+			get_texture.c \
+			input_validation_utils.c \
+			is_enclosed.c \
+			load_map.c \
+			map_validation.c \
+			parse_colors.c \
+			validate_file.c \
+			\
+			update_player.c
 
 OBJECTS := $(SOURCES:%.c=$(BUILD_DIR)/%.o)
 

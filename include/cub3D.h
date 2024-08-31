@@ -3,15 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/28 11:46:19 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/31 17:58:00 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
+# ifndef M_PI
+#  define M_PI 3.14159265358979323846
+# endif
 
 # define WIDTH 1280
 # define HEIGHT 960
@@ -19,14 +23,29 @@
 # define MAP_SPACE ' '
 # define MAP_PATH '0'
 # define MAP_WALL '1'
+# define MAP_PLAYER "NSEW"
 # define MAP_DOOR 'D'
 # define MAP_FOE 'F'
-# define MAP_CELL_SIZE 16
+# define MAP_CELL_SIZE 20
+# define MAP_PLAYER_SIZE 14
 
-# define MINIMAP_SIZE 256
+# define MINIMAP_X 30
+# define MINIMAP_Y 30
+# define MINIMAP_SIZE 200
 
+# include <string.h>
+# include <stdio.h>
+# include <errno.h>
+# include <math.h>
 # include "libft.h"
 # include "MLX42.h"
+
+typedef struct s_asset
+{
+	mlx_image_t	*walls[4];
+	mlx_image_t	*obstacle;
+	mlx_image_t	*navigator;
+}	t_asset;
 
 typedef struct s_image
 {
@@ -34,9 +53,9 @@ typedef struct s_image
 	mlx_image_t	*ceiling;
 	mlx_image_t	*floor;
 	mlx_image_t	*obstacle;
-	mlx_image_t	*dot;
-	mlx_image_t	*path;
+	mlx_image_t	*nav;
 	mlx_image_t	*minimap;
+	mlx_image_t	*minimap_bg;
 	mlx_image_t	*map;
 }	t_image;
 
@@ -54,31 +73,31 @@ typedef struct s_map
 
 typedef struct s_ray
 {
-	int		start_x;
-	int		start_y;
-	int		end_x;
-	int		end_y;
+	int32_t	x[2];
+	int32_t	y[2];
 	double	length;
 	double	angle;
 }	t_ray;
 
 typedef enum e_character_state
 {
-	PLAYER_IDLE,
-	PLAYER_MOVING,
-	PLAYER_DIED,
-	ENEMY_IDLE,
-	ENEMY_MOVING,
-	ENEMY_ATTACKING,
-	ENEMY_DIED,
+	CHAR_IDLE = 0,
+	CHAR_MOVING_FORWARD = 1 << 0,
+	CHAR_MOVING_RIGHT = 1 << 1,
+	CHAR_MOVING_BACKWARD = 1 << 2,
+	CHAR_MOVING_LEFT = 1 << 3,
+	CHAR_TURNING_LEFT = 1 << 4,
+	CHAR_TURNING_RIGHT = 1 << 5,
+	CHAR_ATTACKING = 1 << 6,
+	CHAR_DIED = 1 << 7
 }	t_character_state;
 
 typedef struct s_character
 {
-	mlx_image_t			*image;
-	int					x;
-	int					y;
-	int					angle;
+	double				x;
+	double				y;
+	double				speed;
+	double				angle;
 	t_character_state	state;
 }	t_character;
 
@@ -86,23 +105,45 @@ typedef struct s_cub3D
 {
 	mlx_t		*mlx;
 	t_map		*map;
-	t_character	*player;
+	t_character	player;
 	t_ray		*rays;
-	int			ray_count;
 	int			fov;
+	int32_t		mouse_x;
+	int32_t		mouse_y;
+	t_asset		asset;
+	t_image		image;
 }	t_cub3D;
 
-t_character	*new_character(mlx_t *mlx, int32_t x, int32_t y, int32_t angle);
+t_character	*new_character(int32_t x, int32_t y, double speed, double angle);
+void		set_character_pos(double x, double y, t_cub3D *cub3D);
 
-//int		init(t_cub3D *cub3D, const char *pathname);
-int		init(t_cub3D *cub3D, char *pathname);
-int		start(t_cub3D *cub3D);
-void	destroy(t_cub3D *cub3D);
+void		create_images(t_cub3D *cub3d);
+void		destroy(t_cub3D *cub3D);
+void		init_player(t_cub3D *cub3d);
+int			init(t_cub3D *cub3D, char *pathname);
+
+void		update_player(t_cub3D *cub3d, double elapsed_time);
+
+void		draw_map(mlx_image_t *map, t_cub3D *cub3D);
+void		draw_minimap(mlx_image_t *minimap, t_cub3D *cub3D);
+
+void 		close_handler(void	*param);
+void 		loop_handler(void *param);
+void		process_input(t_cub3D *cub3D);
+void		update(t_cub3D *cub3d, double elapsed_time);
+void		update_ui(t_cub3D *cub3d, double elapsed_time);
 
 uint32_t	color(int32_t r, int32_t g, int32_t b, int32_t a);
 void		fill(mlx_image_t *image, uint32_t color);
+uint8_t		*get_pixels(mlx_image_t *image, int32_t x, int32_t y);
 mlx_image_t	*load_png(mlx_t *mlx, const char *pathname);
-void		copy_pixels(mlx_image_t *dest,mlx_image_t *src,int32_t offset);
+int32_t		max(int32_t a, int32_t b);
+void		copy_pixels(
+				mlx_image_t *dest,
+				mlx_image_t *src,
+				int32_t offset_x,
+				int32_t offset_y
+			);
 
 /*							PARSING							*/
 t_map	*load_map(char *pathname);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 15:46:09 by hoatran           #+#    #+#             */
-/*   Updated: 2024/08/09 15:11:02 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/31 11:28:48 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 
 int	main(int argc, char **argv)
 {
-	t_cub3D	cub3D;
-	
+	t_cub3D	cub3d;
+
 	if (argc != 2)
 	{
-		write(STDERR_FILENO, "Error\nInvalid number of arguments\n", 34);
+		write(STDERR_FILENO, "Error\nInvalid arguments\n", 24);
 		return (EXIT_FAILURE);
-	}	
-	if (init(&cub3D, argv[1]) != 0 || start(&cub3D) != 0)
+	}
+	if (init(&cub3d, argv[1]) != 0)
 		return (EXIT_FAILURE);
-	destroy(&cub3D);
+	mlx_loop(cub3d.mlx);
+	destroy(&cub3d);
 	return (EXIT_SUCCESS);
 }

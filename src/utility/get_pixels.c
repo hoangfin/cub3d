@@ -1,40 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   copy_pixels.c                                      :+:      :+:    :+:   */
+/*   get_pixels.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 00:13:38 by hoatran           #+#    #+#             */
-/*   Updated: 2024/08/28 16:48:38 by hoatran          ###   ########.fr       */
+/*   Created: 2024/08/16 23:34:14 by hoatran           #+#    #+#             */
+/*   Updated: 2024/08/17 16:40:17 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	copy_pixels(
-	mlx_image_t *dest,
-	mlx_image_t *src,
-	int32_t offset_x,
-	int32_t offset_y
-)
+/**
+ * Return a pointer to pixel data at coordinate (x, y).
+ */
+uint8_t	*get_pixels(mlx_image_t *image, int32_t x, int32_t y)
 {
-	int32_t		x;
-	int32_t		y;
-	uint32_t	*dest_pixels;
-	uint32_t	*src_pixels;
+	int32_t	offset;
 
-	y = 0;
-	while (y < offset_y)
-	{
-		x = 0;
-		while (x < offset_x)
-		{
-			dest_pixels = (uint32_t *)get_pixels(dest, x, y);
-			src_pixels = (uint32_t *)get_pixels(src, x, y);
-			*dest_pixels = *src_pixels;
-			x++;
-		}
-		y++;
-	}
+	offset = (y * image->width + x) * sizeof(int32_t);
+	return (image->pixels + offset);
 }

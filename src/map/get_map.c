@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 09:26:40 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/27 14:04:19 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/08/31 11:24:04 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ int	get_map(t_map *map, char *data, int fd, char *pathname)
 
 	if (get_map_size(map, data, fd) > 0)
 		return (1);
+	map->width = map->col_count * WIDTH;
+	map->height = map->row_count * HEIGHT;
 	second_read = open(pathname, O_RDONLY, 0666);
 	if (second_read < 0)
 		return (1);

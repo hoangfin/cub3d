@@ -49,6 +49,8 @@ SOURCES :=	main.c \
 			copy_pixels.c \
 			fill.c \
 			get_pixels.c \
+			is_valid_position.c \
+			is_wall.c \
 			load_png.c \
 			max.c \
 			\
@@ -62,7 +64,8 @@ SOURCES :=	main.c \
 			parse_colors.c \
 			validate_file.c \
 			\
-			update_player.c
+			update_player.c \
+			update_rays.c
 
 OBJECTS := $(SOURCES:%.c=$(BUILD_DIR)/%.o)
 

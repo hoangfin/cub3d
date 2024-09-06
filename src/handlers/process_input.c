@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 12:57:11 by hoatran           #+#    #+#             */
-/*   Updated: 2024/08/29 16:45:46 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/06 00:41:20 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,3 +48,4 @@ void	process_input(t_cub3D *cub3D)
 	process_mouse_move(cub3D);
 	process_keypress(cub3D);
 }
+

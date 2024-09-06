@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/31 17:58:00 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/06 16:11:58 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # define WIDTH 1280
 # define HEIGHT 960
+# define FOV (M_PI / 3)
 
 # define MAP_SPACE ' '
 # define MAP_PATH '0'
@@ -57,6 +58,7 @@ typedef struct s_image
 	mlx_image_t	*minimap;
 	mlx_image_t	*minimap_bg;
 	mlx_image_t	*map;
+	mlx_image_t	*ray;
 }	t_image;
 
 typedef struct s_map
@@ -73,9 +75,13 @@ typedef struct s_map
 
 typedef struct s_ray
 {
-	int32_t	x[2];
-	int32_t	y[2];
-	double	length;
+	double	x_start;
+	double	x_end;
+	double	y_start;
+	double	y_end;
+	double	distance;
+	double	distance_x;
+	double	distance_y;
 	double	angle;
 }	t_ray;
 
@@ -107,7 +113,6 @@ typedef struct s_cub3D
 	t_map		*map;
 	t_character	player;
 	t_ray		*rays;
-	int			fov;
 	int32_t		mouse_x;
 	int32_t		mouse_y;
 	t_asset		asset;
@@ -123,6 +128,7 @@ void		init_player(t_cub3D *cub3d);
 int			init(t_cub3D *cub3D, char *pathname);
 
 void		update_player(t_cub3D *cub3d, double elapsed_time);
+void		update_rays(t_cub3D *cub3d);
 
 void		draw_map(mlx_image_t *map, t_cub3D *cub3D);
 void		draw_minimap(mlx_image_t *minimap, t_cub3D *cub3D);
@@ -136,6 +142,8 @@ void		update_ui(t_cub3D *cub3d, double elapsed_time);
 uint32_t	color(int32_t r, int32_t g, int32_t b, int32_t a);
 void		fill(mlx_image_t *image, uint32_t color);
 uint8_t		*get_pixels(mlx_image_t *image, int32_t x, int32_t y);
+bool		is_valid_position(int32_t x, int32_t y, t_cub3D *cub3d);
+bool		is_wall(int32_t x, int32_t y, t_cub3D *cub3d);
 mlx_image_t	*load_png(mlx_t *mlx, const char *pathname);
 int32_t		max(int32_t a, int32_t b);
 void		copy_pixels(

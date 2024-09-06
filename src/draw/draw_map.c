@@ -6,11 +6,67 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 21:16:53 by hoatran           #+#    #+#             */
-/*   Updated: 2024/08/29 23:20:31 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/06 09:39:21 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+void draw_line(mlx_image_t* img, int x0, int y0, int x1, int y1, uint32_t color)
+{
+    // Bresenham's line algorithm
+    int dx = abs(x1 - x0);
+    int dy = abs(y1 - y0);
+    int sx = (x0 < x1) ? 1 : -1;
+    int sy = (y0 < y1) ? 1 : -1;
+    int err = dx - dy;
+    int e2;
+
+    while (1)
+    {
+        // Set pixel at (x0, y0)
+        mlx_put_pixel(img, x0, y0, color);
+
+        // Break if the end point is reached
+        if (x0 == x1 && y0 == y1)
+            break;
+
+        e2 = 2 * err;
+
+        // Adjust error and coordinates accordingly
+        if (e2 > -dy) {
+            err -= dy;
+            x0 += sx;
+        }
+
+        if (e2 < dx) {
+            err += dx;
+            y0 += sy;
+        }
+    }
+}
+
+static void	fill_rays(t_cub3D *cub3d)
+{
+	int32_t	i;
+	t_ray	ray;
+
+	i = 0;
+	// printf("x_start=%d, x_end=%d, y_start=%d, y_end=%d\n", ray.x_start, ray.y_start, ray.x_end, ray.y_end);
+	while (i <= WIDTH)
+	{
+		ray = cub3d->rays[i];
+		draw_line(
+			cub3d->image.map,
+			ray.x_start,
+			ray.y_start,
+			ray.x_end,
+			ray.y_end,
+			color(78, 24, 155, 255)
+		);
+		i++;
+	}
+}
 
 static void	fill_obstacles(mlx_image_t *map, char **grid, t_cub3D *cub3d)
 {
@@ -59,4 +115,5 @@ void	draw_map(mlx_image_t *map, t_cub3D *cub3d)
 	fill(cub3d->image.map, color(36, 37, 39, 255));
 	fill_obstacles(map, cub3d->map->grid, cub3d);
 	fill_player(map, cub3d->asset.navigator, cub3d);
+	fill_rays(cub3d);
 }

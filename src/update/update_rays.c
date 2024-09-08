@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 19:47:12 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/06 16:31:58 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/08 14:31:09 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ static void	dda_x_axis(t_ray *ray, t_cub3D *cub3d)
 		return ;
 	}
 	if (direction > 0)
-		dx = MAP_CELL_SIZE - (abs((int32_t)ray->x_start) % MAP_CELL_SIZE);
+		dx = MAP_CELL_SIZE - fmod(ray->x_start, MAP_CELL_SIZE);
 	if (direction < 0)
-		dx = abs((int32_t)ray->x_start) % MAP_CELL_SIZE + 1;
+		dx = fmod(ray->x_start, MAP_CELL_SIZE) + 1;
 	while (is_valid_position(ray->x_end, ray->y_end, cub3d))
 	{
 		step_x_axis(&ray->x_end, dx, ray->angle);
@@ -65,9 +65,9 @@ static void	dda_y_axis(t_ray *ray, t_cub3D *cub3d)
 		return ;
 	}
 	if (direction > 0)
-		dy = abs((int32_t)ray->y_start) % MAP_CELL_SIZE + 1;
+		dy = fmod(ray->y_start, MAP_CELL_SIZE) + 1;
 	if (direction < 0)
-		dy = MAP_CELL_SIZE - (abs((int32_t)ray->y_start) % MAP_CELL_SIZE);
+		dy = MAP_CELL_SIZE - fmod(ray->y_start, MAP_CELL_SIZE);
 	while (is_valid_position(ray->x_end, ray->y_end, cub3d))
 	{
 		step_y_axis(&ray->y_end, dy, ray->angle);

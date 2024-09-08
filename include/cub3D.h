@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/06 16:11:58 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/08 21:43:50 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,11 @@ typedef struct s_image
 	mlx_image_t	*walls[4];
 	mlx_image_t	*ceiling;
 	mlx_image_t	*floor;
+	mlx_image_t	*scene;
 	mlx_image_t	*obstacle;
-	mlx_image_t	*nav;
 	mlx_image_t	*minimap;
 	mlx_image_t	*minimap_bg;
 	mlx_image_t	*map;
-	mlx_image_t	*ray;
 }	t_image;
 
 typedef struct s_map
@@ -80,8 +79,6 @@ typedef struct s_ray
 	double	y_start;
 	double	y_end;
 	double	distance;
-	double	distance_x;
-	double	distance_y;
 	double	angle;
 }	t_ray;
 
@@ -127,6 +124,7 @@ void		destroy(t_cub3D *cub3D);
 void		init_player(t_cub3D *cub3d);
 int			init(t_cub3D *cub3D, char *pathname);
 
+void		dda(t_ray *ray, t_cub3D *cub3d);
 void		update_player(t_cub3D *cub3d, double elapsed_time);
 void		update_rays(t_cub3D *cub3d);
 
@@ -139,6 +137,7 @@ void		process_input(t_cub3D *cub3D);
 void		update(t_cub3D *cub3d, double elapsed_time);
 void		update_ui(t_cub3D *cub3d, double elapsed_time);
 
+void		clear_image(mlx_image_t *image);
 uint32_t	color(int32_t r, int32_t g, int32_t b, int32_t a);
 void		fill(mlx_image_t *image, uint32_t color);
 uint8_t		*get_pixels(mlx_image_t *image, int32_t x, int32_t y);

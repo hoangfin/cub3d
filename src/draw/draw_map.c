@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 21:16:53 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/06 09:39:21 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/08 21:44:39 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ static void	fill_rays(t_cub3D *cub3d)
 	t_ray	ray;
 
 	i = 0;
-	// printf("x_start=%d, x_end=%d, y_start=%d, y_end=%d\n", ray.x_start, ray.y_start, ray.x_end, ray.y_end);
-	while (i <= WIDTH)
+	while (i < WIDTH)
 	{
 		ray = cub3d->rays[i];
 		draw_line(
@@ -112,7 +111,7 @@ static void	fill_player(mlx_image_t *map, mlx_image_t *nav, t_cub3D *cub3d)
 
 void	draw_map(mlx_image_t *map, t_cub3D *cub3d)
 {
-	fill(cub3d->image.map, color(36, 37, 39, 255));
+	clear_image(cub3d->image.map);
 	fill_obstacles(map, cub3d->map->grid, cub3d);
 	fill_player(map, cub3d->asset.navigator, cub3d);
 	fill_rays(cub3d);

@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 20:08:54 by hoatran           #+#    #+#             */
-/*   Updated: 2024/08/31 17:30:33 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/08 21:15:03 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static void	delete_images(t_cub3D *cub3d)
 		mlx_delete_image(cub3d->mlx, cub3d->image.walls[i++]);
 	mlx_delete_image(cub3d->mlx, cub3d->image.ceiling);
 	mlx_delete_image(cub3d->mlx, cub3d->image.floor);
+	mlx_delete_image(cub3d->mlx, cub3d->image.scene);
 	mlx_delete_image(cub3d->mlx, cub3d->image.obstacle);
-	mlx_delete_image(cub3d->mlx, cub3d->image.nav);
 	mlx_delete_image(cub3d->mlx, cub3d->image.minimap);
 	mlx_delete_image(cub3d->mlx, cub3d->image.minimap_bg);
 	mlx_delete_image(cub3d->mlx, cub3d->image.map);

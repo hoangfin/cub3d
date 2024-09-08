@@ -45,6 +45,7 @@ SOURCES :=	main.c \
 			update_ui.c \
 			update.c \
 			\
+			clear_image.c \
 			color.c \
 			copy_pixels.c \
 			fill.c \
@@ -64,6 +65,7 @@ SOURCES :=	main.c \
 			parse_colors.c \
 			validate_file.c \
 			\
+			dda.c \
 			update_player.c \
 			update_rays.c
 

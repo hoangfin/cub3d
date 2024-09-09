@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:57:58 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/09 10:35:22 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/09 15:26:41 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,31 +21,34 @@ static bool	hit_diagonal_wall(t_ray start, t_ray end, t_cub3D *cub3d)
 	const int32_t	end_col = end.x_end / MAP_CELL_SIZE;
 
 	if (
-		start.angle > M_PI / 2 && start.angle < M_PI
-		&& row - 1 == end_row && col - 1 == end_col
-		&& cub3d->map->grid[row - 1][col] == MAP_WALL
-		&& cub3d->map->grid[row][col - 1] == MAP_WALL
+		end.x_end < 0 || end.x_end >= cub3d->map->width
+		|| end.y_end < 0 || end.y_end >= cub3d->map->height)
+		return (false);
+
+	if (start.angle > M_PI / 2 && start.angle < M_PI && row - 1 == end_row && col - 1 == end_col
+		&& row - 1 >= 0 && cub3d->map->grid[row - 1][col] == MAP_WALL
+		&& col - 1 >= 0 && cub3d->map->grid[row][col - 1] == MAP_WALL
 	)
 		return (true);
 	if (
 		start.angle > 0 && start.angle < M_PI / 2
 		&& row - 1 == end_row && col + 1 == end_col
-		&& cub3d->map->grid[row - 1][col] == MAP_WALL
-		&& cub3d->map->grid[row][col + 1] == MAP_WALL
+		&& row - 1 >= 0 && cub3d->map->grid[row - 1][col] == MAP_WALL
+		&& col + 1 < (int32_t)cub3d->map->col_count && cub3d->map->grid[row][col + 1] == MAP_WALL
 	)
 		return (true);
 	if (
 		start.angle > 3 * M_PI / 2 && start.angle < 2 * M_PI
 		&& row + 1 == end_row && col + 1 == end_col
-		&& cub3d->map->grid[row + 1][col] == MAP_WALL
-		&& cub3d->map->grid[row][col + 1] == MAP_WALL
+		&& row + 1 < (int32_t)cub3d->map->row_count && cub3d->map->grid[row + 1][col] == MAP_WALL
+		&& col + 1 < (int32_t)cub3d->map->col_count && cub3d->map->grid[row][col + 1] == MAP_WALL
 	)
 		return (true);
 	if (
 		start.angle > M_PI && start.angle < 3 * M_PI / 2
 		&& row + 1 == end_row && col - 1 == end_col
-		&& cub3d->map->grid[row + 1][col] == MAP_WALL
-		&& cub3d->map->grid[row][col - 1] == MAP_WALL
+		&& row + 1 < (int32_t)cub3d->map->row_count && cub3d->map->grid[row + 1][col] == MAP_WALL
+		&& col - 1 >= 0 && cub3d->map->grid[row][col - 1] == MAP_WALL
 	)
 		return (true);
 	return (false);

@@ -38,6 +38,7 @@ SOURCES :=	main.c \
 			\
 			draw_map.c \
 			draw_minimap.c \
+			draw_scene.c \
 			\
 			close_handler.c \
 			loop_handler.c \

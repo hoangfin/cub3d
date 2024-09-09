@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/09 08:45:43 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/09 16:39:45 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ void		update_rays(t_cub3D *cub3d);
 
 void		draw_map(mlx_image_t *map, t_cub3D *cub3D);
 void		draw_minimap(mlx_image_t *minimap, t_cub3D *cub3D);
+void		draw_scene(t_cub3D *cub3d);
 
 void 		close_handler(void	*param);
 void 		loop_handler(void *param);

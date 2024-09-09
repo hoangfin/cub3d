@@ -6,13 +6,13 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 21:16:53 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/08 21:44:39 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/09 15:31:03 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void draw_line(mlx_image_t* img, int x0, int y0, int x1, int y1, uint32_t color)
+static void draw_line(mlx_image_t* img, int x0, int y0, int x1, int y1, uint32_t color)
 {
     // Bresenham's line algorithm
     int dx = abs(x1 - x0);

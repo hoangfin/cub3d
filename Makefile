@@ -50,6 +50,7 @@ SOURCES :=	main.c \
 			copy_pixels.c \
 			fill.c \
 			get_pixels.c \
+			is_diagonal_move.c \
 			is_valid_position.c \
 			is_wall.c \
 			load_png.c \

@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/08 21:43:50 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/09 08:45:43 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,12 @@ void		copy_pixels(
 				mlx_image_t *src,
 				int32_t offset_x,
 				int32_t offset_y
+			);
+bool		is_diagonal_move(
+				int32_t start_x,
+				int32_t start_y,
+				int32_t end_x,
+				int32_t end_y
 			);
 
 /*							PARSING							*/

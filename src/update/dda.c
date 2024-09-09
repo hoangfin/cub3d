@@ -6,30 +6,55 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:57:58 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/09 01:47:37 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/09 10:35:22 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <float.h>
 #include "cub3D.h"
 
-static bool	hit_diagonal_wall(t_ray *ray, double dx, double dy, t_cub3D *cub3d)
+static bool	hit_diagonal_wall(t_ray start, t_ray end, t_cub3D *cub3d)
 {
-	const int32_t	row = ray->y_end / MAP_CELL_SIZE;
-	const int32_t	col = ray->x_end / MAP_CELL_SIZE;
-	int32_t			dest_row;
-	int32_t			dest_col;
-	t_ray			dest_ray;
+	const int32_t	row = start.y_end / MAP_CELL_SIZE;
+	const int32_t	col = start.x_end / MAP_CELL_SIZE;
+	const int32_t	end_row = end.y_end / MAP_CELL_SIZE;
+	const int32_t	end_col = end.x_end / MAP_CELL_SIZE;
 
-	dest_ray = *ray;
-	step(&dest_ray, dx, dy);
-	dest_row = dest_ray.y_end / MAP_CELL_SIZE;
-	dest_col = dest_ray.x_end / MAP_CELL_SIZE;
-	if ()
+	if (
+		start.angle > M_PI / 2 && start.angle < M_PI
+		&& row - 1 == end_row && col - 1 == end_col
+		&& cub3d->map->grid[row - 1][col] == MAP_WALL
+		&& cub3d->map->grid[row][col - 1] == MAP_WALL
+	)
+		return (true);
+	if (
+		start.angle > 0 && start.angle < M_PI / 2
+		&& row - 1 == end_row && col + 1 == end_col
+		&& cub3d->map->grid[row - 1][col] == MAP_WALL
+		&& cub3d->map->grid[row][col + 1] == MAP_WALL
+	)
+		return (true);
+	if (
+		start.angle > 3 * M_PI / 2 && start.angle < 2 * M_PI
+		&& row + 1 == end_row && col + 1 == end_col
+		&& cub3d->map->grid[row + 1][col] == MAP_WALL
+		&& cub3d->map->grid[row][col + 1] == MAP_WALL
+	)
+		return (true);
+	if (
+		start.angle > M_PI && start.angle < 3 * M_PI / 2
+		&& row + 1 == end_row && col - 1 == end_col
+		&& cub3d->map->grid[row + 1][col] == MAP_WALL
+		&& cub3d->map->grid[row][col - 1] == MAP_WALL
+	)
+		return (true);
+	return (false);
 }
 
 static void	step(t_ray *ray, double dx, double dy)
 {
+	double	distance;
+
 	if (ray->angle < M_PI / 2 || ray->angle > (3 * M_PI / 2))
 		ray->x_end += dx;
 	if (ray->angle > M_PI / 2 && ray->angle < (3 * M_PI / 2))
@@ -38,12 +63,15 @@ static void	step(t_ray *ray, double dx, double dy)
 		ray->y_end -= dy;
 	if (ray->angle > M_PI && ray->angle < 2 * M_PI)
 		ray->y_end += dy;
+	distance = dx / cos(ray->angle);
+	ray->distance += fabs(distance);
 }
 
 static void	dda_x_axis(t_ray *ray, t_cub3D *cub3d)
 {
 	double	dx;
 	double	direction;
+	t_ray	temp;
 
 	direction = cos(ray->angle);
 	if (direction == 0)
@@ -57,8 +85,10 @@ static void	dda_x_axis(t_ray *ray, t_cub3D *cub3d)
 		dx = fmod(ray->x_start, MAP_CELL_SIZE) + 1;
 	while (is_valid_position(ray->x_end, ray->y_end, cub3d))
 	{
+		temp = *ray;
 		step(ray, dx, dx * fabs(tan(ray->angle)));
-		ray->distance += fabs(dx / direction);
+		if (hit_diagonal_wall(temp, *ray, cub3d))
+			break ;
 		dx = MAP_CELL_SIZE;
 	}
 }
@@ -67,6 +97,7 @@ static void	dda_y_axis(t_ray *ray, t_cub3D *cub3d)
 {
 	double	dy;
 	double	direction;
+	t_ray	temp;
 
 	direction = sin(ray->angle);
 	if (direction == 0)
@@ -80,8 +111,10 @@ static void	dda_y_axis(t_ray *ray, t_cub3D *cub3d)
 		dy = MAP_CELL_SIZE - fmod(ray->y_start, MAP_CELL_SIZE);
 	while (is_valid_position(ray->x_end, ray->y_end, cub3d))
 	{
+		temp = *ray;
 		step(ray, dy / fabs(tan(ray->angle)), dy);
-		ray->distance += fabs(dy / direction);
+		if (hit_diagonal_wall(temp, *ray, cub3d))
+			break ;
 		dy = MAP_CELL_SIZE;
 	}
 }

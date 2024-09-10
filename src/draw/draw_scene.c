@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:29:43 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/09 17:01:11 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/11 00:55:38 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	draw_scene(t_cub3D *cub3d)
 	while (i < WIDTH)
 	{
 		ray = cub3d->rays[i];
-		wall_height = HEIGHT / (ray.distance * cos(ray.angle) -6);
+		wall_height = HEIGHT / (ray.distance - 4);
+		printf("ray angle=%f, ray.distance=%f\n", ray.angle * 180 / M_PI, ray.distance);
 		draw_line(
 			cub3d->image.scene,
 			i,

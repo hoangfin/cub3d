@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/06 16:11:58 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/10 14:57:25 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define WIDTH 1280
 # define HEIGHT 960
 # define FOV (M_PI / 3)
+# define FOV1 (FOV / WIDTH)
 
 # define MAP_SPACE ' '
 # define MAP_PATH '0'
@@ -59,6 +60,7 @@ typedef struct s_image
 	mlx_image_t	*minimap_bg;
 	mlx_image_t	*map;
 	mlx_image_t	*ray;
+	mlx_image_t	*world;
 }	t_image;
 
 typedef struct s_map
@@ -83,6 +85,7 @@ typedef struct s_ray
 	double	distance_x;
 	double	distance_y;
 	double	angle;
+	int		side;
 }	t_ray;
 
 typedef enum e_character_state
@@ -152,6 +155,9 @@ void		copy_pixels(
 				int32_t offset_x,
 				int32_t offset_y
 			);
+
+void		draw_world(t_cub3D *cub3D);
+uint32_t	choose_color(t_ray ray);
 
 /*							PARSING							*/
 t_map	*load_map(char *pathname);

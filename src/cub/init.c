@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:34:37 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/03 15:51:43 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/07 17:03:33 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ int	init(t_cub3D *cub3d, char *pathname)
 {
 	ft_bzero(cub3d, sizeof(t_cub3D));
 	cub3d->map = load_map(pathname);
+	if (!cub3d->map)
+	{
+		delete_map(cub3d->map);
+		return (free(cub3d), -1);
+	}
 	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "cub3D", false);
 	mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse_x, &cub3d->mouse_y);
 	load_assets(cub3d);

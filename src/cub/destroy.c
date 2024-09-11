@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   destroy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 20:08:54 by hoatran           #+#    #+#             */
-/*   Updated: 2024/08/31 17:30:33 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/07 17:01:34 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,5 @@ void	destroy(t_cub3D *cub3d)
 	// delete_ray()
 	if (cub3d->mlx != NULL)
 		mlx_terminate(cub3d->mlx);
+	free(cub3d);
 }

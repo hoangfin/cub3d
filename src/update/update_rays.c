@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   update_rays.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 19:47:12 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/06 16:31:58 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/11 14:51:25 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <float.h>
 #include "cub3D.h"
 
@@ -35,14 +36,14 @@ static void	dda_x_axis(t_ray *ray, t_cub3D *cub3d)
 	double	direction;
 
 	direction = cos(ray->angle);
-	if (direction == 0)
+	if (direction == 0) // ray looking vertically
 	{
 		ray->distance = DBL_MAX;
 		return ;
 	}
-	if (direction > 0)
+	if (direction > 0) // ray looking right
 		dx = MAP_CELL_SIZE - (abs((int32_t)ray->x_start) % MAP_CELL_SIZE);
-	if (direction < 0)
+	if (direction < 0) // ray looking left : this causes issues
 		dx = abs((int32_t)ray->x_start) % MAP_CELL_SIZE + 1;
 	while (is_valid_position(ray->x_end, ray->y_end, cub3d))
 	{
@@ -59,14 +60,14 @@ static void	dda_y_axis(t_ray *ray, t_cub3D *cub3d)
 	double	direction;
 
 	direction = sin(ray->angle);
-	if (direction == 0)
+	if (direction == 0) // ray looking horizontally
 	{
 		ray->distance = DBL_MAX;
 		return ;
 	}
-	if (direction > 0)
+	if (direction > 0) // ray looking up : this causes issues
 		dy = abs((int32_t)ray->y_start) % MAP_CELL_SIZE + 1;
-	if (direction < 0)
+	if (direction < 0) // ray looking down
 		dy = MAP_CELL_SIZE - (abs((int32_t)ray->y_start) % MAP_CELL_SIZE);
 	while (is_valid_position(ray->x_end, ray->y_end, cub3d))
 	{
@@ -112,8 +113,7 @@ void	update_rays(t_cub3D *cub3d)
 			ray->angle += 2 * M_PI;
 		if (ray->angle >= 2 * M_PI)
 			ray->angle -= 2 * M_PI;
-		ray->distance_x = 0;
-		ray->distance_y = 0;
+		ray->distance = 0;
 		dda(ray, cub3d);
 		// if (ray->angle == M_PI / 2)
 		// 	printf("ray[%d]: x_start=%d, x_end=%d, y_start=%d, y_end=%d, distance=%f\n", i, ray->x_start, ray->x_end, ray->y_start, ray->y_end, ray->distance);

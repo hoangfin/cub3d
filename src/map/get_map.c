@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 09:26:40 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/31 14:47:52 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/12 13:37:08 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
-#include <errno.h>
-#include <string.h>
 #include "cub3D.h"
 
 static int	get_map_size(t_map *map, char *data, int fd)

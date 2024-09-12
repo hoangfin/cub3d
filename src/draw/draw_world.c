@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:17:11 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/10 13:02:42 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/12 13:40:05 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,132 +73,189 @@ texture x-coordinate = (cub3D->rays[x_pixel].distance_x / 2) % 128;
 
 */
 
-/*
-int	find_text_coordinate(t_ray ray)
-{
-	double	portion;
-	int		rounded;
-
-	portion = ray.x[1] / 20;
-	rounded = portion; //automatically rounds double type down?
-	return (128 * (portion - rounded)); //(rounds down automatically?)
-}
-*/
 
 // east == red | north == green | west == yellow | south == blue
-uint32_t	choose_color(t_ray ray) // this doesn't work properly yet
+uint32_t	choose_color(t_ray ray)
 {
-	if ((0 <= ray.angle && ray.angle < M_PI / 4) || (M_PI * 7/4 <= ray.angle && ray.angle < 2 * M_PI)) // red
+	if ((ray.angle < M_PI / 4) || ((M_PI * 7) / 4 <= ray.angle)) // red
 	{
 		if (ray.side == 0 && ray.angle < 2 * M_PI)
-			return (color(255, 255, 0, 255));
+			return (color(255, 255, 0, 255)); // yellow
 		else if (ray.side == 0 && 0 <= ray.angle)
-			return (color(0, 128, 0, 255));
+			return (color(0, 128, 0, 255)); // green
 		return (color(255, 0, 0, 255));
 	}
-	else if (M_PI / 4 <= ray.angle && ray.angle < (M_PI * 3)/4) // green
+	else if (M_PI / 4 <= ray.angle && ray.angle < (M_PI * 3) / 4) // green
 	{
 		if (ray.side == 1 && ray.angle >= M_PI / 2)
-			return (color(255, 255, 0, 255));
+			return (color(255, 255, 0, 255)); // yellow
 		else if (ray.side == 1 && ray.angle < M_PI / 2)
-			return (color(255, 0, 0, 255));
+			return (color(255, 0, 0, 255)); // red
 		return (color(0, 128, 0, 255));
 	}
-	else if ((M_PI * 3)/4 <= ray.angle && ray.angle < (5 * M_PI)/4) // yellow
+	else if ((M_PI * 3) / 4 <= ray.angle && ray.angle < (5 * M_PI) / 4) // yellow
 	{
 		if (ray.side == 0 && ray.angle < M_PI)
-			return (color(0, 0, 255, 255));
+			return (color(0, 0, 255, 255)); // blue
 		else if (ray.side == 0 && ray.angle >= M_PI)
-			return (color(0, 128, 0, 255));
+			return (color(0, 128, 0, 255)); // green
 		return (color(255, 255, 0, 255));
 	}
-	else if ((5 * M_PI)/4 <= ray.angle && ray.angle < M_PI * 7/4)
+	else if ((5 * M_PI) / 4 <= ray.angle && ray.angle < (M_PI * 7) / 4) // blue
 	{
 		if (ray.side == 1 && ray.angle < 3 * M_PI / 2)
-			return (color(255, 0, 0, 255));
+			return (color(255, 0, 0, 255)); // red
 		else if (ray.side == 1 && ray.angle >= 3 * M_PI / 2)
-			return (color(255, 255, 0, 255));
+			return (color(255, 255, 0, 255)); // yellow
 		return (color(0, 0, 255, 255));
 	}
-	return (color(0, 0, 0, 255));	
+	return (color(0, 0, 0, 255));
 }
 
-static void	update_wall_slice(t_cub3D *cub3D, int start_y, int lineheight, int x_pixel)
-{
-	int		index_y;
 
-	index_y = 0;
-	while (index_y < start_y)
+int	texture_position(t_ray ray)
+{
+	int		nbr_of_squares;
+	float	tex_fraction;
+
+	if (ray.side == 0)
 	{
-		mlx_put_pixel(cub3D->image.world, x_pixel, index_y, cub3D->map->color_ceiling);
-		index_y++;
+		nbr_of_squares = WIDTH / MAP_CELL_SIZE;
+		tex_fraction = (ray.x_end / nbr_of_squares) / MAP_CELL_SIZE;
+		return (floor(tex_fraction * 128));
 	}
-	while (start_y < index_y + lineheight)
+	nbr_of_squares = HEIGHT / MAP_CELL_SIZE;
+	tex_fraction = (ray.y_end / nbr_of_squares) / MAP_CELL_SIZE;
+	return (floor(tex_fraction * 128));
+}
+
+
+int	choose_texture(t_ray ray)
+{
+	/* if ((ray.angle < M_PI / 4) || ((M_PI * 7) / 4 <= ray.angle)) // ray looks right
 	{
-		mlx_put_pixel(cub3D->image.world, x_pixel, start_y, choose_color(cub3D->rays[x_pixel]));
+		if (ray.side == 0 && ray.angle < 2 * M_PI) // ray looks down, return north texture
+			return (0);
+		else if (ray.side == 0 && 0 <= ray.angle) // ray looks up, return south texture
+			return (2);
+		return (3); // ray looking straight right, return west texture
+	}
+	else if (M_PI / 4 <= ray.angle && ray.angle < (M_PI * 3) / 4) // ray looks up
+	{
+		if (ray.side == 1 && ray.angle >= M_PI / 2) // ray looks left, return east texture
+			return (1);
+		else if (ray.side == 1 && ray.angle < M_PI / 2) // ray looks right, return west texture
+			return (3);
+		return (2); // ray looking straight up, return south texture
+	}
+	else if ((M_PI * 3) / 4 <= ray.angle && ray.angle < (5 * M_PI) / 4) // ray looks left
+	{
+		if (ray.side == 0 && ray.angle < M_PI) // ray looks up, return south texture
+			return (2);
+		else if (ray.side == 0 && ray.angle >= M_PI) // ray looks down, return north texture
+			return (0);
+		return (1); // ray looks straight left, return east texture
+	}
+	else if ((5 * M_PI) / 4 <= ray.angle && ray.angle < (M_PI * 7) / 4) // ray looks down
+	{
+		if (ray.side == 1 && ray.angle < 3 * M_PI / 2) // ray looks left, return east texture
+			return (1);
+		else if (ray.side == 1 && ray.angle >= 3 * M_PI / 2) // ray looks right, return west texture
+			return (3);
+		return (0); // ray looks straight down, return north texture
+	} */
+	(void)ray;
+	return (2);
+}
+
+
+static int	draw_texture(t_cub3D *cub3D, int x, int start_y, int lineheight)
+{
+	float		tx_step;
+	float		tx_draw_pos;
+	int			tx_y;
+	int			tx_x;
+	int			y_pixel;
+	uint32_t	color;
+
+	tx_step = 1.0 * 128 / lineheight;
+	//tx_draw_pos = (start_y - HEIGHT / 2 + lineheight / 2) * tx_step;
+	tx_draw_pos = 0;
+	tx_x = texture_position(cub3D->rays[x]);
+	y_pixel = start_y;
+	while (y_pixel < start_y + lineheight)
+	{
+		tx_y = (int)(tx_draw_pos * (128 - 1));
+		tx_draw_pos += tx_step;
+		printf("pixel in texture: %d\n", 128 * tx_y + tx_x);
+		color = cub3D->map->wall_paths[choose_texture(cub3D->rays[x])][128 * tx_y + tx_x];
+		printf("color value: %u\n", color);
+		mlx_put_pixel(cub3D->image.world, x, y_pixel, color);
+		y_pixel++;
+	}
+	return (y_pixel);
+}
+
+static int	draw_ceiling(t_cub3D *cub3D, int y_start, int y_end, int x)
+{
+	while (y_start < y_end)
+	{
+		mlx_put_pixel(cub3D->image.world, x, y_start, cub3D->map->color_ceiling);
+		y_start++;
+	}
+	return (y_start);
+}
+
+static void	draw_floor(t_cub3D *cub3D, int y_start, int y_end, int x)
+{
+	while (y_start < y_end)
+	{
+		mlx_put_pixel(cub3D->image.world, x, y_start, cub3D->map->color_floor);
+		y_start++;
+	}
+}
+
+/* while (start_y < y_pixel + lineheight)
+	{
+		mlx_put_pixel(cub3D->image.world, x, start_y, choose_color(cub3D->rays[x]));
 		start_y++;
-	}
-	while (start_y < HEIGHT)
-	{
-		mlx_put_pixel(cub3D->image.world, x_pixel, start_y, cub3D->map->color_floor);
-		start_y++;
-	}
+	} */
+
+static void	update_wall_slice(t_cub3D *cub3D, int start_y, int lineheight, int x)
+{
+	int	y_pixel;
+	
+	y_pixel = draw_ceiling(cub3D, 0, start_y, x);
+	y_pixel = draw_texture(cub3D, x, start_y, lineheight);
+	draw_floor(cub3D, y_pixel, HEIGHT, x);
 }
 
 void	draw_world(t_cub3D *cub3D)
 {
-	int		x_pixel;
+	int		x;
 	int		lineheight;
 	int		start_y;
 	double	hitangle;
 	double	hitdist;
-	double	text_offset;
 
-	x_pixel = 0;
-	while (x_pixel < WIDTH)
+	x = 0;
+	while (x < WIDTH)
 	{
-		hitangle = cub3D->player.angle - cub3D->rays[x_pixel].angle;
+		hitangle = cub3D->player.angle - cub3D->rays[x].angle;
 		if (hitangle < 0)
 			hitangle += 2 * M_PI;
 		if (hitangle > 2 * M_PI)
 			hitangle -= 2 * M_PI;
-		hitdist = cub3D->rays[x_pixel].distance * cos(hitangle) * (MAP_CELL_SIZE / 2);
+		hitdist = cub3D->rays[x].distance * cos(hitangle) * (MAP_CELL_SIZE / 4);
 		if (hitdist < 1)
 			hitdist = 1.0;
 		lineheight = (128 * HEIGHT) / hitdist;
 		//printf("lineheight: %d\n", lineheight);
-		text_offset = 0;
 		if (lineheight > HEIGHT)
-		{
-			text_offset = (lineheight - HEIGHT) / 2;
 			lineheight = HEIGHT;
-		}
-		(void)text_offset;
 		start_y = HEIGHT / 2 - lineheight / 2;
-		update_wall_slice(cub3D, start_y, lineheight, x_pixel);
-		x_pixel++;
+		update_wall_slice(cub3D, start_y, lineheight, x);
+		x++;
 	}
 }
 
-/* static void	draw_wall_slice(t_cub3D *cub3D, int start_y, int end_y, int x_pixel)
-{
-	//double	step;
-	//double	textpos;
-	//int		lineheight;
-
-	//lineheight = end_y - start_y;
-	//step = 1.0 * 128 * lineheight; // verify this
-	//textpos = (start_y - HEIGHT / 2 + lineheight / 2) * step;
-	while (start_y < end_y)
-	{
-		mlx_put_pixel(\
-			cub3D->image.world,
-			x_pixel,
-			start_y,
-			choose_color(cub3D->rays[x_pixel])\
-			);
-			//get_pixels(cub3D->map->wall_paths[choose_texture(cub3D->rays[x_pixel])], find_text_coordinate(cub3D->rays[x_pixel]), textpos));
-		//textpos++;
-		start_y++;
-	}
-}*/

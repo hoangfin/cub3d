@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   parse_colors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 12:47:03 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/31 15:59:26 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/12 13:36:51 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "cub3D.h"
 
 static int32_t	color_check(char **colors, int index)

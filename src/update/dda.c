@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:57:58 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/11 00:45:29 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/12 18:29:36 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,25 +67,23 @@ static void	step(t_ray *ray, double dx, double dy)
 		ray->y_end -= dy;
 	if (ray->angle > M_PI && ray->angle < 2 * M_PI)
 		ray->y_end += dy;
-	distance = dx / cos(ray->angle);
-	ray->distance += fabs(distance);
+	// distance = dx / cos(ray->angle);
+	// ray->distance += fabs(distance);
 }
 
-static void	dda_x_axis(t_ray *ray, t_cub3D *cub3d)
+static void	dda_x_axis(t_ray *ray, double dir_x, double dir_y, t_cub3D *cub3d)
 {
 	double	dx;
-	double	direction;
 	t_ray	temp;
 
-	direction = cos(ray->angle);
-	if (direction == 0)
+	if (dir_x == 0)
 	{
 		ray->distance = DBL_MAX;
 		return ;
 	}
-	if (direction > 0)
+	if (dir_x > 0)
 		dx = MAP_CELL_SIZE - fmod(ray->x_start, MAP_CELL_SIZE);
-	if (direction < 0)
+	if (dir_x < 0)
 		dx = fmod(ray->x_start, MAP_CELL_SIZE) + 1;
 	while (is_valid_position(ray->x_end, ray->y_end, cub3d))
 	{
@@ -95,23 +93,28 @@ static void	dda_x_axis(t_ray *ray, t_cub3D *cub3d)
 			break ;
 		dx = MAP_CELL_SIZE;
 	}
+	// ray->x_end = floor(ray->x_end);
+	// ray->y_end = floor(ray->y_end);
+	ray->distance = sqrt(
+		(ray->x_end - ray->x_start) * (ray->x_end - ray->x_start)
+		+ (ray->y_end - ray->y_start) * (ray->y_end - ray->y_start)
+	);
 }
 
-static void	dda_y_axis(t_ray *ray, t_cub3D *cub3d)
+static void	dda_y_axis(t_ray *ray, double dir_x, double dir_y, t_cub3D *cub3d)
 {
 	double	dy;
-	double	direction;
 	t_ray	temp;
 
-	direction = sin(ray->angle);
-	if (direction == 0)
+	dir_y = sin(ray->angle);
+	if (dir_y == 0)
 	{
 		ray->distance = DBL_MAX;
 		return ;
 	}
-	if (direction > 0)
+	if (dir_y > 0)
 		dy = fmod(ray->y_start, MAP_CELL_SIZE) + 1;
-	if (direction < 0)
+	if (dir_y < 0)
 		dy = MAP_CELL_SIZE - fmod(ray->y_start, MAP_CELL_SIZE);
 	while (is_valid_position(ray->x_end, ray->y_end, cub3d))
 	{
@@ -121,20 +124,36 @@ static void	dda_y_axis(t_ray *ray, t_cub3D *cub3d)
 			break ;
 		dy = MAP_CELL_SIZE;
 	}
+	// ray->x_end = floor(ray->x_end);
+	// ray->y_end = floor(ray->y_end);
+	ray->distance = sqrt(
+		(ray->x_end - ray->x_start) * (ray->x_end - ray->x_start)
+		+ (ray->y_end - ray->y_start) * (ray->y_end - ray->y_start)
+	);
 }
 
 void	dda(t_ray *ray, t_cub3D *cub3d)
 {
+	double	hit_angle;
 	t_ray	ray_a;
 	t_ray	ray_b;
+	double	dir_x;
+	double	dir_y;
 
 	ray_a = *ray;
 	ray_b = *ray;
-	dda_x_axis(&ray_a, cub3d);
-	dda_y_axis(&ray_b, cub3d);
+	dir_x = cos(ray->angle);
+	dir_y = sin(ray->angle);
+	dda_x_axis(&ray_a, dir_x, dir_y, cub3d);
+	dda_y_axis(&ray_b, dir_x, dir_y, cub3d);
 	if (ray_a.distance < ray_b.distance)
 		*ray = ray_a;
 	else
 		*ray = ray_b;
-	ray->distance = ray->distance / cos(fabs(ray->angle - cub3d->player.angle));
+	hit_angle = ray->angle - cub3d->player.angle;
+	if (hit_angle < 0)
+		hit_angle += 2 * M_PI;
+	if (hit_angle > 2 * M_PI)
+		hit_angle -= 2 * M_PI;
+	// ray->distance = ray->distance / fabs(cos(hit_angle));
 }

@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 21:16:53 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/09 15:31:03 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/12 18:39:19 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	fill_rays(t_cub3D *cub3d)
 	t_ray	ray;
 
 	i = 0;
-	while (i < WIDTH)
+	while (i < 300)
 	{
 		ray = cub3d->rays[i];
 		draw_line(

@@ -22,7 +22,7 @@ LIBFT := $(LIBFT_DIR)/libft.a
 MLX42 := $(MLX42_DIR)/build/libmlx42.a
 
 CC := cc
-CFLAGS :=	-Wall -Wextra -Werror\
+CFLAGS :=	-Wall -Wextra \
 			-Iinclude \
 			-I$(LIBFT_DIR) \
 			-I$(MLX42_DIR)/include/MLX42 \

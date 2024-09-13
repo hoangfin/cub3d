@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:34:37 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/07 17:03:33 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/13 10:08:31 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	create_rays(t_cub3D *cub3d)
 static void	load_assets(t_cub3D *cub3d)
 {
 	t_asset	*asset;
+	int		wall;
 
 	asset = &cub3d->asset;
 	asset->obstacle = load_png(cub3d->mlx, "assets/textures/obstacle.png");
@@ -36,6 +37,18 @@ static void	load_assets(t_cub3D *cub3d)
 		ft_fprintf(STDERR_FILENO, "Error\n%s\n", mlx_strerror(mlx_errno));
 		destroy(cub3d);
 		exit(1);
+	}
+	wall = 0;
+	while (wall < 4)
+	{
+		asset->walls[wall] = load_png(cub3d->mlx, cub3d->map->wall_paths[wall]);
+		if (asset->walls[wall] == NULL)
+		{
+			ft_fprintf(STDERR_FILENO, "Error\n%s\n", mlx_strerror(mlx_errno));
+			destroy(cub3d);
+			exit(1);
+		}
+		wall++;
 	}
 }
 

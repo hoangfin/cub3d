@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 13:17:11 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/12 13:40:05 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/13 12:16:17 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,20 +113,16 @@ uint32_t	choose_color(t_ray ray)
 }
 
 
-int	texture_position(t_ray ray)
+int	texture_position(t_ray ray, mlx_image_t *texture)
 {
-	int		nbr_of_squares;
-	float	tex_fraction;
+	double	hitpoint_x;
+	int		tx_coordinate;
 
-	if (ray.side == 0)
-	{
-		nbr_of_squares = WIDTH / MAP_CELL_SIZE;
-		tex_fraction = (ray.x_end / nbr_of_squares) / MAP_CELL_SIZE;
-		return (floor(tex_fraction * 128));
-	}
-	nbr_of_squares = HEIGHT / MAP_CELL_SIZE;
-	tex_fraction = (ray.y_end / nbr_of_squares) / MAP_CELL_SIZE;
-	return (floor(tex_fraction * 128));
+	hitpoint_x = ray.x_end;
+	hitpoint_x -= floor(hitpoint_x);
+	tx_coordinate = (int)(hitpoint_x * (double)texture->width);
+	tx_coordinate = texture->width - tx_coordinate - 1;
+	return (tx_coordinate);
 }
 
 
@@ -176,21 +172,22 @@ static int	draw_texture(t_cub3D *cub3D, int x, int start_y, int lineheight)
 	int			tx_y;
 	int			tx_x;
 	int			y_pixel;
-	uint32_t	color;
+	uint32_t	*color;
+	mlx_image_t	*texture;
 
-	tx_step = 1.0 * 128 / lineheight;
-	//tx_draw_pos = (start_y - HEIGHT / 2 + lineheight / 2) * tx_step;
-	tx_draw_pos = 0;
-	tx_x = texture_position(cub3D->rays[x]);
+	texture = cub3D->asset.walls[choose_texture(cub3D->rays[x])];
+	tx_step = texture->height / lineheight;
+	tx_draw_pos = (start_y - HEIGHT / 2 + lineheight / 2) * tx_step;
+	tx_x = texture_position(cub3D->rays[x], texture);
 	y_pixel = start_y;
+	//printf("step: %f\n", tx_step);
 	while (y_pixel < start_y + lineheight)
 	{
-		tx_y = (int)(tx_draw_pos * (128 - 1));
+		tx_y = (int)tx_draw_pos & (texture->height - 1);
 		tx_draw_pos += tx_step;
-		printf("pixel in texture: %d\n", 128 * tx_y + tx_x);
-		color = cub3D->map->wall_paths[choose_texture(cub3D->rays[x])][128 * tx_y + tx_x];
-		printf("color value: %u\n", color);
-		mlx_put_pixel(cub3D->image.world, x, y_pixel, color);
+		//printf("pixel coordinates in texture: x = %d | y = %d\n", tx_x, tx_y);
+		color = (uint32_t *)get_pixels(texture, tx_x, tx_y);
+		mlx_put_pixel(cub3D->image.world, x, y_pixel, *color);
 		y_pixel++;
 	}
 	return (y_pixel);
@@ -215,12 +212,6 @@ static void	draw_floor(t_cub3D *cub3D, int y_start, int y_end, int x)
 	}
 }
 
-/* while (start_y < y_pixel + lineheight)
-	{
-		mlx_put_pixel(cub3D->image.world, x, start_y, choose_color(cub3D->rays[x]));
-		start_y++;
-	} */
-
 static void	update_wall_slice(t_cub3D *cub3D, int start_y, int lineheight, int x)
 {
 	int	y_pixel;
@@ -232,11 +223,12 @@ static void	update_wall_slice(t_cub3D *cub3D, int start_y, int lineheight, int x
 
 void	draw_world(t_cub3D *cub3D)
 {
-	int		x;
-	int		lineheight;
-	int		start_y;
-	double	hitangle;
-	double	hitdist;
+	int			x;
+	int			start_y;
+	int			lineheight;
+	double		hitangle;
+	double		hitdist;
+	mlx_image_t	*texture;
 
 	x = 0;
 	while (x < WIDTH)
@@ -249,8 +241,8 @@ void	draw_world(t_cub3D *cub3D)
 		hitdist = cub3D->rays[x].distance * cos(hitangle) * (MAP_CELL_SIZE / 4);
 		if (hitdist < 1)
 			hitdist = 1.0;
-		lineheight = (128 * HEIGHT) / hitdist;
-		//printf("lineheight: %d\n", lineheight);
+		texture = cub3D->asset.walls[choose_texture(cub3D->rays[x])];
+		lineheight = (texture->height * HEIGHT) / hitdist;
 		if (lineheight > HEIGHT)
 			lineheight = HEIGHT;
 		start_y = HEIGHT / 2 - lineheight / 2;

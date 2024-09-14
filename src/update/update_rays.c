@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 19:47:12 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/08 21:17:28 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/14 19:07:29 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	update_rays(t_cub3D *cub3d)
 	int32_t	i;
 
 	i = 0;
-	while (i < WIDTH)
+	while (i < 1)
 	{
 		ray = cub3d->rays + i;
 		ray->x_start = cub3d->player.x + MAP_PLAYER_SIZE / 2;

@@ -8,6 +8,7 @@ RESET := \033[0m
 VPATH :=	src \
 			src/character \
 			src/cub \
+			src/analyser \
 			src/draw \
 			src/handlers \
 			src/map \
@@ -36,6 +37,9 @@ SOURCES :=	main.c \
 			init_player.c \
 			init.c \
 			\
+			dda_set_end_point.c \
+			dda.c \
+			\
 			draw_map.c \
 			draw_minimap.c \
 			draw_scene.c \
@@ -51,7 +55,7 @@ SOURCES :=	main.c \
 			copy_pixels.c \
 			fill.c \
 			get_pixels.c \
-			is_diagonal_move.c \
+			is_equal.c \
 			is_valid_position.c \
 			is_wall.c \
 			load_png.c \
@@ -67,7 +71,6 @@ SOURCES :=	main.c \
 			parse_colors.c \
 			validate_file.c \
 			\
-			dda.c \
 			update_player.c \
 			update_rays.c
 

@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 21:16:53 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/14 19:07:24 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/15 01:17:33 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,26 +46,26 @@ static void draw_line(mlx_image_t* img, int x0, int y0, int x1, int y1, uint32_t
     }
 }
 
-static void	fill_rays(t_cub3D *cub3d)
-{
-	int32_t	i;
-	t_ray	ray;
+// static void	fill_rays(t_cub3D *cub3d)
+// {
+// 	int32_t	i;
+// 	t_ray	ray;
 
-	i = 0;
-	while (i < 1)
-	{
-		ray = cub3d->rays[i];
-		draw_line(
-			cub3d->image.map,
-			ray.x_start,
-			ray.y_start,
-			ray.x_end,
-			ray.y_end,
-			color(78, 24, 155, 255)
-		);
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (i < WIDTH)
+// 	{
+// 		ray = cub3d->rays[i];
+// 		draw_line(
+// 			cub3d->image.map,
+// 			ray.x_start,
+// 			ray.y_start,
+// 			ray.x_end,
+// 			ray.y_end,
+// 			color(78, 24, 155, 255)
+// 		);
+// 		i++;
+// 	}
+// }
 
 static void	fill_obstacles(mlx_image_t *map, char **grid, t_cub3D *cub3d)
 {
@@ -114,5 +114,5 @@ void	draw_map(mlx_image_t *map, t_cub3D *cub3d)
 	clear_image(cub3d->image.map);
 	fill_obstacles(map, cub3d->map->grid, cub3d);
 	fill_player(map, cub3d->asset.navigator, cub3d);
-	fill_rays(cub3d);
+	// fill_rays(cub3d);
 }

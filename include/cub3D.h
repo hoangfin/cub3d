@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/09 16:39:45 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/15 00:59:03 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,11 @@ typedef struct s_ray
 	double	y_end;
 	double	distance;
 	double	angle;
+	double	dir_x;
+	double	dir_y;
+	double	dx;
+	double	dy;
+	int32_t	hit_side;
 }	t_ray;
 
 typedef enum e_character_state
@@ -124,7 +129,9 @@ void		destroy(t_cub3D *cub3D);
 void		init_player(t_cub3D *cub3d);
 int			init(t_cub3D *cub3D, char *pathname);
 
+void		dda_set_end_point(t_ray *ray, t_cub3D *cub3d);
 void		dda(t_ray *ray, t_cub3D *cub3d);
+
 void		update_player(t_cub3D *cub3d, double elapsed_time);
 void		update_rays(t_cub3D *cub3d);
 
@@ -142,6 +149,7 @@ void		clear_image(mlx_image_t *image);
 uint32_t	color(int32_t r, int32_t g, int32_t b, int32_t a);
 void		fill(mlx_image_t *image, uint32_t color);
 uint8_t		*get_pixels(mlx_image_t *image, int32_t x, int32_t y);
+bool		is_equal(double a, double b);
 bool		is_valid_position(int32_t x, int32_t y, t_cub3D *cub3d);
 bool		is_wall(int32_t x, int32_t y, t_cub3D *cub3d);
 mlx_image_t	*load_png(mlx_t *mlx, const char *pathname);
@@ -151,12 +159,6 @@ void		copy_pixels(
 				mlx_image_t *src,
 				int32_t offset_x,
 				int32_t offset_y
-			);
-bool		is_diagonal_move(
-				int32_t start_x,
-				int32_t start_y,
-				int32_t end_x,
-				int32_t end_y
 			);
 
 /*							PARSING							*/

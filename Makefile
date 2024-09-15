@@ -37,7 +37,9 @@ SOURCES :=	main.c \
 			init_player.c \
 			init.c \
 			\
-			dda_set_end_point.c \
+			dda_find_ray_hit_point.c \
+			dda_set_ray_distance.c \
+			dda_set_ray_end_point.c \
 			dda.c \
 			\
 			draw_map.c \

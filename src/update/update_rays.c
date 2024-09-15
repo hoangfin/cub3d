@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 19:47:12 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/15 01:24:52 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/15 14:20:45 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	update_rays(t_cub3D *cub3d)
 			ray->angle -= 2 * M_PI;
 		ray->dir_x = cos(ray->angle);
 		ray->dir_y = sin(ray->angle);
-		ray->dx = fabs(MAP_CELL_SIZE / ray->dir_x);
-		ray->dy = fabs(MAP_CELL_SIZE / ray->dir_y);
 		ray->hit_side = -1;
 		dda(ray, cub3d);
 		i++;

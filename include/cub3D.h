@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/15 00:59:03 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/15 14:22:19 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@ typedef struct s_ray
 	double	angle;
 	double	dir_x;
 	double	dir_y;
-	double	dx;
-	double	dy;
 	int32_t	hit_side;
 }	t_ray;
 
@@ -129,7 +127,19 @@ void		destroy(t_cub3D *cub3D);
 void		init_player(t_cub3D *cub3d);
 int			init(t_cub3D *cub3D, char *pathname);
 
-void		dda_set_end_point(t_ray *ray, t_cub3D *cub3d);
+void		dda_find_ray_hit_point(\
+				int32_t *row, \
+				int32_t *col, \
+				t_ray *ray, \
+				t_cub3D *cub3d \
+			);
+void		dda_set_ray_end_point(\
+				int32_t row_hit, \
+				int32_t col_hit, \
+				t_ray *ray, \
+				t_cub3D *cub3d \
+			);
+void		dda_set_ray_distance(t_ray *ray, t_cub3D *cub3d);
 void		dda(t_ray *ray, t_cub3D *cub3d);
 
 void		update_player(t_cub3D *cub3d, double elapsed_time);

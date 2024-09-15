@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:29:43 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/15 01:33:06 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/15 15:40:27 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	draw_scene(t_cub3D *cub3d)
 	i = 0;
 	start_time = clock();
 	clear_image(cub3d->image.scene);
+	// mlx_image_to_window()
+	// cub3d->image.scene.
 	end_time = clock();
 	time_spent = (double)(end_time - start_time) * 1000 / CLOCKS_PER_SEC;
 	printf("draw_scene::clear_image::execution time: %f ms\n", time_spent);

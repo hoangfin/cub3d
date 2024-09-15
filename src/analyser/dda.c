@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update_ui.c                                        :+:      :+:    :+:   */
+/*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/24 15:11:29 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/09 16:40:28 by hoatran          ###   ########.fr       */
+/*   Created: 2024/09/08 16:57:58 by hoatran           #+#    #+#             */
+/*   Updated: 2024/09/15 17:23:54 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	update_ui(t_cub3D *cub3d, double elapsed_time)
+void	dda(t_ray *ray, t_cub3D *cub3d)
 {
-	(void)elapsed_time;
-	draw_map(cub3d->image.map, cub3d);
-	draw_minimap(cub3d->image.minimap, cub3d);
-	draw_scene(cub3d);
+	int32_t	row;
+	int32_t	col;
+
+	row = ray->y_start / MAP_CELL_SIZE;
+	col = ray->x_start / MAP_CELL_SIZE;
+	dda_find_ray_hit_point(&row, &col, ray, cub3d);
+	dda_set_ray_end_point(row, col, ray, cub3d);
+	dda_set_ray_distance(ray, cub3d);
 }

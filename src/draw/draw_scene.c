@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_scene.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:29:43 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/16 10:38:43 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/16 14:46:17 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ void draw_line(mlx_image_t* img, int x0, int y0, int x1, int y1, uint32_t color)
 
     while (1)
     {
-        if (x0 >= WIDTH || y0 >= HEIGHT || x0 < 0 || y0 < 0)
-            break ;
-        // Set pixel at (x0, y0)
         mlx_put_pixel(img, x0, y0, color);
 
         // Break if the end point is reached
@@ -59,8 +56,8 @@ void	draw_scene(t_cub3D *cub3d)
 	while (i < WIDTH)
 	{
 		wall_height = (10 / cub3d->rays[i].distance) * camera_plane_distance;
-		if (wall_height > HEIGHT)
-			wall_height = HEIGHT;
+		if (wall_height >= HEIGHT)
+			wall_height = HEIGHT - 1;
 		draw_line(
 			cub3d->image.scene,
 			i,

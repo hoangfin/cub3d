@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 20:08:54 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/07 17:01:34 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/16 11:38:49 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static void	delete_images(t_cub3D *cub3d)
 		mlx_delete_image(cub3d->mlx, cub3d->image.walls[i++]);
 	mlx_delete_image(cub3d->mlx, cub3d->image.ceiling);
 	mlx_delete_image(cub3d->mlx, cub3d->image.floor);
+	mlx_delete_image(cub3d->mlx, cub3d->image.scene);
 	mlx_delete_image(cub3d->mlx, cub3d->image.obstacle);
-	mlx_delete_image(cub3d->mlx, cub3d->image.nav);
 	mlx_delete_image(cub3d->mlx, cub3d->image.minimap);
 	mlx_delete_image(cub3d->mlx, cub3d->image.minimap_bg);
 	mlx_delete_image(cub3d->mlx, cub3d->image.map);
@@ -47,7 +47,6 @@ void	destroy(t_cub3D *cub3d)
 	delete_images(cub3d);
 	delete_assets(cub3d);
 	free(cub3d->rays);
-	// delete_ray()
 	if (cub3d->mlx != NULL)
 		mlx_terminate(cub3d->mlx);
 	free(cub3d);

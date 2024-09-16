@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/10 14:57:25 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/16 11:40:12 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,11 @@ typedef struct s_image
 	mlx_image_t	*walls[4];
 	mlx_image_t	*ceiling;
 	mlx_image_t	*floor;
+	mlx_image_t	*scene;
 	mlx_image_t	*obstacle;
-	mlx_image_t	*nav;
 	mlx_image_t	*minimap;
 	mlx_image_t	*minimap_bg;
 	mlx_image_t	*map;
-	mlx_image_t	*ray;
-	mlx_image_t	*world;
 }	t_image;
 
 typedef struct s_map
@@ -82,10 +80,10 @@ typedef struct s_ray
 	double	y_start;
 	double	y_end;
 	double	distance;
-	double	distance_x;
-	double	distance_y;
 	double	angle;
-	int		side;
+	double	dir_x;
+	double	dir_y;
+	int32_t	hit_side;
 }	t_ray;
 
 typedef enum e_character_state
@@ -130,11 +128,27 @@ void		destroy(t_cub3D *cub3D);
 void		init_player(t_cub3D *cub3d);
 int			init(t_cub3D *cub3D, char *pathname);
 
+void		dda_find_ray_hit_point(\
+				int32_t *row, \
+				int32_t *col, \
+				t_ray *ray, \
+				t_cub3D *cub3d \
+			);
+void		dda_set_ray_end_point(\
+				int32_t row_hit, \
+				int32_t col_hit, \
+				t_ray *ray, \
+				t_cub3D *cub3d \
+			);
+void		dda_set_ray_distance(t_ray *ray, t_cub3D *cub3d);
+void		dda(t_ray *ray, t_cub3D *cub3d);
+
 void		update_player(t_cub3D *cub3d, double elapsed_time);
 void		update_rays(t_cub3D *cub3d);
 
 void		draw_map(mlx_image_t *map, t_cub3D *cub3D);
 void		draw_minimap(mlx_image_t *minimap, t_cub3D *cub3D);
+void		draw_scene(t_cub3D *cub3d);
 
 void 		close_handler(void	*param);
 void 		loop_handler(void *param);
@@ -142,9 +156,11 @@ void		process_input(t_cub3D *cub3D);
 void		update(t_cub3D *cub3d, double elapsed_time);
 void		update_ui(t_cub3D *cub3d, double elapsed_time);
 
+void		clear_image(mlx_image_t *image);
 uint32_t	color(int32_t r, int32_t g, int32_t b, int32_t a);
 void		fill(mlx_image_t *image, uint32_t color);
 uint8_t		*get_pixels(mlx_image_t *image, int32_t x, int32_t y);
+bool		is_equal(double a, double b);
 bool		is_valid_position(int32_t x, int32_t y, t_cub3D *cub3d);
 bool		is_wall(int32_t x, int32_t y, t_cub3D *cub3d);
 mlx_image_t	*load_png(mlx_t *mlx, const char *pathname);

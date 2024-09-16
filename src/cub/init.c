@@ -6,16 +6,15 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:34:37 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/13 10:08:31 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/16 11:39:06 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "cub3D.h"
 
 static void	create_rays(t_cub3D *cub3d)
 {
-	cub3d->rays = (t_ray *)ft_calloc(WIDTH + 1, sizeof(t_ray));
+	cub3d->rays = (t_ray *)ft_calloc(WIDTH, sizeof(t_ray));
 	if (cub3d->rays == NULL)
 	{
 		ft_fprintf(STDERR_FILENO, "Error\n%s\n", strerror(errno));

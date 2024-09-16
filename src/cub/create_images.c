@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 12:44:59 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/09 15:47:13 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/16 11:39:50 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,16 @@ void	create_images(t_cub3D *cub3d)
 	img = &cub3d->image;
 	create_image(&img->ceiling, cub3d, WIDTH, HEIGHT / 2);
 	create_image(&img->floor, cub3d, WIDTH, HEIGHT / 2);
+	create_image(&img->scene, cub3d, WIDTH, HEIGHT);
 	create_image(&img->map, cub3d, cub3d->map->width, cub3d->map->height);
 	create_image(&img->minimap_bg, cub3d, MINIMAP_SIZE, MINIMAP_SIZE);
 	create_image(&img->minimap, cub3d, MINIMAP_SIZE, MINIMAP_SIZE);
-	create_image(&img->world, cub3d, WIDTH, HEIGHT);
 	fill(img->ceiling, cub3d->map->color_ceiling);
 	fill(img->floor, cub3d->map->color_floor);
 	fill(img->minimap_bg, color(36, 37, 39, 255));
 	render_image(img->ceiling, cub3d, 0, 0);
 	render_image(img->floor, cub3d, 0, HEIGHT / 2);
-	render_image(img->world, cub3d, 0, 0);
+	render_image(img->scene, cub3d, 0, 0);
 	render_image(img->minimap_bg, cub3d, MINIMAP_X, MINIMAP_Y);
 	render_image(img->minimap, cub3d, MINIMAP_X, MINIMAP_Y);
 }

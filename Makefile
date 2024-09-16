@@ -8,6 +8,7 @@ RESET := \033[0m
 VPATH :=	src \
 			src/character \
 			src/cub \
+			src/analyser \
 			src/draw \
 			src/handlers \
 			src/map \
@@ -22,7 +23,7 @@ LIBFT := $(LIBFT_DIR)/libft.a
 MLX42 := $(MLX42_DIR)/build/libmlx42.a
 
 CC := cc
-CFLAGS :=	-Wall -Wextra -Werror\
+CFLAGS :=	-Wall -Wextra \
 			-Iinclude \
 			-I$(LIBFT_DIR) \
 			-I$(MLX42_DIR)/include/MLX42 \
@@ -36,8 +37,14 @@ SOURCES :=	main.c \
 			init_player.c \
 			init.c \
 			\
+			dda_find_ray_hit_point.c \
+			dda_set_ray_distance.c \
+			dda_set_ray_end_point.c \
+			dda.c \
+			\
 			draw_map.c \
 			draw_minimap.c \
+			draw_scene.c \
 			\
 			close_handler.c \
 			loop_handler.c \
@@ -45,10 +52,12 @@ SOURCES :=	main.c \
 			update_ui.c \
 			update.c \
 			\
+			clear_image.c \
 			color.c \
 			copy_pixels.c \
 			fill.c \
 			get_pixels.c \
+			is_equal.c \
 			is_valid_position.c \
 			is_wall.c \
 			load_png.c \

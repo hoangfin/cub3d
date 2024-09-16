@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_scene.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:29:43 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/15 20:38:02 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/16 10:38:43 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void draw_line(mlx_image_t* img, int x0, int y0, int x1, int y1, uint32_t color)
 
     while (1)
     {
+        if (x0 >= WIDTH || y0 >= HEIGHT || x0 < 0 || y0 < 0)
+            break ;
         // Set pixel at (x0, y0)
         mlx_put_pixel(img, x0, y0, color);
 

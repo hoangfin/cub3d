@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/15 14:22:19 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/16 23:18:54 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,17 @@ typedef struct s_map
 
 typedef struct s_ray
 {
-	double	x_start;
-	double	x_end;
-	double	y_start;
-	double	y_end;
-	double	distance;
-	double	angle;
-	double	dir_x;
-	double	dir_y;
-	int32_t	hit_side;
+	double		x_start;
+	double		x_end;
+	double		y_start;
+	double		y_end;
+	double		distance;
+	double		angle;
+	double		dir_x;
+	double		dir_y;
+	int32_t		hit_side;
+	mlx_image_t	*hit_texture;
+	int32_t		hit_texture_pos_x;
 }	t_ray;
 
 typedef enum e_character_state

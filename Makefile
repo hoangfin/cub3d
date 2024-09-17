@@ -74,7 +74,8 @@ SOURCES :=	main.c \
 			validate_file.c \
 			\
 			update_player.c \
-			update_rays.c
+			update_rays.c \
+			draw_vertical_segment.c \
 
 OBJECTS := $(SOURCES:%.c=$(BUILD_DIR)/%.o)
 

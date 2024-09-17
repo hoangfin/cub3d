@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_scene.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:29:43 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/16 14:46:17 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/17 15:42:00 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,15 @@ void	draw_scene(t_cub3D *cub3d)
 		wall_height = (10 / cub3d->rays[i].distance) * camera_plane_distance;
 		if (wall_height >= HEIGHT)
 			wall_height = HEIGHT - 1;
-		draw_line(
+        draw_vertical_segment(cub3d, HEIGHT / 2 - wall_height / 2, wall_height, i);
+		/* draw_line(
 			cub3d->image.scene,
 			i,
 			HEIGHT / 2 - wall_height / 2,
 			i,
 			HEIGHT / 2 + wall_height / 2,
 			color(238, 200 , 125, 255)
-		);
+		); */
 		i++;
 	}
 }

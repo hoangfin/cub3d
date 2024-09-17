@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/16 23:18:54 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/17 15:24:26 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define WIDTH 1280
 # define HEIGHT 960
 # define FOV (M_PI / 3)
+# define TEXTURE_SIZE 128
 
 # define MAP_SPACE ' '
 # define MAP_PATH '0'

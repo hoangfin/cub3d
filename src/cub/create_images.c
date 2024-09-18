@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_images.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 12:44:59 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/08 21:15:35 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/18 13:32:43 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	create_images(t_cub3D *cub3d)
 	create_image(&img->map, cub3d, cub3d->map->width, cub3d->map->height);
 	create_image(&img->minimap_bg, cub3d, MINIMAP_SIZE, MINIMAP_SIZE);
 	create_image(&img->minimap, cub3d, MINIMAP_SIZE, MINIMAP_SIZE);
-	fill(img->ceiling, cub3d->map->color_ceiling);
-	fill(img->floor, cub3d->map->color_floor);
+	//fill(img->ceiling, cub3d->map->color_ceiling);
+	//fill(img->floor, cub3d->map->color_floor);
 	fill(img->minimap_bg, color(36, 37, 39, 255));
 	render_image(img->ceiling, cub3d, 0, 0);
 	render_image(img->floor, cub3d, 0, HEIGHT / 2);

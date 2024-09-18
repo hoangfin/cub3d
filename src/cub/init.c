@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:34:37 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/17 00:34:04 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/18 18:30:01 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	load_assets(t_cub3D *cub3d)
 	asset = &cub3d->asset;
 	asset->obstacle = load_png(cub3d->mlx, "assets/textures/obstacle.png");
 	asset->navigator = load_png(cub3d->mlx, "assets/textures/navigator.png");
+	asset->door = load_png(cub3d->mlx, "assets/textures/door.png");
 	asset->walls[0] = load_png(cub3d->mlx, "assets/textures/north.png");
 	asset->walls[1] = load_png(cub3d->mlx, "assets/textures/east.png");
 	asset->walls[2] = load_png(cub3d->mlx, "assets/textures/south.png");

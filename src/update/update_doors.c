@@ -1,20 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_door_state.c                                   :+:      :+:    :+:   */
+/*   update_doors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 22:17:06 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/18 11:56:19 by hoatran          ###   ########.fr       */
+/*   Created: 2024/09/18 18:32:19 by hoatran           #+#    #+#             */
+/*   Updated: 2024/09/18 18:33:03 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "door.h"
+#include "cub3D.h"
 
-void	set_door_state(t_door_state *state, t_door_state new_state)
-{
-	if (*state == DOOR_OPENING || *state == DOOR_CLOSING)
-		return ;
-	*state = new_state;
-}
+void	update_doors(t_cub3D *cub3d, double elapsed_time)

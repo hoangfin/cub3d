@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/18 11:56:00 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/18 18:34:31 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,14 @@
 # include <errno.h>
 # include <math.h>
 # include "libft.h"
+# include "door.h"
 # include "MLX42.h"
 
 typedef struct s_asset
 {
 	mlx_image_t	*walls[4];
 	mlx_image_t	*obstacle;
+	mlx_image_t	*door;
 	mlx_image_t	*navigator;
 }	t_asset;
 

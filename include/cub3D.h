@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/18 18:34:31 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/18 23:21:20 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,9 @@ typedef struct s_asset
 
 typedef struct s_image
 {
-	mlx_image_t	*walls[4];
 	mlx_image_t	*ceiling;
 	mlx_image_t	*floor;
 	mlx_image_t	*scene;
-	mlx_image_t	*obstacle;
 	mlx_image_t	*minimap;
 	mlx_image_t	*minimap_bg;
 	mlx_image_t	*map;
@@ -117,6 +115,8 @@ typedef struct s_cub3D
 	mlx_t		*mlx;
 	t_map		*map;
 	t_character	player;
+	t_door		*doors;
+	uint32_t	door_count;
 	t_ray		*rays;
 	int32_t		mouse_x;
 	int32_t		mouse_y;
@@ -130,7 +130,7 @@ void		set_character_pos(double x, double y, t_cub3D *cub3D);
 void		create_images(t_cub3D *cub3d);
 void		destroy(t_cub3D *cub3D);
 void		init_player(t_cub3D *cub3d);
-int			init(t_cub3D *cub3D, char *pathname);
+void		init(t_cub3D *cub3D, char *pathname);
 
 void		dda_find_ray_hit_point(\
 				int32_t *row, \

@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 15:46:09 by hoatran           #+#    #+#             */
-/*   Updated: 2024/08/31 11:28:48 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/18 23:18:37 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	main(int argc, char **argv)
 		write(STDERR_FILENO, "Error\nInvalid arguments\n", 24);
 		return (EXIT_FAILURE);
 	}
-	if (init(&cub3d, argv[1]) != 0)
-		return (EXIT_FAILURE);
+	ft_bzero(&cub3d, sizeof(t_cub3D));
+	init(&cub3d, argv[1]);
 	mlx_loop(cub3d.mlx);
 	destroy(&cub3d);
 	return (EXIT_SUCCESS);

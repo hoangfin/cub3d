@@ -3,17 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   draw_scene.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:29:43 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/19 14:32:16 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:53:17 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static void	copy_pixel(t_cub3D *cub3D, int x, int y_pixel,
-int32_t hit_texture_pos_y)
+static void	copy_pixel(
+	t_cub3D *cub3D,
+	int32_t x,
+	int32_t y_pixel,
+	int32_t hit_texture_pos_y
+)
 {
 	uint32_t	*dest_pixels;
 	uint32_t	*src_pixels;
@@ -29,8 +33,7 @@ void	draw_texture(t_cub3D *cub3D, int x, int start_y, int lineheight)
 	double		scale;
 	double		texture_y;
 	int32_t		hit_texture_pos_y;
-	int			y_pixel;
-	
+	int32_t		y_pixel;
 
 	scale = (double)cub3D->rays[x].hit_texture->height / (double)lineheight;
 	texture_y = (start_y - HEIGHT / 2 + lineheight / 2) * scale;

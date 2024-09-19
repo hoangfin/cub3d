@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 13:15:34 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/15 15:47:51 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/19 15:36:02 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static bool	is_hit(int32_t row, int32_t col, t_cub3D *cub3d)
 		return (false);
 	if (col < 0 || (uint32_t)col >= cub3d->map->col_count)
 		return (false);
+	if (cub3d->map->grid[row][col] == MAP_DOOR)
+		return (true);
 	return (cub3d->map->grid[row][col] == MAP_WALL);
 }
 

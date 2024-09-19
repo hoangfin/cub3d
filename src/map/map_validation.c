@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 07:13:14 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/27 14:29:56 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:08:45 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,13 @@ static	t_bool	door_check(t_map *map)
 					|| (map->grid[row - 1][col] != MAP_WALL
 					&& map->grid[row + 1][col] != MAP_WALL))
 					return (false);
+				map->door_count++;
 			}
 			col++;
 		}
 		row++;
 	}
+	printf("door count: %u\n", map->door_count);
 	return (true);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/19 10:42:39 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/19 14:07:51 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_map
 	uint32_t	col_count;
 	uint32_t	color_floor;
 	uint32_t	color_ceiling;
+	uint32_t	door_count;
 }	t_map;
 
 typedef struct s_ray
@@ -117,7 +118,6 @@ typedef struct s_cub3D
 	t_map		*map;
 	t_character	player;
 	t_door		*doors;
-	uint32_t	door_count;
 	t_ray		*rays;
 	int32_t		mouse_x;
 	int32_t		mouse_y;

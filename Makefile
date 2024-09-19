@@ -73,6 +73,7 @@ SOURCES :=	main.c \
 			map_validation.c \
 			parse_colors.c \
 			validate_file.c \
+			valid_door.c \
 			\
 			update_player.c \
 			update_rays.c \

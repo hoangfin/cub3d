@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/19 14:36:51 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/19 16:38:27 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define HEIGHT 960
 # define FOV (M_PI / 3)
 # define TEXTURE_SIZE 128
+# define CAMERA_PLANE_DIST (WIDTH / 2) / tan(M_PI / 6)
 
 # define MAP_SPACE ' '
 # define MAP_PATH '0'
@@ -155,7 +156,6 @@ void		update_rays(t_cub3D *cub3d);
 void		draw_map(mlx_image_t *map, t_cub3D *cub3D);
 void		draw_minimap(mlx_image_t *minimap, t_cub3D *cub3D);
 void		draw_scene(t_cub3D *cub3d);
-void		draw_texture(t_cub3D *cub3D, int x, int start_y, int lineheight);
 
 void 		close_handler(void	*param);
 void 		loop_handler(void *param);
@@ -194,6 +194,7 @@ int		check_file_end(int fd);
 void	copy_line(t_map *map, char *line, unsigned int index);
 int		validate_map(t_map *map);
 t_bool	is_enclosed(t_map *map);
+t_bool	door_check(t_map *map);
 t_bool	too_many_commas(char *str);
 void	delete_map(t_map *map);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 07:13:14 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/19 14:23:28 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/19 15:08:35 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,39 +61,6 @@ static t_bool	has_valid_chars(t_map *map)
 				&& map->grid[row][col] != MAP_SPACE
 				&& map->grid[row][col] != MAP_WALL)
 				return (false);
-			col++;
-		}
-		row++;
-	}
-	return (true);
-}
-
-static	t_bool	door_check(t_map *map)
-{
-	unsigned int	row;
-	unsigned int	col;
-
-	row = 0;
-	while (map->grid[row])
-	{
-		col = 0;
-		while (map->grid[row][col])
-		{
-			if (col > 0 && col < map->col_count
-				&& row > 0 && row < map->row_count
-				&& map->grid[row][col] == MAP_DOOR)
-			{
-				if ((map->grid[row][col - 1] != MAP_WALL
-					&& map->grid[row][col + 1] == MAP_WALL)
-					|| (map->grid[row][col - 1] == MAP_WALL
-					&& map->grid[row][col + 1] != MAP_WALL)
-					|| (map->grid[row - 1][col] != MAP_WALL
-					&& map->grid[row + 1][col] == MAP_WALL)
-					|| (map->grid[row - 1][col] == MAP_WALL
-					&& map->grid[row + 1][col] != MAP_WALL))
-					return (false);
-				map->door_count++;
-			}
 			col++;
 		}
 		row++;

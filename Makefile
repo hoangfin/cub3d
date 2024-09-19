@@ -75,7 +75,6 @@ SOURCES :=	main.c \
 			\
 			update_player.c \
 			update_rays.c \
-			draw_vertical_segment.c \
 
 OBJECTS := $(SOURCES:%.c=$(BUILD_DIR)/%.o)
 

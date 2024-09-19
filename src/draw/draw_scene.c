@@ -6,43 +6,43 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:29:43 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/19 12:37:13 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:32:16 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void draw_line(mlx_image_t* img, int x0, int y0, int x1, int y1, uint32_t color)
+static void	copy_pixel(t_cub3D *cub3D, int x, int y_pixel,
+int32_t hit_texture_pos_y)
 {
-    // Bresenham's line algorithm
-    int dx = abs(x1 - x0);
-    int dy = abs(y1 - y0);
-    int sx = (x0 < x1) ? 1 : -1;
-    int sy = (y0 < y1) ? 1 : -1;
-    int err = dx - dy;
-    int e2;
+	uint32_t	*dest_pixels;
+	uint32_t	*src_pixels;
 
-    while (1)
-    {
-        mlx_put_pixel(img, x0, y0, color);
+	dest_pixels = (uint32_t *)get_pixels(cub3D->image.scene, x, y_pixel);
+	src_pixels = (uint32_t *)get_pixels(cub3D->rays[x].hit_texture,
+			cub3D->rays[x].hit_texture_pos_x, hit_texture_pos_y);
+	*dest_pixels = *src_pixels;
+}
 
-        // Break if the end point is reached
-        if (x0 == x1 && y0 == y1)
-            break;
+void	draw_texture(t_cub3D *cub3D, int x, int start_y, int lineheight)
+{
+	double		scale;
+	double		texture_y;
+	int32_t		hit_texture_pos_y;
+	int			y_pixel;
+	
 
-        e2 = 2 * err;
-
-        // Adjust error and coordinates accordingly
-        if (e2 > -dy) {
-            err -= dy;
-            x0 += sx;
-        }
-
-        if (e2 < dx) {
-            err += dx;
-            y0 += sy;
-        }
-    }
+	scale = (double)cub3D->rays[x].hit_texture->height / (double)lineheight;
+	texture_y = (start_y - HEIGHT / 2 + lineheight / 2) * scale;
+	y_pixel = start_y;
+	while (y_pixel < start_y + lineheight)
+	{
+		hit_texture_pos_y = (int32_t)texture_y
+			& (cub3D->rays[x].hit_texture->height - 1);
+		texture_y += scale;
+		copy_pixel(cub3D, x, y_pixel, hit_texture_pos_y);
+		y_pixel++;
+	}
 }
 
 void	draw_scene(t_cub3D *cub3d)
@@ -58,7 +58,7 @@ void	draw_scene(t_cub3D *cub3d)
 		wall_height = (10 / cub3d->rays[i].distance) * camera_plane_distance;
 		if (wall_height >= HEIGHT)
 			wall_height = HEIGHT - 1;
-        draw_vertical_segment(cub3d, HEIGHT / 2 - wall_height / 2, wall_height, i);
+        draw_texture(cub3d, i, HEIGHT / 2 - wall_height / 2, wall_height);
 		i++;
 	}
 }

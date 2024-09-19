@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/17 15:42:25 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:31:05 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ void		update_rays(t_cub3D *cub3d);
 void		draw_map(mlx_image_t *map, t_cub3D *cub3D);
 void		draw_minimap(mlx_image_t *minimap, t_cub3D *cub3D);
 void		draw_scene(t_cub3D *cub3d);
-void		draw_vertical_segment(t_cub3D *cub3D, int start_y, int lineheight, int x);
+void		draw_texture(t_cub3D *cub3D, int x, int start_y, int lineheight);
 
 void 		close_handler(void	*param);
 void 		loop_handler(void *param);

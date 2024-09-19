@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dda_find_ray_hit_point.c                           :+:      :+:    :+:   */
+/*   find_ray_hit_point.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 13:15:34 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/19 15:36:02 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/19 21:02:30 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,7 @@ static void	init_dist_and_step_y(
 		*dist_by_dy = fabs((MAP_CELL_SIZE - cur_pos_y) / ray->dir_y);
 }
 
-void	dda_find_ray_hit_point(
-	int32_t *row,
-	int32_t *col,
-	t_ray *ray,
-	t_cub3D *cub3d
-)
+void	find_hit_point(int32_t *row, int32_t *col, t_ray *ray, t_cub3D *cub3d)
 {
 	double	distance_by_dx;
 	double	distance_by_dy;

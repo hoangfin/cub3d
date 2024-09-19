@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/19 14:36:51 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/19 21:37:00 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # define WIDTH 1280
 # define HEIGHT 960
 # define FOV (M_PI / 3)
-# define TEXTURE_SIZE 128
 
 # define MAP_SPACE ' '
 # define MAP_PATH '0'
@@ -134,20 +133,11 @@ void		init_doors(t_cub3D *cub3d);
 void		init_player(t_cub3D *cub3d);
 void		init(t_cub3D *cub3D, char *pathname);
 
-void		dda_find_ray_hit_point(\
-				int32_t *row, \
-				int32_t *col, \
-				t_ray *ray, \
-				t_cub3D *cub3d \
-			);
-void		dda_set_ray_end_point(\
-				int32_t row_hit, \
-				int32_t col_hit, \
-				t_ray *ray, \
-				t_cub3D *cub3d \
-			);
-void		dda_set_ray_distance(t_ray *ray, t_cub3D *cub3d);
 void		dda(t_ray *ray, t_cub3D *cub3d);
+void		find_hit_point(int32_t *row, int32_t *col, t_ray *ray, t_cub3D *cub3d);
+void		set_distance(t_ray *ray, t_cub3D *cub3d);
+void		set_end_point(int32_t row_hit, int32_t col_hit, t_ray *ray);
+void		set_hit_texture(int32_t row, int32_t col, t_ray *ray, t_cub3D *cub3d);
 
 void		update_player(t_cub3D *cub3d, double elapsed_time);
 void		update_rays(t_cub3D *cub3d);
@@ -166,6 +156,7 @@ void		update_ui(t_cub3D *cub3d, double elapsed_time);
 void		clear_image(mlx_image_t *image);
 uint32_t	color(int32_t r, int32_t g, int32_t b, int32_t a);
 void		fill(mlx_image_t *image, uint32_t color);
+t_door		*get_door(int32_t row, int32_t col, t_cub3D *cub3d);
 uint8_t		*get_pixels(mlx_image_t *image, int32_t x, int32_t y);
 bool		is_equal(double a, double b);
 bool		is_valid_position(int32_t x, int32_t y, t_cub3D *cub3d);

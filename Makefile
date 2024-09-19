@@ -38,10 +38,11 @@ SOURCES :=	main.c \
 			init_player.c \
 			init.c \
 			\
-			dda_find_ray_hit_point.c \
-			dda_set_ray_distance.c \
-			dda_set_ray_end_point.c \
 			dda.c \
+			find_hit_point.c \
+			set_distance.c \
+			set_end_point.c \
+			set_hit_texture.c \
 			\
 			draw_map.c \
 			draw_minimap.c \
@@ -57,6 +58,7 @@ SOURCES :=	main.c \
 			color.c \
 			copy_pixels.c \
 			fill.c \
+			get_door.c \
 			get_pixels.c \
 			is_equal.c \
 			is_valid_position.c \

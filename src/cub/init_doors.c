@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:39:52 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/19 14:11:56 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/19 22:34:55 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	init_doors(t_cub3D *cub3d)
 	uint32_t	col;
 	int32_t		i;
 
+	printf("cub3d->map->door_count=%u\n", cub3d->map->door_count);
 	cub3d->doors = (t_door *)ft_calloc(cub3d->map->door_count, sizeof(t_door));
 	if (cub3d->doors == NULL)
 	{
@@ -48,7 +49,10 @@ void	init_doors(t_cub3D *cub3d)
 		while (col < cub3d->map->col_count)
 		{
 			if (cub3d->map->grid[row][col] == MAP_DOOR)
-				init_door(&cub3d->doors[i++], row, col, cub3d);
+			{
+				init_door(cub3d->doors + i, row, col, cub3d);
+				i++;
+			}
 			col++;
 		}
 		row++;

@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:29:43 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/17 15:42:00 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/19 12:37:13 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,6 @@ void	draw_scene(t_cub3D *cub3d)
 		if (wall_height >= HEIGHT)
 			wall_height = HEIGHT - 1;
         draw_vertical_segment(cub3d, HEIGHT / 2 - wall_height / 2, wall_height, i);
-		/* draw_line(
-			cub3d->image.scene,
-			i,
-			HEIGHT / 2 - wall_height / 2,
-			i,
-			HEIGHT / 2 + wall_height / 2,
-			color(238, 200 , 125, 255)
-		); */
 		i++;
 	}
 }

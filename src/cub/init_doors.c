@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:39:52 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/19 10:20:55 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/19 14:11:56 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,11 @@ static void	init_door(t_door *door, int32_t row, int32_t col, t_cub3D *cub3d)
 
 void	init_doors(t_cub3D *cub3d)
 {
-	int32_t	row;
-	int32_t	col;
-	int32_t	i;
+	uint32_t	row;
+	uint32_t	col;
+	int32_t		i;
 
-	cub3d->door_count = 2;
-	cub3d->doors = (t_door *)ft_calloc(cub3d->door_count, sizeof(t_door));
+	cub3d->doors = (t_door *)ft_calloc(cub3d->map->door_count, sizeof(t_door));
 	if (cub3d->doors == NULL)
 	{
 		ft_fprintf(STDERR_FILENO, "Error\n%s\n", strerror(errno));

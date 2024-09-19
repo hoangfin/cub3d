@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:34:37 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/19 10:43:26 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/19 14:14:04 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ static void	init_asset(t_cub3D *cub3d)
 void	init(t_cub3D *cub3d, char *pathname)
 {
 	cub3d->map = load_map(pathname);
+	if (cub3d->map == NULL)
+		printf("NULL map\n");
 	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "cub3D", false);
 	mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse_x, &cub3d->mouse_y);
 	init_asset(cub3d);

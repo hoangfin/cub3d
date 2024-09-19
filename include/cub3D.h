@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/18 23:21:20 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/19 10:42:39 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef struct s_character
 	double				speed;
 	double				angle;
 	t_character_state	state;
+	mlx_image_t			*image;
 }	t_character;
 
 typedef struct s_cub3D
@@ -129,6 +130,7 @@ void		set_character_pos(double x, double y, t_cub3D *cub3D);
 
 void		create_images(t_cub3D *cub3d);
 void		destroy(t_cub3D *cub3D);
+void		init_doors(t_cub3D *cub3d);
 void		init_player(t_cub3D *cub3d);
 void		init(t_cub3D *cub3D, char *pathname);
 

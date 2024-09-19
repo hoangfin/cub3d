@@ -33,6 +33,7 @@ SOURCES :=	main.c \
 			set_character_pos.c \
 			\
 			destroy.c \
+			init_doors.c \
 			create_images.c \
 			init_player.c \
 			init.c \

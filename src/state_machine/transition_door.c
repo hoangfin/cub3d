@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update.c                                           :+:      :+:    :+:   */
+/*   transition_door.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/24 15:10:15 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/20 22:50:10 by hoatran          ###   ########.fr       */
+/*   Created: 2024/09/20 13:58:37 by hoatran           #+#    #+#             */
+/*   Updated: 2024/09/20 14:24:04 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "door.h"
 
-void	update(t_cub3D *cub3d, double elapsed_time)
+void	transition_door(t_door *door, t_door_state state)
 {
-	update_player(cub3d, elapsed_time);
-	// update_doors(cub3d, elapsed_time);
-	update_rays(cub3d);
+	if (door->state == DOOR_OPENING || door->state == DOOR_CLOSING)
+		return ;
+	if (door->state == DOOR_OPEN)
+	{
+		if (state == DOOR_OPENING || state == DOOR_CLOSED)
+			return ;
+	}
+	if (door->state == DOOR_CLOSED)
+	{
+		if (state == DOOR_CLOSING || state == DOOR_OPEN)
+		return ;
+	}
+	door->state = state;
 }

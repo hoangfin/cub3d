@@ -12,6 +12,7 @@ VPATH :=	src \
 			src/draw \
 			src/handlers \
 			src/map \
+			src/sprite \
 			src/update \
 			src/utility
 
@@ -75,6 +76,9 @@ SOURCES :=	main.c \
 			map_validation.c \
 			parse_colors.c \
 			validate_file.c \
+			\
+			delete_sprite.c \
+			image_to_sprite.c \
 			\
 			update_player.c \
 			update_rays.c \

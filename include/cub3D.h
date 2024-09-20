@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/19 21:37:00 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/20 22:22:22 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@
 # include <errno.h>
 # include <math.h>
 # include "libft.h"
+# include "character.h"
+# include "sprite.h"
+# include "ray.h"
 # include "door.h"
 # include "MLX42.h"
 
@@ -46,8 +49,8 @@ typedef struct s_asset
 {
 	mlx_image_t	*walls[4];
 	mlx_image_t	*obstacle;
-	mlx_image_t	*door;
 	mlx_image_t	*navigator;
+	t_sprite	*sprite_door;
 }	t_asset;
 
 typedef struct s_image
@@ -72,44 +75,6 @@ typedef struct s_map
 	uint32_t	color_ceiling;
 	uint32_t	door_count;
 }	t_map;
-
-typedef struct s_ray
-{
-	double		x_start;
-	double		x_end;
-	double		y_start;
-	double		y_end;
-	double		distance;
-	double		angle;
-	double		dir_x;
-	double		dir_y;
-	int32_t		hit_side;
-	mlx_image_t	*hit_texture;
-	int32_t		hit_texture_pos_x;
-}	t_ray;
-
-typedef enum e_character_state
-{
-	CHAR_IDLE = 0,
-	CHAR_MOVING_FORWARD = 1 << 0,
-	CHAR_MOVING_RIGHT = 1 << 1,
-	CHAR_MOVING_BACKWARD = 1 << 2,
-	CHAR_MOVING_LEFT = 1 << 3,
-	CHAR_TURNING_LEFT = 1 << 4,
-	CHAR_TURNING_RIGHT = 1 << 5,
-	CHAR_ATTACKING = 1 << 6,
-	CHAR_DIED = 1 << 7
-}	t_character_state;
-
-typedef struct s_character
-{
-	double				x;
-	double				y;
-	double				speed;
-	double				angle;
-	t_character_state	state;
-	mlx_image_t			*image;
-}	t_character;
 
 typedef struct s_cub3D
 {
@@ -151,7 +116,7 @@ void 		close_handler(void	*param);
 void 		loop_handler(void *param);
 void		process_input(t_cub3D *cub3D);
 void		update(t_cub3D *cub3d, double elapsed_time);
-void		update_ui(t_cub3D *cub3d, double elapsed_time);
+void		update_ui(t_cub3D *cub3d);
 
 void		clear_image(mlx_image_t *image);
 uint32_t	color(int32_t r, int32_t g, int32_t b, int32_t a);

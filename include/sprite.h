@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update.c                                           :+:      :+:    :+:   */
+/*   sprite.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/24 15:10:15 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/20 22:50:10 by hoatran          ###   ########.fr       */
+/*   Created: 2024/09/20 15:15:15 by hoatran           #+#    #+#             */
+/*   Updated: 2024/09/20 22:17:09 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "MLX42.h"
 
-void	update(t_cub3D *cub3d, double elapsed_time)
+typedef struct s_sprite
 {
-	update_player(cub3d, elapsed_time);
-	// update_doors(cub3d, elapsed_time);
-	update_rays(cub3d);
-}
+	mlx_image_t	***frames;
+	int32_t		frame_index;
+	uint32_t	frame_w;
+	uint32_t	frame_h;
+	uint32_t	row_count;
+	uint32_t	col_count;
+}	t_sprite;
+
+void		delete_sprite(t_sprite *sprite, mlx_t *mlx);
+t_sprite	*image_to_sprite(
+				mlx_t *mlx,
+				mlx_image_t *image,
+				uint32_t row_count,
+				uint32_t col_count
+);

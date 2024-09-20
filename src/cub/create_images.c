@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_images.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 12:44:59 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/19 14:27:11 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/20 22:45:06 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,5 @@ void	create_images(t_cub3D *cub3d)
 	render_image(img->scene, cub3d, 0, 0);
 	render_image(img->minimap_bg, cub3d, MINIMAP_X, MINIMAP_Y);
 	render_image(img->minimap, cub3d, MINIMAP_X, MINIMAP_Y);
+	render_image(cub3d->asset.sprite_door->frames[0][0], cub3d, 600, 400);
 }

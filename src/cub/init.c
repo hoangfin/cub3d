@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:34:37 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/19 14:39:44 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/20 23:24:11 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,15 @@ static void	init_rays(t_cub3D *cub3d)
 
 static void	init_asset(t_cub3D *cub3d)
 {
-	t_asset	*asset;
+	t_asset		*asset;
+	mlx_image_t	*temp;
 
 	asset = &cub3d->asset;
 	asset->obstacle = load_png(cub3d->mlx, "assets/textures/obstacle.png");
 	asset->navigator = load_png(cub3d->mlx, "assets/textures/navigator.png");
-	asset->door = load_png(cub3d->mlx, "assets/textures/door.png");
+	temp = load_png(cub3d->mlx, "assets/textures/door.png");
+	asset->sprite_door = image_to_sprite(cub3d->mlx, temp, 1, 9);
+	mlx_delete_image(cub3d->mlx, temp);
 	asset->walls[0] = load_png(cub3d->mlx, "assets/textures/north.png");
 	asset->walls[1] = load_png(cub3d->mlx, "assets/textures/east.png");
 	asset->walls[2] = load_png(cub3d->mlx, "assets/textures/south.png");

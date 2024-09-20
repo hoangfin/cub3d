@@ -6,11 +6,11 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 23:34:14 by hoatran           #+#    #+#             */
-/*   Updated: 2024/08/17 16:40:17 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/20 23:06:30 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "utility.h"
 
 /**
  * Return a pointer to pixel data at coordinate (x, y).

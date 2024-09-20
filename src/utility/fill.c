@@ -6,11 +6,11 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 12:26:22 by hoatran           #+#    #+#             */
-/*   Updated: 2024/08/11 23:36:29 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/20 23:06:30 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "utility.h"
 
 /**
  * Fill entire image with the specified color.

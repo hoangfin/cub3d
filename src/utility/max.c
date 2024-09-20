@@ -6,11 +6,11 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 21:32:50 by hoatran           #+#    #+#             */
-/*   Updated: 2024/08/28 22:16:08 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/20 23:06:30 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "utility.h"
 
 int32_t	max(int32_t a, int32_t b)
 {

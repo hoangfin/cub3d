@@ -1,20 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update.c                                           :+:      :+:    :+:   */
+/*   delete_sprite.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/24 15:10:15 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/20 22:50:10 by hoatran          ###   ########.fr       */
+/*   Created: 2024/09/20 21:39:24 by hoatran           #+#    #+#             */
+/*   Updated: 2024/09/20 22:14:58 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	update(t_cub3D *cub3d, double elapsed_time)
+void	delete_sprite(t_sprite *sprite, mlx_t *mlx)
 {
-	update_player(cub3d, elapsed_time);
-	// update_doors(cub3d, elapsed_time);
-	update_rays(cub3d);
+	uint32_t	row;
+	uint32_t	col;
+
+	if (sprite == NULL || sprite->frames == NULL)
+		return ;
+	row = 0;
+	while (row < sprite->row_count)
+	{
+		col = 0;
+		while (sprite->frames[row] != NULL && col < sprite->col_count)
+		{
+			mlx_delete_image(mlx, sprite->frames[row][col]);
+			col++;
+		}
+		free(sprite->frames[row]);
+		row++;
+	}
+	free(sprite->frames);
+	free(sprite);
 }

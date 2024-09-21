@@ -6,11 +6,14 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:41:46 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/20 13:41:57 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/21 19:21:56 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MLX42.h"
+#ifndef RAY_H
+# define RAY_H
+
+# include "MLX42.h"
 
 typedef struct s_ray
 {
@@ -26,3 +29,5 @@ typedef struct s_ray
 	mlx_image_t	*hit_texture;
 	int32_t		hit_texture_pos_x;
 }	t_ray;
+
+#endif

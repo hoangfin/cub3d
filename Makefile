@@ -13,6 +13,7 @@ VPATH :=	src \
 			src/handlers \
 			src/map \
 			src/sprite \
+			src/state_machine \
 			src/update \
 			src/utility
 
@@ -80,8 +81,14 @@ SOURCES :=	main.c \
 			delete_sprite.c \
 			image_to_sprite.c \
 			\
+			transition_character.c \
+			transition_door.c \
+			update_character.c \
+			update_door.c \
+			\
+			update_doors.c \
 			update_player.c \
-			update_rays.c \
+			update_rays.c
 
 OBJECTS := $(SOURCES:%.c=$(BUILD_DIR)/%.o)
 

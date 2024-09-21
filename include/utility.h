@@ -1,17 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_utility.h                                    :+:      :+:    :+:   */
+/*   utility.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 21:20:15 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/20 22:55:43 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/21 19:22:40 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
-#include "MLX42.h"
+#ifndef UTILITY_H
+# define UTILITY_H
+
+# include <math.h>
+# include "MLX42.h"
 
 void		clear_image(mlx_image_t *image);
 void		fill(mlx_image_t *image, uint32_t color);
@@ -26,3 +29,5 @@ void		copy_pixels(
 				int32_t offset_x,
 				int32_t offset_y
 			);
+
+#endif

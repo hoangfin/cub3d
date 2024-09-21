@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 15:14:34 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/20 23:23:57 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/21 00:39:00 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static int32_t	init_frames(t_sprite *sprite, mlx_image_t *image, mlx_t *mlx)
 {
 	uint8_t *const	original = image->pixels;
-	uint32_t	row;
-	uint32_t	col;
+	uint32_t		row;
+	uint32_t		col;
 
 	row = 0;
 	while (row < sprite->row_count)
@@ -86,7 +86,6 @@ t_sprite	*image_to_sprite(
 		ft_fprintf(STDERR_FILENO, "Error\n%s\n", strerror(errno));
 		return (NULL);
 	}
-	sprite->frame_index = 0;
 	sprite->row_count = row_count;
 	sprite->col_count = col_count;
 	sprite->frame_w = image->width / col_count;

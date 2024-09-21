@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/20 22:22:22 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/21 18:01:54 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_asset
 	mlx_image_t	*obstacle;
 	mlx_image_t	*navigator;
 	t_sprite	*sprite_door;
+	t_sprite	*sprite_gun;
 }	t_asset;
 
 typedef struct s_image
@@ -104,6 +105,7 @@ void		set_distance(t_ray *ray, t_cub3D *cub3d);
 void		set_end_point(int32_t row_hit, int32_t col_hit, t_ray *ray);
 void		set_hit_texture(int32_t row, int32_t col, t_ray *ray, t_cub3D *cub3d);
 
+void		update_doors(t_cub3D *cub3d, double elapsed_time);
 void		update_player(t_cub3D *cub3d, double elapsed_time);
 void		update_rays(t_cub3D *cub3d);
 

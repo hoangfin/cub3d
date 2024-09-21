@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 12:44:59 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/20 22:45:06 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/21 19:02:05 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,9 @@ void	create_images(t_cub3D *cub3d)
 	fill(img->minimap_bg, color(36, 37, 39, 255));
 	render_image(img->ceiling, cub3d, 0, 0);
 	render_image(img->floor, cub3d, 0, HEIGHT / 2);
-	render_image(img->scene, cub3d, 0, 0);
+	// render_image(img->scene, cub3d, 0, 0);
 	render_image(img->minimap_bg, cub3d, MINIMAP_X, MINIMAP_Y);
 	render_image(img->minimap, cub3d, MINIMAP_X, MINIMAP_Y);
-	render_image(cub3d->asset.sprite_door->frames[0][0], cub3d, 600, 400);
+	render_image(img->scene, cub3d, 0, 0);
+	render_image(cub3d->player.image, cub3d, WIDTH / 2, HEIGHT - cub3d->player.image->height);
 }

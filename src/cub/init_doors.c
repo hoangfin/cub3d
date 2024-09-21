@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:39:52 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/20 22:46:37 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/21 20:31:05 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,8 @@ static void	init_door(t_door *door, int32_t row, int32_t col, t_cub3D *cub3d)
 	door->x = col * MAP_CELL_SIZE;
 	door->y = row * MAP_CELL_SIZE;
 	door->state = DOOR_CLOSED;
-	door->image = mlx_new_image(cub3d->mlx, 373, 476);
-	if (door->image == NULL)
-	{
-		ft_fprintf(STDERR_FILENO, "Error\n%s\n", mlx_strerror(mlx_errno));
-		destroy(cub3d);
-		exit(EXIT_FAILURE);
-	}
-	door->image = cub3d->asset.sprite_door->frames[0][0];
+	door->sprite = cub3d->asset.sprite_door;
+	door->image = door->sprite->frames[0][0];
 }
 
 void	init_doors(t_cub3D *cub3d)

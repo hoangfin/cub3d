@@ -6,11 +6,15 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:33:27 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/20 13:35:13 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/22 00:16:03 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MLX42.h"
+#ifndef CHARACTER_H
+# define CHARACTER_H
+
+# include "MLX42.h"
+# include "sprite.h"
 
 typedef enum e_character_state
 {
@@ -31,6 +35,12 @@ typedef struct s_character
 	double				y;
 	double				speed;
 	double				angle;
-	t_character_state	state;
 	mlx_image_t			*image;
+	t_sprite			*sprite;
+	t_character_state	state;
 }	t_character;
+
+void	transition_character(t_character *character, t_character_state state);
+void	update_character(t_character *character, double elapsed_time);
+
+#endif

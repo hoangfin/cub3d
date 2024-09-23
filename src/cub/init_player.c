@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:18:50 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/22 23:32:41 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/23 16:43:45 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static void	init_player_data(t_cub3D *cub3d, int32_t row, int32_t col)
 	cub3d->player.x = cub3d->player.prev_x;
 	cub3d->player.y = cub3d->player.prev_y;
 	cub3d->player.speed = 62.5;
-	cub3d->player.sprite = cub3d->asset.sprite_gun;
+	cub3d->player.elapsed_time = 0.0;
+	cub3d->player.sprite = cub3d->asset.sprite_wand;
 	cub3d->player.image = cub3d->player.sprite->frames[0][0];
 	if (direction == 'N')
 		cub3d->player.angle = M_PI / 2;

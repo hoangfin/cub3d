@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 12:57:11 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/22 10:35:57 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/23 17:21:15 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,12 @@ void	process_inputs(t_cub3D *cub3d)
 
 	player_state = cub3d->player.state;
 	process_mouse_move(&player_state, cub3d);
+	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_P))
+	// if (mlx_is_mouse_down(cub3d->mlx, MLX_MOUSE_BUTTON_LEFT))
+	{
+		printf("You've clicked left mouse\n");
+		player_state = CHAR_ATTACKING;
+	}
 	process_keypress(&player_state, cub3d->mlx);
 	transition_character(&cub3d->player, player_state);
 }

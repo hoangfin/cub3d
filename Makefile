@@ -6,7 +6,6 @@ YELLOW := \033[0;33m
 RESET := \033[0m
 
 VPATH :=	src \
-			src/character \
 			src/cub \
 			src/analyser \
 			src/draw \
@@ -32,7 +31,6 @@ CFLAGS :=	-Wall -Wextra \
 			-g -fsanitize=address
 
 SOURCES :=	main.c \
-			set_character_pos.c \
 			\
 			destroy.c \
 			init_doors.c \
@@ -88,7 +86,6 @@ SOURCES :=	main.c \
 			update_door.c \
 			\
 			update_doors.c \
-			update_player.c \
 			update_rays.c
 
 OBJECTS := $(SOURCES:%.c=$(BUILD_DIR)/%.o)

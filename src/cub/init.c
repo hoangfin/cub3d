@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:34:37 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/21 18:10:14 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/23 16:38:04 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static void	init_sprites(t_cub3D *cub3d)
 	temp = load_png(cub3d->mlx, "assets/sprites/door.png");
 	cub3d->asset.sprite_door = image_to_sprite(cub3d->mlx, temp, 1, 9);
 	mlx_delete_image(cub3d->mlx, temp);
-	temp = load_png(cub3d->mlx, "assets/sprites/gun.png");
-	cub3d->asset.sprite_gun= image_to_sprite(cub3d->mlx, temp, 1, 4);
+	temp = load_png(cub3d->mlx, "assets/sprites/wand.png");
+	cub3d->asset.sprite_wand= image_to_sprite(cub3d->mlx, temp, 1, 9);
 	mlx_delete_image(cub3d->mlx, temp);
 }
 

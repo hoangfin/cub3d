@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:33:27 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/22 19:37:19 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/23 16:43:23 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_character
 	double				y;
 	double				prev_x;
 	double				prev_y;
+	double				elapsed_time;
 	double				speed;
 	double				angle;
 	mlx_image_t			*image;

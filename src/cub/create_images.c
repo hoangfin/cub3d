@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 12:44:59 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/08 21:15:35 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/23 14:25:24 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,6 @@ void	create_images(t_cub3D *cub3d)
 	render_image(img->scene, cub3d, 0, 0);
 	render_image(img->minimap_bg, cub3d, MINIMAP_X, MINIMAP_Y);
 	render_image(img->minimap, cub3d, MINIMAP_X, MINIMAP_Y);
+	// render_image(img->scene, cub3d, 0, 0);
+	render_image(cub3d->player.image, cub3d, WIDTH / 2, HEIGHT - cub3d->player.image->height);
 }

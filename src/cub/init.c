@@ -6,13 +6,13 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:34:37 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/17 00:34:04 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/21 18:10:14 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static void	create_rays(t_cub3D *cub3d)
+static void	init_rays(t_cub3D *cub3d)
 {
 	cub3d->rays = (t_ray *)ft_calloc(WIDTH, sizeof(t_ray));
 	if (cub3d->rays == NULL)
@@ -23,9 +23,21 @@ static void	create_rays(t_cub3D *cub3d)
 	}
 }
 
-static void	load_assets(t_cub3D *cub3d)
+static void	init_sprites(t_cub3D *cub3d)
 {
-	t_asset	*asset;
+	mlx_image_t	*temp;
+
+	temp = load_png(cub3d->mlx, "assets/sprites/door.png");
+	cub3d->asset.sprite_door = image_to_sprite(cub3d->mlx, temp, 1, 9);
+	mlx_delete_image(cub3d->mlx, temp);
+	temp = load_png(cub3d->mlx, "assets/sprites/gun.png");
+	cub3d->asset.sprite_gun= image_to_sprite(cub3d->mlx, temp, 1, 4);
+	mlx_delete_image(cub3d->mlx, temp);
+}
+
+static void	init_asset(t_cub3D *cub3d)
+{
+	t_asset		*asset;
 
 	asset = &cub3d->asset;
 	asset->obstacle = load_png(cub3d->mlx, "assets/textures/obstacle.png");
@@ -47,20 +59,26 @@ static void	load_assets(t_cub3D *cub3d)
 		destroy(cub3d);
 		exit(1);
 	}
+	init_sprites(cub3d);
 }
 
-int	init(t_cub3D *cub3d, char *pathname)
+void	init(t_cub3D *cub3d, char *pathname)
 {
-	ft_bzero(cub3d, sizeof(t_cub3D));
 	cub3d->map = load_map(pathname);
+	if (cub3d->map == NULL)
+		printf("NULL map\n");
 	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "cub3D", false);
 	mlx_get_mouse_pos(cub3d->mlx, &cub3d->mouse_x, &cub3d->mouse_y);
-	load_assets(cub3d);
+	init_asset(cub3d);
 	init_player(cub3d);
-	create_rays(cub3d);
+	init_doors(cub3d);
+	init_rays(cub3d);
 	create_images(cub3d);
 	if (mlx_loop_hook(cub3d->mlx, loop_handler, cub3d) == false)
-		return (destroy(cub3d), -1);
+	{
+		ft_fprintf(STDERR_FILENO, "Error\n%s\n", mlx_strerror(mlx_errno));
+		destroy(cub3d);
+		exit(1);
+	}
 	mlx_close_hook(cub3d->mlx, close_handler, cub3d);
-	return (0);
 }

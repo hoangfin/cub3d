@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dda_find_ray_hit_point.c                           :+:      :+:    :+:   */
+/*   find_hit_point.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 13:15:34 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/15 15:47:51 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/21 12:02:03 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ static bool	is_hit(int32_t row, int32_t col, t_cub3D *cub3d)
 		return (false);
 	if (col < 0 || (uint32_t)col >= cub3d->map->col_count)
 		return (false);
+	if (
+		cub3d->map->grid[row][col] == MAP_DOOR
+		&& get_door(row, col, cub3d)->state != DOOR_OPEN
+	)
+		return (true);
 	return (cub3d->map->grid[row][col] == MAP_WALL);
 }
 
@@ -60,12 +65,7 @@ static void	init_dist_and_step_y(
 		*dist_by_dy = fabs((MAP_CELL_SIZE - cur_pos_y) / ray->dir_y);
 }
 
-void	dda_find_ray_hit_point(
-	int32_t *row,
-	int32_t *col,
-	t_ray *ray,
-	t_cub3D *cub3d
-)
+void	find_hit_point(int32_t *row, int32_t *col, t_ray *ray, t_cub3D *cub3d)
 {
 	double	distance_by_dx;
 	double	distance_by_dy;

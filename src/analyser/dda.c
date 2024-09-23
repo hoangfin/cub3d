@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:57:58 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/15 17:23:54 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/19 22:46:20 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	dda(t_ray *ray, t_cub3D *cub3d)
 
 	row = ray->y_start / MAP_CELL_SIZE;
 	col = ray->x_start / MAP_CELL_SIZE;
-	dda_find_ray_hit_point(&row, &col, ray, cub3d);
-	dda_set_ray_end_point(row, col, ray, cub3d);
-	dda_set_ray_distance(ray, cub3d);
+	find_hit_point(&row, &col, ray, cub3d);
+	set_end_point(row, col, ray);
+	set_hit_texture(row, col, ray, cub3d);
+	set_distance(ray, cub3d);
 }

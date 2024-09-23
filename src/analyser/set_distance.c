@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dda_set_ray_distance.c                             :+:      :+:    :+:   */
+/*   set_distance.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 12:56:56 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/15 13:12:01 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/19 21:03:19 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static double	calc_perp_distance(double distance, double angle_diff)
 	return (distance * fabs(cos_value));
 }
 
-void	dda_set_ray_distance(t_ray *ray, t_cub3D *cub3d)
+void	set_distance(t_ray *ray, t_cub3D *cub3d)
 {
 	double	distance;
 	double	angle_diff;

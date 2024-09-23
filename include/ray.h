@@ -1,18 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_equal.c                                         :+:      :+:    :+:   */
+/*   ray.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 19:21:32 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/20 23:06:30 by hoatran          ###   ########.fr       */
+/*   Created: 2024/09/20 13:41:46 by hoatran           #+#    #+#             */
+/*   Updated: 2024/09/21 19:21:56 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utility.h"
+#ifndef RAY_H
+# define RAY_H
 
-bool	is_equal(double a, double b)
+# include "MLX42.h"
+
+typedef struct s_ray
 {
-	return (fabs(a - b) < 1e-9);
-}
+	double		x_start;
+	double		x_end;
+	double		y_start;
+	double		y_end;
+	double		distance;
+	double		angle;
+	double		dir_x;
+	double		dir_y;
+	int32_t		hit_side;
+	mlx_image_t	*hit_texture;
+	int32_t		hit_texture_pos_x;
+}	t_ray;
+
+#endif

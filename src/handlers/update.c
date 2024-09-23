@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:10:15 by hoatran           #+#    #+#             */
-/*   Updated: 2024/08/31 19:48:31 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/22 19:53:52 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	update(t_cub3D *cub3d, double elapsed_time)
 {
-	update_player(cub3d, elapsed_time);
-	update_rays(cub3d);
-	// update_minimap(cub3D);
+	update_character(&cub3d->player, elapsed_time);
+	update_doors(cub3d, elapsed_time);
 }

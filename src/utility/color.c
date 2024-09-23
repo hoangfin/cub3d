@@ -6,11 +6,11 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 12:33:52 by hoatran           #+#    #+#             */
-/*   Updated: 2024/08/16 23:44:34 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/20 23:06:30 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "utility.h"
 
 /**
  * Return a color which is defined by `rgba` value.

@@ -1,18 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_equal.c                                         :+:      :+:    :+:   */
+/*   sprite.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 19:21:32 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/20 23:06:30 by hoatran          ###   ########.fr       */
+/*   Created: 2024/09/20 15:15:15 by hoatran           #+#    #+#             */
+/*   Updated: 2024/09/21 19:04:24 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utility.h"
+#ifndef SPRITE_H
+# define SPRITE_H
 
-bool	is_equal(double a, double b)
+# include "MLX42.h"
+
+typedef struct s_sprite
 {
-	return (fabs(a - b) < 1e-9);
-}
+	mlx_image_t	***frames;
+	uint32_t	frame_w;
+	uint32_t	frame_h;
+	uint32_t	row_count;
+	uint32_t	col_count;
+}	t_sprite;
+
+void		delete_sprite(t_sprite *sprite, mlx_t *mlx);
+t_sprite	*image_to_sprite(
+				mlx_t *mlx,
+				mlx_image_t *image,
+				uint32_t row_count,
+				uint32_t col_count
+);
+
+#endif

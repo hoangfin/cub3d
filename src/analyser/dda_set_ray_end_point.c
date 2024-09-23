@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda_set_ray_end_point.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/14 21:55:20 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/19 14:39:14 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/23 13:43:24 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 static void	handle_horizontal_hit(int32_t col, t_ray *ray, t_cub3D *cub3d)
 {
 	double	dy;
-	int32_t	pos_index;
+	double	factor;
+	//int32_t	pos_index;
 
 	ray->x_end = col * MAP_CELL_SIZE;
 	ray->hit_texture = cub3d->asset.walls[3];
@@ -29,14 +30,17 @@ static void	handle_horizontal_hit(int32_t col, t_ray *ray, t_cub3D *cub3d)
 		ray->y_end = ray->y_start - dy;
 	else
 		ray->y_end = ray->y_start + dy;
-	pos_index = (int32_t)ray->y_end % MAP_CELL_SIZE;
-	ray->hit_texture_pos_x = pos_index * TEXTURE_SIZE / MAP_CELL_SIZE;
+	factor = ray->x_end / WIDTH;
+	ray->hit_texture_pos_x = (int32_t)(factor * ray->hit_texture->width);
+	//pos_index = (int32_t)ray->y_end % MAP_CELL_SIZE;
+	//ray->hit_texture_pos_x = pos_index * TEXTURE_SIZE / MAP_CELL_SIZE;
 }
 
 static void	handle_vertical_hit(int32_t row, t_ray *ray, t_cub3D *cub3d)
 {
 	double	dx;
-	int32_t	pos_index;
+	double	factor;
+	//int32_t	pos_index;
 
 	ray->y_end = row * MAP_CELL_SIZE;
 	ray->hit_texture = cub3d->asset.walls[0];
@@ -50,8 +54,10 @@ static void	handle_vertical_hit(int32_t row, t_ray *ray, t_cub3D *cub3d)
 		ray->x_end = ray->x_start + dx;
 	else
 		ray->x_end = ray->x_start - dx;
-	pos_index = (int32_t)ray->x_end % MAP_CELL_SIZE;
-	ray->hit_texture_pos_x = pos_index * TEXTURE_SIZE / MAP_CELL_SIZE;
+	factor = ray->x_end / WIDTH;
+	ray->hit_texture_pos_x = (int32_t)(factor * ray->hit_texture->width);
+	//pos_index = (int32_t)ray->x_end % MAP_CELL_SIZE;
+	//ray->hit_texture_pos_x = pos_index * TEXTURE_SIZE / MAP_CELL_SIZE;
 }
 
 void	dda_set_ray_end_point(

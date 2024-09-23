@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:34:37 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/21 13:21:23 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/23 14:41:08 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,21 @@ static void	init_rays(t_cub3D *cub3d)
 	}
 }
 
+static void	init_sprites(t_cub3D *cub3d)
+{
+	mlx_image_t	*temp;
+
+	temp = load_png(cub3d->mlx, "assets/sprites/door.png");
+	cub3d->asset.sprite_door = image_to_sprite(cub3d->mlx, temp, 1, 9);
+	mlx_delete_image(cub3d->mlx, temp);
+	temp = load_png(cub3d->mlx, "assets/sprites/gun.png");
+	cub3d->asset.sprite_gun= image_to_sprite(cub3d->mlx, temp, 1, 4);
+	mlx_delete_image(cub3d->mlx, temp);
+}
+
 static void	init_asset(t_cub3D *cub3d)
 {
-	t_asset	*asset;
+	t_asset		*asset;
 
 	asset = &cub3d->asset;
 	asset->obstacle = load_png(cub3d->mlx, "assets/textures/obstacle.png");
@@ -66,6 +78,7 @@ static void	init_asset(t_cub3D *cub3d)
 		destroy(cub3d);
 		exit(1);
 	}
+	init_sprites(cub3d);
 }
 
 void	init(t_cub3D *cub3d, char *pathname)

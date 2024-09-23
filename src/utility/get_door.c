@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_equal.c                                         :+:      :+:    :+:   */
+/*   get_door.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 19:21:32 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/20 23:06:30 by hoatran          ###   ########.fr       */
+/*   Created: 2024/09/19 21:32:01 by hoatran           #+#    #+#             */
+/*   Updated: 2024/09/19 22:47:39 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utility.h"
+#include "cub3D.h"
 
-bool	is_equal(double a, double b)
+t_door	*get_door(int32_t row, int32_t col, t_cub3D *cub3d)
 {
-	return (fabs(a - b) < 1e-9);
+	uint32_t	i;
+
+	i = 0;
+	while (i < cub3d->map->door_count)
+	{
+		if (
+			(cub3d->doors[i].y / MAP_CELL_SIZE) == row
+			&& (cub3d->doors[i].x / MAP_CELL_SIZE) == col
+		)
+			return (cub3d->doors + i);
+		i++;
+	}
+	return (NULL);
 }

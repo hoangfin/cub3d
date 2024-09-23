@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_doors.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:39:52 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/19 14:11:56 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/23 14:40:12 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,8 @@ static void	init_door(t_door *door, int32_t row, int32_t col, t_cub3D *cub3d)
 	door->x = col * MAP_CELL_SIZE;
 	door->y = row * MAP_CELL_SIZE;
 	door->state = DOOR_CLOSED;
-	door->image = mlx_new_image(cub3d->mlx, 373, 476);
-	if (door->image == NULL)
-	{
-		ft_fprintf(STDERR_FILENO, "Error\n%s\n", mlx_strerror(mlx_errno));
-		destroy(cub3d);
-		exit(1);
-	}
-	copy_pixels(door->image, cub3d->asset.door, 373, 476);
+	door->sprite = cub3d->asset.sprite_door;
+	door->image = door->sprite->frames[0][0];
 }
 
 void	init_doors(t_cub3D *cub3d)
@@ -38,7 +32,7 @@ void	init_doors(t_cub3D *cub3d)
 	{
 		ft_fprintf(STDERR_FILENO, "Error\n%s\n", strerror(errno));
 		destroy(cub3d);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	row = 0;
 	i = 0;

@@ -6,22 +6,31 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:18:50 by hoatran           #+#    #+#             */
-/*   Updated: 2024/08/31 10:53:22 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/22 23:32:41 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static void	init_player_angle(t_character *player, const char direction)
+static void	init_player_data(t_cub3D *cub3d, int32_t row, int32_t col)
 {
+	const char	direction = cub3d->map->grid[row][col];
+
+	cub3d->player.prev_x = col * MAP_CELL_SIZE;
+	cub3d->player.prev_y = row * MAP_CELL_SIZE;
+	cub3d->player.x = cub3d->player.prev_x;
+	cub3d->player.y = cub3d->player.prev_y;
+	cub3d->player.speed = 62.5;
+	cub3d->player.sprite = cub3d->asset.sprite_gun;
+	cub3d->player.image = cub3d->player.sprite->frames[0][0];
 	if (direction == 'N')
-		player->angle = M_PI / 2;
+		cub3d->player.angle = M_PI / 2;
 	if (direction == 'E')
-		player->angle = 0;
+		cub3d->player.angle = 0;
 	if (direction == 'S')
-		player->angle = 3 * M_PI / 2;
+		cub3d->player.angle = 3 * M_PI / 2;
 	if (direction == 'W')
-		player->angle = M_PI;
+		cub3d->player.angle = M_PI;
 }
 
 void	init_player(t_cub3D *cub3d)
@@ -37,10 +46,7 @@ void	init_player(t_cub3D *cub3d)
 		{
 			if (ft_strchr(MAP_PLAYER, cub3d->map->grid[row][col]) != NULL)
 			{
-				cub3d->player.x = col * MAP_CELL_SIZE;
-				cub3d->player.y = row * MAP_CELL_SIZE;
-				cub3d->player.speed = 62.5;
-				init_player_angle(&cub3d->player, cub3d->map->grid[row][col]);
+				init_player_data(cub3d, row, col);
 				return ;
 			}
 			col++;

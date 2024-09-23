@@ -1,39 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill.c                                             :+:      :+:    :+:   */
+/*   delete_sprite.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/10 12:26:22 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/20 23:06:30 by hoatran          ###   ########.fr       */
+/*   Created: 2024/09/20 21:39:24 by hoatran           #+#    #+#             */
+/*   Updated: 2024/09/20 22:14:58 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utility.h"
+#include "cub3D.h"
 
-/**
- * Fill entire image with the specified color.
- *
- * @param image The pointer to MLX42 image
- * @param color The filling color
- *
- * @returns void
- */
-void	fill(mlx_image_t *image, uint32_t color)
+void	delete_sprite(t_sprite *sprite, mlx_t *mlx)
 {
-	uint32_t	x;
-	uint32_t	y;
+	uint32_t	row;
+	uint32_t	col;
 
-	y = 0;
-	while (y < image->height)
+	if (sprite == NULL || sprite->frames == NULL)
+		return ;
+	row = 0;
+	while (row < sprite->row_count)
 	{
-		x = 0;
-		while (x < image->width)
+		col = 0;
+		while (sprite->frames[row] != NULL && col < sprite->col_count)
 		{
-			mlx_put_pixel(image, x, y, color);
-			x++;
+			mlx_delete_image(mlx, sprite->frames[row][col]);
+			col++;
 		}
-		y++;
+		free(sprite->frames[row]);
+		row++;
 	}
+	free(sprite->frames);
+	free(sprite);
 }

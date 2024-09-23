@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_equal.c                                         :+:      :+:    :+:   */
+/*   transition_character.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 19:21:32 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/20 23:06:30 by hoatran          ###   ########.fr       */
+/*   Created: 2024/09/21 21:51:00 by hoatran           #+#    #+#             */
+/*   Updated: 2024/09/22 00:14:53 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utility.h"
+#include "character.h"
 
-bool	is_equal(double a, double b)
+void	transition_character(t_character *character, t_character_state state)
 {
-	return (fabs(a - b) < 1e-9);
+	if (character->state == CHAR_ATTACKING)
+		return ;
+	character->state = state;
 }

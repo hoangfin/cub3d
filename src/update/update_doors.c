@@ -6,7 +6,11 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:32:19 by hoatran           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/09/19 10:46:14 by hoatran          ###   ########.fr       */
+=======
+/*   Updated: 2024/09/23 14:18:43 by hoatran          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +18,13 @@
 
 void	update_doors(t_cub3D *cub3d, double elapsed_time)
 {
-	int32_t	i;
+	uint32_t	i;
 
 	i = 0;
-	while (i < cub3d->door_count)
+	while (i < cub3d->map->door_count)
 	{
-		
+		transition_door(cub3d->doors + i, DOOR_OPENING);
+		update_door(cub3d->doors + i, elapsed_time);
 		i++;
 	}
 }

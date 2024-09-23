@@ -6,14 +6,18 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:29:43 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/23 13:29:28 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/23 14:42:02 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static void	copy_pixel(t_cub3D *cub3D, int32_t x, int32_t y_pixel,
-int32_t hit_texture_pos_y)
+static void	copy_pixel(
+	t_cub3D *cub3D,
+	int32_t x,
+	int32_t y_pixel,
+	int32_t hit_texture_pos_y
+)
 {
 	uint32_t	*dest_pixels;
 	uint32_t	*src_pixels;
@@ -116,4 +120,5 @@ void	draw_scene(t_cub3D *cub3d)
 		draw_texture(cub3d, i, wall_height, scale);
 		i++;
 	}
+	copy_pixels(cub3d->image.scene, cub3d->doors[0].image, cub3d->doors[0].image->width, cub3d->doors[0].image->height);
 }

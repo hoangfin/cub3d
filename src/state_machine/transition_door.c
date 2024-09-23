@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_equal.c                                         :+:      :+:    :+:   */
+/*   transition_door.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 19:21:32 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/20 23:06:30 by hoatran          ###   ########.fr       */
+/*   Created: 2024/09/20 13:58:37 by hoatran           #+#    #+#             */
+/*   Updated: 2024/09/20 14:24:04 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utility.h"
+#include "door.h"
 
-bool	is_equal(double a, double b)
+void	transition_door(t_door *door, t_door_state state)
 {
-	return (fabs(a - b) < 1e-9);
+	if (door->state == DOOR_OPENING || door->state == DOOR_CLOSING)
+		return ;
+	if (door->state == DOOR_OPEN)
+	{
+		if (state == DOOR_OPENING || state == DOOR_CLOSED)
+			return ;
+	}
+	if (door->state == DOOR_CLOSED)
+	{
+		if (state == DOOR_CLOSING || state == DOOR_OPEN)
+		return ;
+	}
+	door->state = state;
 }

@@ -6,7 +6,11 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/09/21 14:05:19 by emansoor         ###   ########.fr       */
+=======
+/*   Updated: 2024/09/22 17:35:11 by hoatran          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +45,9 @@
 # include <errno.h>
 # include <math.h>
 # include "libft.h"
+# include "character.h"
+# include "sprite.h"
+# include "ray.h"
 # include "door.h"
 # include "MLX42.h"
 
@@ -50,6 +57,8 @@ typedef struct s_asset
 	mlx_image_t	*obstacle;
 	mlx_image_t	*door;
 	mlx_image_t	*navigator;
+	t_sprite	*sprite_door;
+	t_sprite	*sprite_gun;
 }	t_asset;
 
 typedef struct s_image
@@ -75,44 +84,6 @@ typedef struct s_map
 	uint32_t	door_count;
 }	t_map;
 
-typedef struct s_ray
-{
-	double		x_start;
-	double		x_end;
-	double		y_start;
-	double		y_end;
-	double		distance;
-	double		angle;
-	double		dir_x;
-	double		dir_y;
-	int32_t		hit_side;
-	mlx_image_t	*hit_texture;
-	int32_t		hit_texture_pos_x;
-}	t_ray;
-
-typedef enum e_character_state
-{
-	CHAR_IDLE = 0,
-	CHAR_MOVING_FORWARD = 1 << 0,
-	CHAR_MOVING_RIGHT = 1 << 1,
-	CHAR_MOVING_BACKWARD = 1 << 2,
-	CHAR_MOVING_LEFT = 1 << 3,
-	CHAR_TURNING_LEFT = 1 << 4,
-	CHAR_TURNING_RIGHT = 1 << 5,
-	CHAR_ATTACKING = 1 << 6,
-	CHAR_DIED = 1 << 7
-}	t_character_state;
-
-typedef struct s_character
-{
-	double				x;
-	double				y;
-	double				speed;
-	double				angle;
-	t_character_state	state;
-	mlx_image_t			*image;
-}	t_character;
-
 typedef struct s_cub3D
 {
 	mlx_t		*mlx;
@@ -135,37 +106,32 @@ void		init_doors(t_cub3D *cub3d);
 void		init_player(t_cub3D *cub3d);
 void		init(t_cub3D *cub3D, char *pathname);
 
-void		dda_find_ray_hit_point(\
-				int32_t *row, \
-				int32_t *col, \
-				t_ray *ray, \
-				t_cub3D *cub3d \
-			);
-void		dda_set_ray_end_point(\
-				int32_t row_hit, \
-				int32_t col_hit, \
-				t_ray *ray, \
-				t_cub3D *cub3d \
-			);
-void		dda_set_ray_distance(t_ray *ray, t_cub3D *cub3d);
 void		dda(t_ray *ray, t_cub3D *cub3d);
+void		find_hit_point(int32_t *row, int32_t *col, t_ray *ray, t_cub3D *cub3d);
+void		set_distance(t_ray *ray, t_cub3D *cub3d);
+void		set_end_point(int32_t row_hit, int32_t col_hit, t_ray *ray);
+void		set_hit_texture(int32_t row, int32_t col, t_ray *ray, t_cub3D *cub3d);
 
+void		update_doors(t_cub3D *cub3d, double elapsed_time);
 void		update_player(t_cub3D *cub3d, double elapsed_time);
 void		update_rays(t_cub3D *cub3d);
 
 void		draw_map(mlx_image_t *map, t_cub3D *cub3D);
 void		draw_minimap(mlx_image_t *minimap, t_cub3D *cub3D);
 void		draw_scene(t_cub3D *cub3d);
+void		draw_texture(t_cub3D *cub3D, int x, int start_y, int lineheight);
 
 void 		close_handler(void	*param);
+void		handle_collisions(t_cub3D *cub3d);
 void 		loop_handler(void *param);
-void		process_input(t_cub3D *cub3D);
+void		process_inputs(t_cub3D *cub3D);
 void		update(t_cub3D *cub3d, double elapsed_time);
-void		update_ui(t_cub3D *cub3d, double elapsed_time);
+void		update_ui(t_cub3D *cub3d);
 
 void		clear_image(mlx_image_t *image);
 uint32_t	color(int32_t r, int32_t g, int32_t b, int32_t a);
 void		fill(mlx_image_t *image, uint32_t color);
+t_door		*get_door(int32_t row, int32_t col, t_cub3D *cub3d);
 uint8_t		*get_pixels(mlx_image_t *image, int32_t x, int32_t y);
 bool		is_equal(double a, double b);
 bool		is_valid_position(int32_t x, int32_t y, t_cub3D *cub3d);

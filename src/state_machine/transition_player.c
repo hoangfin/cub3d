@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_character_pos.c                                :+:      :+:    :+:   */
+/*   transition_player.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/25 10:32:20 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/04 13:41:50 by hoatran          ###   ########.fr       */
+/*   Created: 2024/09/21 21:51:00 by hoatran           #+#    #+#             */
+/*   Updated: 2024/09/23 21:44:29 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "player.h"
 
-void	set_character_pos(double x, double y, t_cub3D *cub3D)
+void	transition_player(t_player *player, t_player_state state)
 {
-	if (
-		!is_valid_position(x, y, cub3D)
-		|| !is_valid_position(x + MAP_PLAYER_SIZE, y, cub3D)
-		|| !is_valid_position(x, y + MAP_PLAYER_SIZE, cub3D)
-		|| !is_valid_position(x + MAP_PLAYER_SIZE, y + MAP_PLAYER_SIZE, cub3D)
-	)
+	if (player->state == PLAYER_ATTACKING)
 		return ;
-	cub3D->player.x = x;
-	cub3D->player.y = y;
+	player->state = state;
 }

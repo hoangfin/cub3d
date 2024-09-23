@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 10:37:07 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/23 10:28:57 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/23 21:43:48 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static bool	has_collision(int32_t x, int32_t y, t_cub3D *cub3d)
 
 static void	handle_wall_collision(t_cub3D *cub3d)
 {
-	t_character *const	player = &cub3d->player;
+	t_player *const	player = &cub3d->player;
 	const int32_t		row = player->y / MAP_CELL_SIZE;
 	const int32_t		col = player->x / MAP_CELL_SIZE;
 

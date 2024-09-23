@@ -6,31 +6,48 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 10:18:50 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/22 23:32:41 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/23 23:39:29 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
+static void	init_player_angle(t_player *player, const char direction)
+{
+	if (direction == 'N')
+		player->angle = M_PI / 2;
+	if (direction == 'E')
+		player->angle = 0;
+	if (direction == 'S')
+		player->angle = 3 * M_PI / 2;
+	if (direction == 'W')
+		player->angle = M_PI;
+}
+
 static void	init_player_data(t_cub3D *cub3d, int32_t row, int32_t col)
 {
-	const char	direction = cub3d->map->grid[row][col];
+	t_player	*player;
 
-	cub3d->player.prev_x = col * MAP_CELL_SIZE;
-	cub3d->player.prev_y = row * MAP_CELL_SIZE;
-	cub3d->player.x = cub3d->player.prev_x;
-	cub3d->player.y = cub3d->player.prev_y;
-	cub3d->player.speed = 62.5;
-	cub3d->player.sprite = cub3d->asset.sprite_gun;
-	cub3d->player.image = cub3d->player.sprite->frames[0][0];
-	if (direction == 'N')
-		cub3d->player.angle = M_PI / 2;
-	if (direction == 'E')
-		cub3d->player.angle = 0;
-	if (direction == 'S')
-		cub3d->player.angle = 3 * M_PI / 2;
-	if (direction == 'W')
-		cub3d->player.angle = M_PI;
+	player = &cub3d->player;
+	init_player_angle(player, cub3d->map->grid[row][col]);
+	player->prev_x = col * MAP_CELL_SIZE;
+	player->prev_y = row * MAP_CELL_SIZE;
+	player->x = player->prev_x;
+	player->y = player->prev_y;
+	player->speed = 62.5;
+	player->state = PLAYER_IDLE;
+	player->elapsed_time = 0.0;
+	player->sprite = cub3d->asset.sprite_wand;
+	player->frame_index = 0;
+	player->image = mlx_new_image(
+		cub3d->mlx, player->sprite->frame_w, player->sprite->frame_h
+	);
+	if (player->image == NULL)
+	{
+		ft_fprintf(STDERR_FILENO, "Error\n%s\n", mlx_strerror(mlx_errno));
+		destroy(cub3d);
+		exit(1);
+	}
 }
 
 void	init_player(t_cub3D *cub3d)

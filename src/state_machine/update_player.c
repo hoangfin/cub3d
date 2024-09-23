@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update_character.c                                 :+:      :+:    :+:   */
+/*   update_player.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 14:10:09 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/22 19:37:56 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/23 23:54:28 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
-#include "character.h"
+#include "player.h"
 
-static void	handle_turn(t_character *player)
+static void	handle_turn(t_player *player)
 {
-	if (!(player->state & (CHAR_TURNING_LEFT | CHAR_TURNING_RIGHT)))
+	if (!(player->state & (PLAYER_TURNING_LEFT | PLAYER_TURNING_RIGHT)))
 		return ;
-	if (player->state & CHAR_TURNING_LEFT)
+	if (player->state & PLAYER_TURNING_LEFT)
 		player->angle -= M_PI / 36;
-	if (player->state & CHAR_TURNING_RIGHT)
+	if (player->state & PLAYER_TURNING_RIGHT)
 		player->angle += M_PI / 36;
 	if (player->angle < 0)
 		player->angle += 2 * M_PI;
@@ -27,17 +27,17 @@ static void	handle_turn(t_character *player)
 		player->angle -= 2 * M_PI;
 }
 
-static void	handle_movement(t_character *player, double elapsed_time)
+static void	handle_movement(t_player *player, double elapsed_time)
 {
 	const double	distance = player->speed * elapsed_time;
 	double			move_angle;
 
 	move_angle = player->angle;
-	if (player->state & CHAR_MOVING_BACKWARD)
+	if (player->state & PLAYER_MOVING_BACKWARD)
 		move_angle += M_PI;
-	else if (player->state & CHAR_MOVING_LEFT)
+	else if (player->state & PLAYER_MOVING_LEFT)
 		move_angle += M_PI / 2;
-	else if (player->state & CHAR_MOVING_RIGHT)
+	else if (player->state & PLAYER_MOVING_RIGHT)
 		move_angle += 3 * M_PI / 2;
 	player->prev_x = player->x;
 	player->prev_y = player->y;
@@ -45,17 +45,31 @@ static void	handle_movement(t_character *player, double elapsed_time)
 	player->y -= distance * sin(move_angle);
 }
 
-void	update_character(t_character *character, double elapsed_time)
+static void	handle_attacking(t_player *player, double elapsed_time)
 {
-	t_character_state	move_mask;
+	player->elapsed_time += elapsed_time;
+	player->frame_index = player->elapsed_time / 0.099;
+	if (player->frame_index == (int32_t)player->sprite->col_count - 1)
+	{
+		player->state = PLAYER_IDLE;
+		player->frame_index = 0;
+		player->elapsed_time = 0.0;
+	}
+}
 
-	handle_turn(character);
+void	update_player(t_player *player, double elapsed_time)
+{
+	t_player_state	move_mask;
+
+	handle_turn(player);
 	move_mask = (\
-		CHAR_MOVING_FORWARD \
-		| CHAR_MOVING_BACKWARD \
-		| CHAR_MOVING_LEFT \
-		| CHAR_MOVING_RIGHT \
+		PLAYER_MOVING_FORWARD \
+		| PLAYER_MOVING_BACKWARD \
+		| PLAYER_MOVING_LEFT \
+		| PLAYER_MOVING_RIGHT \
 	);
-	if (character->state & move_mask)
-		handle_movement(character, elapsed_time);
+	if (player->state & move_mask)
+		handle_movement(player, elapsed_time);
+	else if (player->state == PLAYER_ATTACKING)
+		handle_attacking(player, elapsed_time);
 }

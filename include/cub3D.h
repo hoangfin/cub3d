@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/22 17:35:11 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/23 23:38:02 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # include <errno.h>
 # include <math.h>
 # include "libft.h"
-# include "character.h"
+# include "player.h"
 # include "sprite.h"
 # include "ray.h"
 # include "door.h"
@@ -51,7 +51,7 @@ typedef struct s_asset
 	mlx_image_t	*obstacle;
 	mlx_image_t	*navigator;
 	t_sprite	*sprite_door;
-	t_sprite	*sprite_gun;
+	t_sprite	*sprite_wand;
 }	t_asset;
 
 typedef struct s_image
@@ -81,7 +81,7 @@ typedef struct s_cub3D
 {
 	mlx_t		*mlx;
 	t_map		*map;
-	t_character	player;
+	t_player	player;
 	t_door		*doors;
 	t_ray		*rays;
 	int32_t		mouse_x;
@@ -90,8 +90,6 @@ typedef struct s_cub3D
 	t_image		image;
 }	t_cub3D;
 
-t_character	*new_character(int32_t x, int32_t y, double speed, double angle);
-void		set_character_pos(double x, double y, t_cub3D *cub3D);
 
 void		create_images(t_cub3D *cub3d);
 void		destroy(t_cub3D *cub3D);
@@ -106,11 +104,11 @@ void		set_end_point(int32_t row_hit, int32_t col_hit, t_ray *ray);
 void		set_hit_texture(int32_t row, int32_t col, t_ray *ray, t_cub3D *cub3d);
 
 void		update_doors(t_cub3D *cub3d, double elapsed_time);
-void		update_player(t_cub3D *cub3d, double elapsed_time);
 void		update_rays(t_cub3D *cub3d);
 
 void		draw_map(mlx_image_t *map, t_cub3D *cub3D);
 void		draw_minimap(mlx_image_t *minimap, t_cub3D *cub3D);
+void		draw_player(t_cub3D *cub3d);
 void		draw_scene(t_cub3D *cub3d);
 void		draw_texture(t_cub3D *cub3D, int x, int start_y, int lineheight);
 

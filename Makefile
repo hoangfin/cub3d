@@ -51,8 +51,9 @@ SOURCES :=	main.c \
 			draw_scene.c \
 			\
 			close_handler.c \
+			handle_collisions.c \
 			loop_handler.c \
-			process_input.c \
+			process_inputs.c \
 			update_ui.c \
 			update.c \
 			\

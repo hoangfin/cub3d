@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_input.c                                    :+:      :+:    :+:   */
+/*   process_inputs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 12:57:11 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/22 00:36:04 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/22 10:35:57 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	process_keypress(t_character_state *state, mlx_t *mlx)
 		*state |= CHAR_MOVING_RIGHT;
 }
 
-void	process_input(t_cub3D *cub3d)
+void	process_inputs(t_cub3D *cub3d)
 {
 	t_character_state	player_state;
 

@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 00:13:59 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/20 15:26:53 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/22 19:54:00 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ void	loop_handler(void *param)
 	t_cub3D	*cub3d;
 
 	cub3d = (t_cub3D *)param;
-	process_input(cub3d);
+	process_inputs(cub3d);
 	update(cub3d, cub3d->mlx->delta_time);
-	// handle_collisions(cub3d);
+	handle_collisions(cub3d);
+	update_rays(cub3d);
 	update_ui(cub3d);
 }

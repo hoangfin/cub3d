@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/21 18:01:54 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/22 17:35:11 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,9 @@ void		draw_scene(t_cub3D *cub3d);
 void		draw_texture(t_cub3D *cub3D, int x, int start_y, int lineheight);
 
 void 		close_handler(void	*param);
+void		handle_collisions(t_cub3D *cub3d);
 void 		loop_handler(void *param);
-void		process_input(t_cub3D *cub3D);
+void		process_inputs(t_cub3D *cub3D);
 void		update(t_cub3D *cub3d, double elapsed_time);
 void		update_ui(t_cub3D *cub3d);
 

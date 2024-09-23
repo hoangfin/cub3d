@@ -6,12 +6,16 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:33:27 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/22 00:16:03 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/22 19:37:19 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CHARACTER_H
 # define CHARACTER_H
+
+# ifndef M_PI
+#  define M_PI 3.14159265358979323846
+# endif
 
 # include "MLX42.h"
 # include "sprite.h"
@@ -33,6 +37,8 @@ typedef struct s_character
 {
 	double				x;
 	double				y;
+	double				prev_x;
+	double				prev_y;
 	double				speed;
 	double				angle;
 	mlx_image_t			*image;

@@ -6,11 +6,12 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 14:10:09 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/22 00:40:14 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/22 19:37:56 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include <math.h>
+#include "character.h"
 
 static void	handle_turn(t_character *player)
 {
@@ -38,6 +39,8 @@ static void	handle_movement(t_character *player, double elapsed_time)
 		move_angle += M_PI / 2;
 	else if (player->state & CHAR_MOVING_RIGHT)
 		move_angle += 3 * M_PI / 2;
+	player->prev_x = player->x;
+	player->prev_y = player->y;
 	player->x += distance * cos(move_angle);
 	player->y -= distance * sin(move_angle);
 }
@@ -55,5 +58,4 @@ void	update_character(t_character *character, double elapsed_time)
 	);
 	if (character->state & move_mask)
 		handle_movement(character, elapsed_time);
-	// set_character_pos(cub3d->player.x + dx, cub3d->player.y - dy, cub3d);
 }

@@ -56,6 +56,7 @@ SOURCES :=	main.c \
 			update.c \
 			\
 			clear_image.c \
+			clear_pixels.c \
 			color.c \
 			copy_pixels.c \
 			fill.c \

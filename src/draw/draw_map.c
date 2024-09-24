@@ -6,10 +6,11 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 21:16:53 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/21 00:09:55 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/25 00:43:02 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <time.h>
 #include "cub3D.h"
 
 static void draw_line(mlx_image_t* img, int x0, int y0, int x1, int y1, uint32_t color)
@@ -67,31 +68,31 @@ static void	fill_rays(t_cub3D *cub3d)
 	}
 }
 
-static void	fill_obstacles(mlx_image_t *map, char **grid, t_cub3D *cub3d)
-{
-	uint8_t		*original;
-	uint32_t	row;
-	uint32_t	col;
+// static void	fill_obstacles(mlx_image_t *map, char **grid, t_cub3D *cub3d)
+// {
+// 	uint8_t		*original;
+// 	uint32_t	row;
+// 	uint32_t	col;
 
-	grid = cub3d->map->grid;
-	original = map->pixels;
-	row = 0;
-	while (row < cub3d->map->row_count)
-	{
-		col = 0;
-		while (col < cub3d->map->col_count)
-		{
-			map->pixels = get_pixels(
-				map, col * MAP_CELL_SIZE, row * MAP_CELL_SIZE
-			);
-			if (grid[row][col] == MAP_WALL)
-				copy_pixels(map, cub3d->asset.obstacle, MAP_CELL_SIZE, MAP_CELL_SIZE);
-			map->pixels = original;
-			col++;
-		}
-		row++;
-	}
-}
+// 	grid = cub3d->map->grid;
+// 	original = map->pixels;
+// 	row = 0;
+// 	while (row < cub3d->map->row_count)
+// 	{
+// 		col = 0;
+// 		while (col < cub3d->map->col_count)
+// 		{
+// 			map->pixels = get_pixels(
+// 				map, col * MAP_CELL_SIZE, row * MAP_CELL_SIZE
+// 			);
+// 			if (grid[row][col] == MAP_WALL)
+// 				copy_pixels(map, cub3d->asset.obstacle, MAP_CELL_SIZE, MAP_CELL_SIZE);
+// 			map->pixels = original;
+// 			col++;
+// 		}
+// 		row++;
+// 	}
+// }
 
 static void	fill_player(mlx_image_t *map, mlx_image_t *nav, t_cub3D *cub3d)
 {
@@ -111,8 +112,18 @@ static void	fill_player(mlx_image_t *map, mlx_image_t *nav, t_cub3D *cub3d)
 
 void	draw_map(mlx_image_t *map, t_cub3D *cub3d)
 {
-	clear_image(cub3d->image.map);
-	fill_obstacles(map, cub3d->map->grid, cub3d);
+	clock_t	start;
+	clock_t	end;
+	uint8_t	*player_pixels;
+
+	start = clock();
+	// clear_image(cub3d->image.map);
+
+	end = clock();
+	// printf("draw_map::clear_image runs in %f ms\n", ((double)(end - start)) / CLOCKS_PER_SEC * 1000);
+	// fill_obstacles(map, cub3d->map->grid, cub3d);
+	player_pixels = get_pixels(map, cub3d->player.prev_x, cub3d->player.prev_y);
+	clear_pixels(player_pixels, map->width, 16, 16);
 	fill_player(map, cub3d->asset.navigator, cub3d);
-	fill_rays(cub3d);
+	// fill_rays(cub3d);
 }

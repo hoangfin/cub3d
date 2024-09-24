@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 12:44:59 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/23 23:37:48 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/24 22:40:37 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,32 @@ static void	render_image(
 	}
 }
 
+static void	fill_obstacles(mlx_image_t *map, char **grid, t_cub3D *cub3d)
+{
+	uint8_t		*original;
+	uint32_t	row;
+	uint32_t	col;
+
+	grid = cub3d->map->grid;
+	original = map->pixels;
+	row = 0;
+	while (row < cub3d->map->row_count)
+	{
+		col = 0;
+		while (col < cub3d->map->col_count)
+		{
+			map->pixels = get_pixels(
+				map, col * MAP_CELL_SIZE, row * MAP_CELL_SIZE
+			);
+			if (grid[row][col] == MAP_WALL)
+				copy_pixels(map, cub3d->asset.obstacle, MAP_CELL_SIZE, MAP_CELL_SIZE);
+			map->pixels = original;
+			col++;
+		}
+		row++;
+	}
+}
+
 void	create_images(t_cub3D *cub3d)
 {
 	t_image	*img;
@@ -57,6 +83,7 @@ void	create_images(t_cub3D *cub3d)
 	fill(img->ceiling, cub3d->map->color_ceiling);
 	fill(img->floor, cub3d->map->color_floor);
 	fill(img->minimap_bg, color(36, 37, 39, 255));
+	fill_obstacles(img->map, cub3d->map->grid, cub3d);
 	render_image(img->ceiling, cub3d, 0, 0);
 	render_image(img->floor, cub3d, 0, HEIGHT / 2);
 	render_image(img->scene, cub3d, 0, 0);

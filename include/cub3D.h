@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/24 09:03:30 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/25 00:31:54 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,13 @@
 # include <stdio.h>
 # include <errno.h>
 # include <math.h>
+# include "MLX42.h"
 # include "libft.h"
+# include "utility.h"
 # include "player.h"
 # include "sprite.h"
 # include "ray.h"
 # include "door.h"
-# include "MLX42.h"
 
 typedef struct s_asset
 {
@@ -116,22 +117,9 @@ void		process_inputs(t_cub3D *cub3D);
 void		update(t_cub3D *cub3d, double elapsed_time);
 void		update_ui(t_cub3D *cub3d);
 
-void		clear_image(mlx_image_t *image);
-uint32_t	color(int32_t r, int32_t g, int32_t b, int32_t a);
-void		fill(mlx_image_t *image, uint32_t color);
 t_door		*get_door(int32_t row, int32_t col, t_cub3D *cub3d);
-uint8_t		*get_pixels(mlx_image_t *image, int32_t x, int32_t y);
-bool		is_equal(double a, double b);
 bool		is_valid_position(int32_t x, int32_t y, t_cub3D *cub3d);
 bool		is_wall(int32_t x, int32_t y, t_cub3D *cub3d);
-mlx_image_t	*load_png(mlx_t *mlx, const char *pathname);
-int32_t		max(int32_t a, int32_t b);
-void		copy_pixels(
-				mlx_image_t *dest,
-				mlx_image_t *src,
-				int32_t offset_x,
-				int32_t offset_y
-			);
 
 /*							PARSING							*/
 t_map	*load_map(char *pathname);
@@ -141,14 +129,14 @@ int		validate(char *map_file);
 void	get_color(t_map *specs, char *data, int *error, int *color_status);
 int		get_texture(t_map *specs, char *data, int *error);
 int		get_map(t_map *map, char *data, int fd, char *pathname);
-t_bool	ft_has_spaces_only_cubed(char *str);
+bool	ft_has_spaces_only_cubed(char *str);
 int		print_content_error(void *str, int *error);
 int		map_edge(char *line);
 int		check_file_end(int fd);
 void	copy_line(t_map *map, char *line, unsigned int index);
 int		validate_map(t_map *map);
-t_bool	is_enclosed(t_map *map);
-t_bool	too_many_commas(char *str);
+bool	is_enclosed(t_map *map);
+bool	too_many_commas(char *str);
 void	delete_map(t_map *map);
 
 #endif

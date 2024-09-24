@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 14:10:09 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/23 23:54:28 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/24 19:07:34 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	handle_movement(t_player *player, double elapsed_time)
 	double			move_angle;
 
 	move_angle = player->angle;
+
 	if (player->state & PLAYER_MOVING_BACKWARD)
 		move_angle += M_PI;
 	else if (player->state & PLAYER_MOVING_LEFT)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:32:55 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/28 10:35:52 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/25 00:32:20 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	data_complete(t_map *map)
 	return (0);
 }
 
-static t_bool	has_all_walls(t_map *map)
+static bool	has_all_walls(t_map *map)
 {
 	if (map->wall_paths[0]
 		&& map->wall_paths[1]

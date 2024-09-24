@@ -6,24 +6,24 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 07:13:14 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/19 14:23:28 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/25 00:32:28 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static t_bool	is_player(int c)
+static bool	is_player(int c)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (true);
 	return (false);
 }
 
-static t_bool	has_one_player(t_map *map)
+static bool	has_one_player(t_map *map)
 {
 	int		row;
 	int		col;
-	t_bool	player;
+	bool	player;
 
 	row = 0;
 	player = false;
@@ -43,7 +43,7 @@ static t_bool	has_one_player(t_map *map)
 	return (player);
 }
 
-static t_bool	has_valid_chars(t_map *map)
+static bool	has_valid_chars(t_map *map)
 {
 	int		row;
 	int		col;
@@ -68,7 +68,7 @@ static t_bool	has_valid_chars(t_map *map)
 	return (true);
 }
 
-static	t_bool	door_check(t_map *map)
+static	bool	door_check(t_map *map)
 {
 	unsigned int	row;
 	unsigned int	col;

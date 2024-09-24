@@ -6,10 +6,11 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:29:43 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/24 09:03:42 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/25 00:33:07 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <time.h>
 #include "cub3D.h"
 
 static void	copy_pixel(
@@ -53,9 +54,14 @@ void	draw_scene(t_cub3D *cub3d)
 	const double	camera_plane_distance = (WIDTH / 2) / tan(M_PI / 6);
 	int32_t			i;
 	double			wall_height;
+	clock_t	start;
+	clock_t	end;
 
 	i = 0;
+	start = clock();
 	clear_image(cub3d->image.scene);
+	end = clock();
+	// printf("draw_scene::clear_image runs in %f ms\n", ((double)(end - start)) / CLOCKS_PER_SEC * 1000);
 	while (i < WIDTH)
 	{
 		wall_height = (10 / cub3d->rays[i].distance) * camera_plane_distance;
@@ -64,5 +70,4 @@ void	draw_scene(t_cub3D *cub3d)
         draw_texture(cub3d, i, HEIGHT / 2 - wall_height / 2, wall_height);
 		i++;
 	}
-	// copy_pixels(cub3d->image.scene, cub3d->doors[0].image, cub3d->doors[0].image->width, cub3d->doors[0].image->height);
 }

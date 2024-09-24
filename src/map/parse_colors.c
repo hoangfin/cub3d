@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 12:47:03 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/31 15:59:26 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/25 00:35:40 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 static int32_t	color_check(char **colors, int index)
 {
-	t_bool	overflow;
+	int		overflow;
 	int32_t	color;
 
 	if (!colors[index] || ft_strcmp(colors[index], "\0") == 0)
 		return (-1);
-	overflow = false;
+	overflow = 0;
 	color = (int32_t)ft_atoi(colors[index], &overflow);
 	if (overflow || color < 0 || color > 255)
 	{

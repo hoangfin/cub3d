@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/23 23:38:02 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/24 09:03:30 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,6 @@ void		find_hit_point(int32_t *row, int32_t *col, t_ray *ray, t_cub3D *cub3d);
 void		set_distance(t_ray *ray, t_cub3D *cub3d);
 void		set_end_point(int32_t row_hit, int32_t col_hit, t_ray *ray);
 void		set_hit_texture(int32_t row, int32_t col, t_ray *ray, t_cub3D *cub3d);
-
-void		update_doors(t_cub3D *cub3d, double elapsed_time);
-void		update_rays(t_cub3D *cub3d);
 
 void		draw_map(mlx_image_t *map, t_cub3D *cub3D);
 void		draw_minimap(mlx_image_t *minimap, t_cub3D *cub3D);

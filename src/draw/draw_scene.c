@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:29:43 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/23 14:42:02 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/24 10:33:42 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ double scale)
 		* texture_offset;
 	while (wall_height > 0)
 	{
-		hit_texture_pos_y = (int32_t)texture_y/* & (cub3d->rays[i].hit_texture->height - 1)*/;
+		hit_texture_pos_y = (int32_t)texture_y;
 		texture_y += scale;
 		if ((uint32_t)hit_texture_pos_y < cub3d->rays[i].hit_texture->height - 1)
 			copy_pixel(cub3d, i, start_y, hit_texture_pos_y);
@@ -110,15 +110,17 @@ void	draw_scene(t_cub3D *cub3d)
 	int32_t	i;
 	double	wall_height;
 	double	scale;
+	double	camera_plane_dist;
 
 	i = 0;
+	camera_plane_dist = (WIDTH / 2) / tan(M_PI / 6);
 	clear_image(cub3d->image.scene);
 	while (i < WIDTH)
 	{
-		wall_height = (MAP_CELL_SIZE / cub3d->rays[i].distance) * CAMERA_PLANE_DIST;
+		wall_height = (MAP_CELL_SIZE / cub3d->rays[i].distance) * camera_plane_dist;
 		scale = (double)cub3d->rays[i].hit_texture->height / wall_height;
 		draw_texture(cub3d, i, wall_height, scale);
 		i++;
 	}
-	copy_pixels(cub3d->image.scene, cub3d->doors[0].image, cub3d->doors[0].image->width, cub3d->doors[0].image->height);
+	//copy_pixels(cub3d->image.scene, cub3d->doors[0].image, cub3d->doors[0].image->width, cub3d->doors[0].image->height);
 }

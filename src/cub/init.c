@@ -6,28 +6,11 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:34:37 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/23 14:41:08 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/24 10:31:59 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-/* static t_bool	resize_wall_textures(t_cub3D *cub3d)
-{
-	uint32_t	wall;
-	t_bool		success;
-
-	wall = 0;
-	success = true;
-	while (wall < 4)
-	{
-		if (cub3d->asset.walls[wall]->height != TEXTURE_SIZE
-			|| cub3d->asset.walls[wall]->width != TEXTURE_SIZE)
-			success = mlx_resize_image(cub3d->asset.walls[wall], TEXTURE_SIZE, TEXTURE_SIZE);
-		wall++;
-	}
-	return (success);
-} */
 
 static void	init_rays(t_cub3D *cub3d)
 {
@@ -71,7 +54,6 @@ static void	init_asset(t_cub3D *cub3d)
 		|| asset->walls[1] == NULL
 		|| asset->walls[2] == NULL
 		|| asset->walls[3] == NULL
-		//|| resize_wall_textures(cub3d) == false
 	)
 	{
 		ft_fprintf(STDERR_FILENO, "Error\n%s\n", mlx_strerror(mlx_errno));

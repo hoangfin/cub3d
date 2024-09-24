@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_hit_texture.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 19:42:17 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/19 22:47:24 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/24 12:25:23 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	set_wall_texture(t_ray *ray, mlx_image_t *walls[])
 		if (ray->x_end < ray->x_start)
 			ray->hit_texture = walls[1];
 		pos_index = (int32_t)ray->y_end % MAP_CELL_SIZE;
-		ray->hit_texture_pos_x = pos_index * walls[0]->width / MAP_CELL_SIZE;
+		ray->hit_texture_pos_x = pos_index * ray->hit_texture->width / MAP_CELL_SIZE;
 	}
 	else
 	{
@@ -30,7 +30,7 @@ static void	set_wall_texture(t_ray *ray, mlx_image_t *walls[])
 		if (ray->y_end < ray->y_start)
 			ray->hit_texture = walls[2];
 		pos_index = (int32_t)ray->x_end % MAP_CELL_SIZE;
-		ray->hit_texture_pos_x = pos_index * walls[0]->width / MAP_CELL_SIZE;
+		ray->hit_texture_pos_x = pos_index * ray->hit_texture->width / MAP_CELL_SIZE;
 	}
 }
 

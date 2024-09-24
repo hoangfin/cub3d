@@ -6,11 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/09/21 14:05:19 by emansoor         ###   ########.fr       */
-=======
-/*   Updated: 2024/09/22 17:35:11 by hoatran          ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2024/09/24 11:47:29 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +20,6 @@
 # define WIDTH 1280
 # define HEIGHT 960
 # define FOV (M_PI / 3)
-# define TEXTURE_SIZE 128
-# define CAMERA_PLANE_DIST (WIDTH / 2) / tan(M_PI / 6)
 
 # define MAP_SPACE ' '
 # define MAP_PATH '0'
@@ -119,7 +113,6 @@ void		update_rays(t_cub3D *cub3d);
 void		draw_map(mlx_image_t *map, t_cub3D *cub3D);
 void		draw_minimap(mlx_image_t *minimap, t_cub3D *cub3D);
 void		draw_scene(t_cub3D *cub3d);
-void		draw_texture(t_cub3D *cub3D, int x, int start_y, int lineheight);
 
 void 		close_handler(void	*param);
 void		handle_collisions(t_cub3D *cub3d);

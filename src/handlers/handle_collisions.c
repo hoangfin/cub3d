@@ -6,29 +6,50 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 10:37:07 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/25 17:27:10 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/25 23:07:52 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static bool	has
+static bool	door_contains(t_door *door, int32_t x, int32_t y)
+{
+	const int32_t	door_row = door->y / MAP_CELL_SIZE;
+	const int32_t	door_col = door->x / MAP_CELL_SIZE;
+	int32_t			row;
+	int32_t			col;
 
-static void	handle_wall_collision(t_cub3D *cub3d)
+	if (x < 0 || y < 0)
+		return (false);
+	row = y / MAP_CELL_SIZE;
+	col = x / MAP_CELL_SIZE;
+	if (door_row == row && door_col == col)
+		return (true);
+	return (false);
+}
+
+static void	handle_door_collision(t_cub3D *cub3d)
 {
 	uint32_t	i;
+	t_player	player;
+	t_door		*door;
+	bool		hit;
 
 	i = 0;
+	player = cub3d->player;
 	while (i < cub3d->map->door_count)
 	{
-		if (
-			cub3d->doors[i].state == DOOR_CLOSED
-			&&
-		)
-			transition_door(cub3d->doors + i, DOOR_OPENING);
+		door = cub3d->doors + i;
+		hit = door_contains(door, player.x, player.y)
+			|| door_contains(door, player.x + MAP_PLAYER_SIZE, player.y)
+			|| door_contains(door, player.x, player.y + MAP_PLAYER_SIZE)
+			|| door_contains(\
+				door, player.x + MAP_PLAYER_SIZE, player.y + MAP_PLAYER_SIZE \
+			);
+		if (door->state != DOOR_OPEN && hit)
+			transition_door(door, DOOR_OPENING);
 		i++;
 	}
-
 }
 
 static bool	has_collision(int32_t x, int32_t y, t_cub3D *cub3d)
@@ -80,6 +101,6 @@ static void	handle_wall_collision(t_cub3D *cub3d)
 
 void	handle_collisions(t_cub3D *cub3d)
 {
-	handle_wall_collision(cub3d);
 	handle_door_collision(cub3d);
+	handle_wall_collision(cub3d);
 }

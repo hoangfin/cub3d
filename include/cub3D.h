@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/25 15:08:22 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/25 23:39:22 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # include <math.h>
 # include "MLX42.h"
 # include "libft.h"
+# include "map.h"
 # include "utility.h"
 # include "player.h"
 # include "sprite.h"
@@ -66,18 +67,7 @@ typedef struct s_image
 	mlx_image_t	*map;
 }	t_image;
 
-typedef struct s_map
-{
-	char		**grid;
-	char		*wall_paths[4];
-	uint32_t	width;
-	uint32_t	height;
-	uint32_t	row_count;
-	uint32_t	col_count;
-	uint32_t	color_floor;
-	uint32_t	color_ceiling;
-	uint32_t	door_count;
-}	t_map;
+
 
 typedef struct s_cub3D
 {
@@ -92,52 +82,31 @@ typedef struct s_cub3D
 	t_image		image;
 }	t_cub3D;
 
+void	create_images(t_cub3D *cub3d);
+void	destroy(t_cub3D *cub3D);
+void	init_doors(t_cub3D *cub3d);
+void	init_player(t_cub3D *cub3d);
+void	init(t_cub3D *cub3D, char *pathname);
 
-void		create_images(t_cub3D *cub3d);
-void		destroy(t_cub3D *cub3D);
-void		init_doors(t_cub3D *cub3d);
-void		init_player(t_cub3D *cub3d);
-void		init(t_cub3D *cub3D, char *pathname);
+void	dda(t_ray *ray, t_cub3D *cub3d);
+void	find_hit_point(int32_t *row, int32_t *col, t_ray *ray, t_cub3D *cub3d);
+void	set_distance(t_ray *ray, t_cub3D *cub3d);
+void	set_end_point(int32_t row_hit, int32_t col_hit, t_ray *ray);
+void	set_hit_texture(int32_t row, int32_t col, t_ray *ray, t_cub3D *cub3d);
 
-void		dda(t_ray *ray, t_cub3D *cub3d);
-void		find_hit_point(int32_t *row, int32_t *col, t_ray *ray, t_cub3D *cub3d);
-void		set_distance(t_ray *ray, t_cub3D *cub3d);
-void		set_end_point(int32_t row_hit, int32_t col_hit, t_ray *ray);
-void		set_hit_texture(int32_t row, int32_t col, t_ray *ray, t_cub3D *cub3d);
+void	draw_map(mlx_image_t *map, t_cub3D *cub3D);
+void	draw_minimap(mlx_image_t *minimap, t_cub3D *cub3D);
+void	draw_player(t_cub3D *cub3d);
+void	draw_scene(t_cub3D *cub3d);
 
-void		draw_map(mlx_image_t *map, t_cub3D *cub3D);
-void		draw_minimap(mlx_image_t *minimap, t_cub3D *cub3D);
-void		draw_player(t_cub3D *cub3d);
-void		draw_scene(t_cub3D *cub3d);
+void 	close_handler(void	*param);
+void	handle_collisions(t_cub3D *cub3d);
+void 	loop_handler(void *param);
+void	process_inputs(t_cub3D *cub3D);
+void	update(t_cub3D *cub3d, double elapsed_time);
+void	update_ui(t_cub3D *cub3d);
 
-void 		close_handler(void	*param);
-void		handle_collisions(t_cub3D *cub3d);
-void 		loop_handler(void *param);
-void		process_inputs(t_cub3D *cub3D);
-void		update(t_cub3D *cub3d, double elapsed_time);
-void		update_ui(t_cub3D *cub3d);
-
-t_door		*get_door(int32_t row, int32_t col, t_cub3D *cub3d);
-bool		is_valid_position(int32_t x, int32_t y, t_cub3D *cub3d);
-bool		is_wall(int32_t x, int32_t y, t_cub3D *cub3d);
-
-/*							PARSING							*/
-t_map	*load_map(char *pathname);
-int		check_file_permissions(char *file);
-int		verify_fileformat(char *filename, char *filetype);
-int		validate(char *map_file);
-void	get_color(t_map *specs, char *data, int *error, int *color_status);
-int		get_texture(t_map *specs, char *data, int *error);
-int		get_map(t_map *map, char *data, int fd, char *pathname);
-bool	ft_has_spaces_only_cubed(char *str);
-int		print_content_error(void *str, int *error);
-int		map_edge(char *line);
-int		check_file_end(int fd);
-void	copy_line(t_map *map, char *line, unsigned int index);
-int		validate_map(t_map *map);
-bool	is_enclosed(t_map *map);
-bool	too_many_commas(char *str);
-bool	door_check(t_map *map);
-void	delete_map(t_map *map);
+t_door	*get_door(int32_t row, int32_t col, t_cub3D *cub3d);
+bool	is_valid_position(int32_t x, int32_t y, t_cub3D *cub3d);
 
 #endif

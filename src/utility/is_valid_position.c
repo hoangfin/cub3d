@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 13:20:51 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/19 17:30:06 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/25 23:20:38 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static bool	is_closed_door(int32_t row, int32_t col, t_cub3D *cub3d)
 		if (
 			cub3d->doors[i].y / MAP_CELL_SIZE == row
 			&& cub3d->doors[i].x / MAP_CELL_SIZE == col
-			&& cub3d->doors[i].state == DOOR_CLOSED
+			&& cub3d->doors[i].state != DOOR_OPEN
 		)
 			return (true);
 		i++;

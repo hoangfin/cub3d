@@ -64,7 +64,6 @@ SOURCES :=	main.c \
 			get_pixels.c \
 			is_equal.c \
 			is_valid_position.c \
-			is_wall.c \
 			load_png.c \
 			max.c \
 			\
@@ -73,6 +72,7 @@ SOURCES :=	main.c \
 			get_texture.c \
 			input_validation_utils.c \
 			is_enclosed.c \
+			is_wall.c \
 			load_map.c \
 			map_validation.c \
 			parse_colors.c \

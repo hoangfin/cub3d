@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:34:37 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/25 14:31:20 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:51:21 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	init_sprites(t_cub3D *cub3d)
 	mlx_image_t	*temp;
 
 	temp = load_png(cub3d->mlx, "assets/sprites/door.png");
-	cub3d->asset.sprite_door = image_to_sprite(cub3d->mlx, temp, 1, 9);
+	cub3d->asset.sprite_door = image_to_sprite(cub3d->mlx, temp, 1, 12);
 	mlx_delete_image(cub3d->mlx, temp);
 	temp = load_png(cub3d->mlx, "assets/sprites/wand.png");
 	cub3d->asset.sprite_wand= image_to_sprite(cub3d->mlx, temp, 1, 9);

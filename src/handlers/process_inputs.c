@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 12:57:11 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/25 15:36:09 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/25 15:39:04 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,3 @@ void	process_inputs(t_cub3D *cub3d)
 	process_keypress(&player_state, cub3d->mlx, cub3d);
 	transition_player(&cub3d->player, player_state);
 }
-

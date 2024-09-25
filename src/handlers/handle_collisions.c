@@ -6,11 +6,30 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 10:37:07 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/23 21:43:48 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/25 17:27:10 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
+
+static bool	has
+
+static void	handle_wall_collision(t_cub3D *cub3d)
+{
+	uint32_t	i;
+
+	i = 0;
+	while (i < cub3d->map->door_count)
+	{
+		if (
+			cub3d->doors[i].state == DOOR_CLOSED
+			&&
+		)
+			transition_door(cub3d->doors + i, DOOR_OPENING);
+		i++;
+	}
+
+}
 
 static bool	has_collision(int32_t x, int32_t y, t_cub3D *cub3d)
 {
@@ -62,4 +81,5 @@ static void	handle_wall_collision(t_cub3D *cub3d)
 void	handle_collisions(t_cub3D *cub3d)
 {
 	handle_wall_collision(cub3d);
+	handle_door_collision(cub3d);
 }

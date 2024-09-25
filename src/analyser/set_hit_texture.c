@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 19:42:17 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/24 17:22:08 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/25 09:26:19 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static void	set_wall_texture(t_ray *ray, mlx_image_t *walls[])
 		if (ray->x_end < ray->x_start)
 			ray->hit_texture = walls[1];
 		pos_index = fmod(ray->y_end, MAP_CELL_SIZE);
-		ray->hit_texture_pos_x = pos_index * ray->hit_texture->width / MAP_CELL_SIZE;
+		ray->hit_texture_pos_x = pos_index * ray->hit_texture->width
+			/ MAP_CELL_SIZE;
 	}
 	else
 	{
@@ -30,7 +31,8 @@ static void	set_wall_texture(t_ray *ray, mlx_image_t *walls[])
 		if (ray->y_end < ray->y_start)
 			ray->hit_texture = walls[2];
 		pos_index = fmod(ray->x_end, MAP_CELL_SIZE);
-		ray->hit_texture_pos_x = pos_index * ray->hit_texture->width / MAP_CELL_SIZE;
+		ray->hit_texture_pos_x = pos_index * ray->hit_texture->width
+			/ MAP_CELL_SIZE;
 	}
 }
 

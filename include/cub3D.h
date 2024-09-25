@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/23 23:38:02 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/25 14:31:06 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_asset
 {
 	mlx_image_t	*walls[4];
 	mlx_image_t	*obstacle;
+	mlx_image_t	*door;
 	mlx_image_t	*navigator;
 	t_sprite	*sprite_door;
 	t_sprite	*sprite_wand;
@@ -110,7 +111,6 @@ void		draw_map(mlx_image_t *map, t_cub3D *cub3D);
 void		draw_minimap(mlx_image_t *minimap, t_cub3D *cub3D);
 void		draw_player(t_cub3D *cub3d);
 void		draw_scene(t_cub3D *cub3d);
-void		draw_texture(t_cub3D *cub3D, int x, int start_y, int lineheight);
 
 void 		close_handler(void	*param);
 void		handle_collisions(t_cub3D *cub3d);
@@ -151,6 +151,7 @@ int		check_file_end(int fd);
 void	copy_line(t_map *map, char *line, unsigned int index);
 int		validate_map(t_map *map);
 t_bool	is_enclosed(t_map *map);
+t_bool	door_check(t_map *map);
 t_bool	too_many_commas(char *str);
 void	delete_map(t_map *map);
 

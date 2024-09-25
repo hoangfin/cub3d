@@ -6,13 +6,11 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 06:52:15 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/28 10:24:42 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/25 13:00:20 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
-#include <string.h>
-#include <errno.h>
 #include "cub3D.h"
 
 int	check_file_end(int fd)

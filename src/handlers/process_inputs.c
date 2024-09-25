@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_inputs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 12:57:11 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/22 10:35:57 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/25 14:00:14 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	process_mouse_move(t_character_state *state, t_cub3D *cub3d)
 		*state |= CHAR_TURNING_RIGHT;
 }
 
-static void	process_keypress(t_character_state *state, mlx_t *mlx)
+static void	process_keypress(t_character_state *state, mlx_t *mlx, t_cub3D *cub3d)
 {
 	*state &= ~(\
 		CHAR_MOVING_FORWARD \
@@ -33,6 +33,11 @@ static void	process_keypress(t_character_state *state, mlx_t *mlx)
 		| CHAR_MOVING_LEFT \
 		| CHAR_MOVING_RIGHT \
 	);
+	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
+	{
+		destroy(cub3d);
+		exit(EXIT_SUCCESS);
+	}
 	if (mlx_is_key_down(mlx, MLX_KEY_W))
 		*state |= CHAR_MOVING_FORWARD;
 	if (mlx_is_key_down(mlx, MLX_KEY_S))
@@ -49,7 +54,7 @@ void	process_inputs(t_cub3D *cub3d)
 
 	player_state = cub3d->player.state;
 	process_mouse_move(&player_state, cub3d);
-	process_keypress(&player_state, cub3d->mlx);
+	process_keypress(&player_state, cub3d->mlx, cub3d);
 	transition_character(&cub3d->player, player_state);
 }
 

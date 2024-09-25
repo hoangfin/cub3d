@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 12:57:11 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/24 09:06:38 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/25 15:36:09 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	process_mouse_move(t_player_state *state, t_cub3D *cub3d)
 		*state |= PLAYER_TURNING_RIGHT;
 }
 
-static void	process_keypress(t_player_state *state, mlx_t *mlx)
+static void	process_keypress(t_player_state *state, mlx_t *mlx, t_cub3D *cub3d)
 {
 	*state &= ~(\
 		PLAYER_MOVING_FORWARD \
@@ -33,6 +33,11 @@ static void	process_keypress(t_player_state *state, mlx_t *mlx)
 		| PLAYER_MOVING_LEFT \
 		| PLAYER_MOVING_RIGHT \
 	);
+	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
+	{
+		destroy(cub3d);
+		exit(EXIT_SUCCESS);
+	}
 	if (mlx_is_key_down(mlx, MLX_KEY_W))
 		*state |= PLAYER_MOVING_FORWARD;
 	if (mlx_is_key_down(mlx, MLX_KEY_S))
@@ -51,7 +56,7 @@ void	process_inputs(t_cub3D *cub3d)
 	process_mouse_move(&player_state, cub3d);
 	if (mlx_is_mouse_down(cub3d->mlx, MLX_MOUSE_BUTTON_LEFT))
 		player_state = PLAYER_ATTACKING;
-	process_keypress(&player_state, cub3d->mlx);
+	process_keypress(&player_state, cub3d->mlx, cub3d);
 	transition_player(&cub3d->player, player_state);
 }
 

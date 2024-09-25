@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/25 00:31:54 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/25 15:08:22 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_asset
 {
 	mlx_image_t	*walls[4];
 	mlx_image_t	*obstacle;
+	mlx_image_t	*door;
 	mlx_image_t	*navigator;
 	t_sprite	*sprite_door;
 	t_sprite	*sprite_wand;
@@ -108,7 +109,6 @@ void		draw_map(mlx_image_t *map, t_cub3D *cub3D);
 void		draw_minimap(mlx_image_t *minimap, t_cub3D *cub3D);
 void		draw_player(t_cub3D *cub3d);
 void		draw_scene(t_cub3D *cub3d);
-void		draw_texture(t_cub3D *cub3D, int x, int start_y, int lineheight);
 
 void 		close_handler(void	*param);
 void		handle_collisions(t_cub3D *cub3d);
@@ -137,6 +137,7 @@ void	copy_line(t_map *map, char *line, unsigned int index);
 int		validate_map(t_map *map);
 bool	is_enclosed(t_map *map);
 bool	too_many_commas(char *str);
+bool	door_check(t_map *map);
 void	delete_map(t_map *map);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:32:55 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/28 10:35:52 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:58:27 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	data_complete(t_map *map)
 	return (0);
 }
 
-static t_bool	has_all_walls(t_map *map)
+static bool	has_all_walls(t_map *map)
 {
 	if (map->wall_paths[0]
 		&& map->wall_paths[1]
@@ -40,28 +40,29 @@ static t_bool	has_all_walls(t_map *map)
 
 static char	*get_wall_specs(t_map *map, int fd, int *error)
 {
-	char	*data;
+	char	*line;
 	int		status;
-	int		colors;
+	int		color_status;
 
-	colors = 0;
-	status = get_next_line(fd, &data);
-	while (status > -1 && data)
+	color_status = 0;
+	status = get_next_line(fd, &line);
+	while (status > -1 && line)
 	{
-		if (ft_strcmp(data, "\n") != 0 && !ft_has_spaces_only_cubed(data)
+		if (ft_strcmp(line, "\n") != 0 && !ft_has_spaces_only_cubed(line)
 			&& !*error)
 		{
-			if (map_edge(data) == 0)
+			if (map_edge(line) == 0)
 				break ;
-			get_texture(map, data, error);
-			get_color(map, data, error, &colors);
+			if (get_texture(map, line, error) == 2
+				&& get_color(map, line, error, &color_status) == 2)
+				print_content_error(NULL, error);
 		}
-		free(data);
-		status = get_next_line(fd, &data);
+		free(line);
+		status = get_next_line(fd, &line);
 	}
-	if (colors >= 2 && has_all_walls(map) && !*error)
-		return (data);
-	free(data);
+	if (color_status >= 2 && has_all_walls(map) && !*error)
+		return (line);
+	free(line);
 	check_file_end(fd);
 	return (NULL);
 }

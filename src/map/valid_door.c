@@ -6,13 +6,13 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 15:08:15 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/19 15:17:09 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:37:48 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static t_bool	is_inside_grid(t_map *map, unsigned int row, unsigned int col)
+static bool	is_inside_grid(t_map *map, unsigned int row, unsigned int col)
 {
 	if (col > 0 && col < map->col_count && row > 0 && row < map->row_count
 		&& map->grid[row][col] == MAP_DOOR)
@@ -20,7 +20,7 @@ static t_bool	is_inside_grid(t_map *map, unsigned int row, unsigned int col)
 	return (false);
 }
 
-static t_bool	valid_door(t_map *map, unsigned int row, unsigned int col)
+static bool	valid_door(t_map *map, unsigned int row, unsigned int col)
 {
 	if ((map->grid[row][col - 1] == MAP_WALL
 		&& map->grid[row][col + 1] == MAP_WALL)
@@ -36,7 +36,7 @@ static t_bool	valid_door(t_map *map, unsigned int row, unsigned int col)
 	return (false);
 }
 
-t_bool	door_check(t_map *map)
+bool	door_check(t_map *map)
 {
 	unsigned int	row;
 	unsigned int	col;

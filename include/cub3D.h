@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/25 14:31:06 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:49:19 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,18 +141,18 @@ t_map	*load_map(char *pathname);
 int		check_file_permissions(char *file);
 int		verify_fileformat(char *filename, char *filetype);
 int		validate(char *map_file);
-void	get_color(t_map *specs, char *data, int *error, int *color_status);
+int		get_color(t_map *specs, char *data, int *error, int *color_status);
 int		get_texture(t_map *specs, char *data, int *error);
 int		get_map(t_map *map, char *data, int fd, char *pathname);
-t_bool	ft_has_spaces_only_cubed(char *str);
+bool	ft_has_spaces_only_cubed(char *str);
 int		print_content_error(void *str, int *error);
 int		map_edge(char *line);
 int		check_file_end(int fd);
 void	copy_line(t_map *map, char *line, unsigned int index);
 int		validate_map(t_map *map);
-t_bool	is_enclosed(t_map *map);
-t_bool	door_check(t_map *map);
-t_bool	too_many_commas(char *str);
+bool	is_enclosed(t_map *map);
+bool	door_check(t_map *map);
+bool	too_many_commas(char *str);
 void	delete_map(t_map *map);
 
 #endif

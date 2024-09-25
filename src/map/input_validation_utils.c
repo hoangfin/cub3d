@@ -6,13 +6,13 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 10:01:10 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/28 10:29:32 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:36:11 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-t_bool	ft_has_spaces_only_cubed(char *str)
+bool	ft_has_spaces_only_cubed(char *str)
 {
 	int	i;
 
@@ -71,7 +71,7 @@ int	map_edge(char *line)
 	return (0);
 }
 
-t_bool	too_many_commas(char *str)
+bool	too_many_commas(char *str)
 {
 	int	index;
 	int	commas;

@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 09:24:10 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/27 14:30:22 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:56:16 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,5 @@ int	get_texture(t_map *map, char *data, int *error)
 	content = ft_strnstr(content, "WE", 2);
 	if (content)
 		return (extract_texture(map, content, 4, error));
-	return (0);
+	return (2);
 }

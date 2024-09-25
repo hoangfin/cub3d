@@ -6,24 +6,24 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 07:13:14 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/23 14:35:44 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:37:29 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static t_bool	is_player(int c)
+static bool	is_player(int c)
 {
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (true);
 	return (false);
 }
 
-static t_bool	has_one_player(t_map *map)
+static bool	has_one_player(t_map *map)
 {
 	int		row;
 	int		col;
-	t_bool	player;
+	bool	player;
 
 	row = 0;
 	player = false;
@@ -43,7 +43,7 @@ static t_bool	has_one_player(t_map *map)
 	return (player);
 }
 
-static t_bool	has_valid_chars(t_map *map)
+static bool	has_valid_chars(t_map *map)
 {
 	int		row;
 	int		col;

@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 10:01:10 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/25 16:36:11 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:20:37 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,20 +71,20 @@ int	map_edge(char *line)
 	return (0);
 }
 
-bool	too_many_commas(char *str)
+bool	is_clean_texture(char *data, char *str)
 {
 	int	index;
-	int	commas;
 
 	index = 0;
-	commas = 0;
-	while (str[index])
+	if (data)
 	{
-		if (str[index] == ',')
-			commas++;
-		index++;
-	}
-	if (commas != 2)
+		while (ft_strncmp(data + index, str, 2) != 0)
+		{
+			if (!ft_isspace(data[index]))
+				return (false);
+			index++;
+		}
 		return (true);
+	}
 	return (false);
 }

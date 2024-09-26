@@ -78,6 +78,7 @@ SOURCES :=	main.c \
 			parse_colors.c \
 			validate_file.c \
 			valid_door.c \
+			validate_color.c \
 			\
 			delete_sprite.c \
 			image_to_sprite.c \

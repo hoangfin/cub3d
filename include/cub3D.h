@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/25 16:49:19 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:22:04 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,10 @@ int		check_file_permissions(char *file);
 int		verify_fileformat(char *filename, char *filetype);
 int		validate(char *map_file);
 int		get_color(t_map *specs, char *data, int *error, int *color_status);
+int32_t	validate_color(char *cleaned_color);
+bool	is_clean_color(char *data, int chr);
 int		get_texture(t_map *specs, char *data, int *error);
+bool	is_clean_texture(char *data, char *str);
 int		get_map(t_map *map, char *data, int fd, char *pathname);
 bool	ft_has_spaces_only_cubed(char *str);
 int		print_content_error(void *str, int *error);

@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/26 15:13:09 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/26 22:08:17 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define MAP_DOOR 'D'
 # define MAP_FOE 'F'
 # define MAP_CELL_SIZE 20
-# define MAP_PLAYER_SIZE 14
+# define MAP_PLAYER_SIZE 16
 
 # define MINIMAP_X 30
 # define MINIMAP_Y 30
@@ -60,6 +60,7 @@ typedef struct s_image
 {
 	mlx_image_t	*ceiling;
 	mlx_image_t	*floor;
+	mlx_image_t	*player;
 	mlx_image_t	*scene;
 	mlx_image_t	*minimap;
 	mlx_image_t	*minimap_bg;
@@ -81,14 +82,21 @@ typedef struct s_cub3D
 	t_image		image;
 }	t_cub3D;
 
-void	create_images(t_cub3D *cub3d);
 void	destroy(t_cub3D *cub3D);
+void	init_assets(t_cub3D *cub3d);
 void	init_doors(t_cub3D *cub3d);
+void	init_hooks(t_cub3D *cub3d);
+void	init_images(t_cub3D *cub3d);
 void	init_player(t_cub3D *cub3d);
 void	init(t_cub3D *cub3D, char *pathname);
+void	render_images(t_cub3D *cub3d);
 
 void	dda(t_ray *ray, t_cub3D *cub3d);
-void	find_hit_point(t_ray *ray, t_cub3D *cub3d, bool (*is_hit)(int32_t , int32_t , void *));
+void	find_hit_point(
+			t_ray *ray,
+			t_cub3D *cub3d,
+			bool (*is_hit)(int32_t , int32_t , void *)
+		);
 void	set_distance(t_ray *ray, t_cub3D *cub3d);
 void	set_end_point(int32_t row_hit, int32_t col_hit, t_ray *ray);
 void	set_hit_texture(int32_t row, int32_t col, t_ray *ray, t_cub3D *cub3d);

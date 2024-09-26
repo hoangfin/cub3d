@@ -11,7 +11,6 @@ VPATH :=	src \
 			src/draw \
 			src/handlers \
 			src/map \
-			src/sprite \
 			src/state_machine \
 			src/utility
 
@@ -32,11 +31,14 @@ CFLAGS :=	-Wall -Wextra \
 SOURCES :=	main.c \
 			\
 			destroy.c \
+			init_assets.c \
 			init_doors.c \
-			create_images.c \
+			init_hooks.c \
+			init_images.c \
 			init_player.c \
 			init_ray.c \
 			init.c \
+			render_images.c \
 			\
 			dda.c \
 			find_hit_point.c \

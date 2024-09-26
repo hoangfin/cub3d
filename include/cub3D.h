@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/25 23:39:22 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/26 15:13:09 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@
 # include "map.h"
 # include "utility.h"
 # include "player.h"
-# include "sprite.h"
 # include "ray.h"
 # include "door.h"
 
@@ -89,7 +88,7 @@ void	init_player(t_cub3D *cub3d);
 void	init(t_cub3D *cub3D, char *pathname);
 
 void	dda(t_ray *ray, t_cub3D *cub3d);
-void	find_hit_point(int32_t *row, int32_t *col, t_ray *ray, t_cub3D *cub3d);
+void	find_hit_point(t_ray *ray, t_cub3D *cub3d, bool (*is_hit)(int32_t , int32_t , void *));
 void	set_distance(t_ray *ray, t_cub3D *cub3d);
 void	set_end_point(int32_t row_hit, int32_t col_hit, t_ray *ray);
 void	set_hit_texture(int32_t row, int32_t col, t_ray *ray, t_cub3D *cub3d);

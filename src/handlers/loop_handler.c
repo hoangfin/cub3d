@@ -6,11 +6,10 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 00:13:59 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/25 00:44:48 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/26 15:20:18 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <time.h>
 #include "cub3D.h"
 
 static void	update_rays(t_cub3D *cub3d)
@@ -43,26 +42,11 @@ static void	update_rays(t_cub3D *cub3d)
 void	loop_handler(void *param)
 {
 	t_cub3D	*cub3d;
-	clock_t	start;
-	clock_t	end;
-
-	start = clock();
 
 	cub3d = (t_cub3D *)param;
 	process_inputs(cub3d);
-
-	// start = clock();
 	update(cub3d, cub3d->mlx->delta_time);
-	// end = clock();
-	// printf("loop_handler::update runs in %f ms\n", ((double)(end - start)) / CLOCKS_PER_SEC * 1000);
-
 	handle_collisions(cub3d);
 	update_rays(cub3d);
-
-	// start = clock();
 	update_ui(cub3d);
-	end = clock();
-	// printf("loop_handler::update_ui runs in %f ms\n", ((double)(end - start)) / CLOCKS_PER_SEC * 1000);
-	printf("loop_handler runs in %f ms\n", ((double)(end - start)) / CLOCKS_PER_SEC * 1000);
-
 }

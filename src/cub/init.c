@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:34:37 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/25 15:51:21 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/26 15:00:06 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,6 @@ static void	init_rays(t_cub3D *cub3d)
 	}
 }
 
-static void	init_sprites(t_cub3D *cub3d)
-{
-	mlx_image_t	*temp;
-
-	temp = load_png(cub3d->mlx, "assets/sprites/door.png");
-	cub3d->asset.sprite_door = image_to_sprite(cub3d->mlx, temp, 1, 12);
-	mlx_delete_image(cub3d->mlx, temp);
-	temp = load_png(cub3d->mlx, "assets/sprites/wand.png");
-	cub3d->asset.sprite_wand= image_to_sprite(cub3d->mlx, temp, 1, 9);
-	mlx_delete_image(cub3d->mlx, temp);
-}
-
 static void	init_asset(t_cub3D *cub3d)
 {
 	t_asset		*asset;
@@ -42,25 +30,23 @@ static void	init_asset(t_cub3D *cub3d)
 	asset = &cub3d->asset;
 	asset->obstacle = load_png(cub3d->mlx, "assets/textures/obstacle.png");
 	asset->navigator = load_png(cub3d->mlx, "assets/textures/navigator.png");
-	asset->door = load_png(cub3d->mlx, "assets/textures/door.png");
+	asset->sprite_door = load_sprite(cub3d->mlx, "assets/sprites/door.png", 1, 14);
+	asset->sprite_wand = load_sprite(cub3d->mlx, "assets/sprites/wand.png", 1, 9);
 	asset->walls[0] = load_png(cub3d->mlx, cub3d->map->wall_paths[0]);
 	asset->walls[1] = load_png(cub3d->mlx, cub3d->map->wall_paths[1]);
 	asset->walls[2] = load_png(cub3d->mlx, cub3d->map->wall_paths[2]);
 	asset->walls[3] = load_png(cub3d->mlx, cub3d->map->wall_paths[3]);
 	if (
-		asset->obstacle == NULL
-		|| asset->navigator == NULL
-		|| asset->walls[0] == NULL
-		|| asset->walls[1] == NULL
-		|| asset->walls[2] == NULL
-		|| asset->walls[3] == NULL
+		asset->obstacle == NULL || asset->navigator == NULL
+		|| asset->sprite_door == NULL || asset->sprite_wand == NULL
+		|| asset->walls[0] == NULL || asset->walls[1] == NULL
+		|| asset->walls[2] == NULL || asset->walls[3] == NULL
 	)
 	{
 		ft_fprintf(STDERR_FILENO, "Error\n%s\n", mlx_strerror(mlx_errno));
 		destroy(cub3d);
 		exit(1);
 	}
-	init_sprites(cub3d);
 }
 
 void	init(t_cub3D *cub3d, char *pathname)

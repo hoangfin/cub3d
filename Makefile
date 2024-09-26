@@ -35,6 +35,7 @@ SOURCES :=	main.c \
 			init_doors.c \
 			create_images.c \
 			init_player.c \
+			init_ray.c \
 			init.c \
 			\
 			dda.c \
@@ -59,12 +60,14 @@ SOURCES :=	main.c \
 			clear_pixels.c \
 			color.c \
 			copy_pixels.c \
+			delete_sprite.c \
 			fill.c \
 			get_door.c \
 			get_pixels.c \
 			is_equal.c \
 			is_valid_position.c \
 			load_png.c \
+			load_sprite.c \
 			max.c \
 			\
 			delete_map.c \
@@ -78,9 +81,6 @@ SOURCES :=	main.c \
 			parse_colors.c \
 			validate_file.c \
 			valid_door.c \
-			\
-			delete_sprite.c \
-			image_to_sprite.c \
 			\
 			transition_door.c \
 			transition_player.c \

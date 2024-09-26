@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 14:13:12 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/25 23:35:17 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/26 08:17:43 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ static void	handle_door_opening(t_door *door, double elapsed_time)
 
 static void	handle_door_closing(t_door *door, double elapsed_time)
 {
-	int32_t	frame_passed;
-
-	frame_passed = 0;
 	door->elapsed_time += elapsed_time;
-	frame_count = door->elapsed_time / 0.3;
-	door->frame_index =
+	if (door->elapsed_time >= 0.3)
+	{
+		door->frame_index--;
+		door->elapsed_time -= 0.3;
+	}
 	if (door->frame_index == 0)
 	{
 		door->state = DOOR_CLOSED;

@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 12:57:11 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/25 15:39:04 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/26 08:29:24 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,15 @@ static void	process_keypress(t_player_state *state, mlx_t *mlx, t_cub3D *cub3d)
 void	process_inputs(t_cub3D *cub3d)
 {
 	t_player_state	player_state;
+	t_ray			ray;
 
 	player_state = cub3d->player.state;
 	process_mouse_move(&player_state, cub3d);
 	if (mlx_is_mouse_down(cub3d->mlx, MLX_MOUSE_BUTTON_LEFT))
+	{
 		player_state = PLAYER_ATTACKING;
+		ray.angle = cub3d->player.angle;
+	}
 	process_keypress(&player_state, cub3d->mlx, cub3d);
 	transition_player(&cub3d->player, player_state);
 }

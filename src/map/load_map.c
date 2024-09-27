@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:32:55 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/25 16:58:27 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/27 10:53:14 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static bool	has_all_walls(t_map *map)
 	return (false);
 }
 
-static char	*get_wall_specs(t_map *map, int fd, int *error)
+static char	*collect_world_info(t_map *map, int fd, int *error)
 {
 	char	*line;
 	int		status;
@@ -48,8 +48,7 @@ static char	*get_wall_specs(t_map *map, int fd, int *error)
 	status = get_next_line(fd, &line);
 	while (status > -1 && line)
 	{
-		if (ft_strcmp(line, "\n") != 0 && !ft_has_spaces_only_cubed(line)
-			&& !*error)
+		if (ft_strcmp(line, "\n") != 0 && !*error)
 		{
 			if (map_edge(line) == 0)
 				break ;
@@ -73,7 +72,7 @@ static int	process_mapfile(t_map *map, int fd, char *pathname)
 	int		error;
 
 	error = 0;
-	first_map_row = get_wall_specs(map, fd, &error);
+	first_map_row = collect_world_info(map, fd, &error);
 	if (first_map_row)
 	{
 		if (get_map(map, first_map_row, fd, pathname) > 0)

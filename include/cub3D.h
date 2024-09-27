@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/26 15:22:04 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/27 13:43:04 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # define MAP_WALL '1'
 # define MAP_PLAYER "NSEW"
 # define MAP_DOOR 'D'
-# define MAP_FOE 'F'
 # define MAP_CELL_SIZE 20
 # define MAP_PLAYER_SIZE 14
 
@@ -147,7 +146,8 @@ bool	is_clean_color(char *data, int chr);
 int		get_texture(t_map *specs, char *data, int *error);
 bool	is_clean_texture(char *data, char *str);
 int		get_map(t_map *map, char *data, int fd, char *pathname);
-bool	ft_has_spaces_only_cubed(char *str);
+bool	is_valid_row(char *line);
+bool	has_spaces_only(char *str);
 int		print_content_error(void *str, int *error);
 int		map_edge(char *line);
 int		check_file_end(int fd);

@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 14:41:17 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/26 15:18:18 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/27 10:52:42 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	is_clean_color(char *data, int chr)
 	{
 		while (data[index] != chr)
 		{
-			if (!ft_isspace(data[index]))
+			if (data[index] != MAP_SPACE)
 				return (false);
 			index++;
 		}

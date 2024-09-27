@@ -6,20 +6,20 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 10:01:10 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/26 15:20:37 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/27 12:37:04 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-bool	ft_has_spaces_only_cubed(char *str)
+bool	has_spaces_only(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (str[i] != '\n')
+	while (str[i] != '\n' && str[i] != '\0')
 	{
-		if (!ft_isspace(str[i]))
+		if (str[i] != MAP_SPACE)
 			return (false);
 		i++;
 	}
@@ -80,7 +80,7 @@ bool	is_clean_texture(char *data, char *str)
 	{
 		while (ft_strncmp(data + index, str, 2) != 0)
 		{
-			if (!ft_isspace(data[index]))
+			if (data[index] != MAP_SPACE)
 				return (false);
 			index++;
 		}

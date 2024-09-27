@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 06:52:15 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/25 13:00:20 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/27 13:43:46 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_file_end(int fd)
 	status = get_next_line(fd, &line);
 	while (status > -1 && line)
 	{
-		if (ft_strcmp(line, "\n") != 0 && !ft_has_spaces_only_cubed(line))
+		if (ft_strcmp(line, "\n") != 0)
 		{
 			extra_content = 1;
 		}
@@ -41,7 +41,9 @@ int	check_file_permissions(char *file)
 	fd = open(file, O_DIRECTORY);
 	if (fd > -1)
 	{
-		ft_fprintf(STDERR_FILENO, "Error\n%s\n", strerror(errno));
+		ft_putstr_fd("Error\n", 2);
+		ft_putstr_fd(file, 2);
+		ft_putendl_fd(" is a directory", 2);
 		close(fd);
 		return (-1);
 	}

@@ -6,13 +6,13 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 17:35:42 by hoatran           #+#    #+#             */
-/*   Updated: 2024/08/31 19:11:17 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/27 16:43:04 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void close_handler(void	*param)
+void	close_handler(void	*param)
 {
 	t_cub3D	*cub3d;
 

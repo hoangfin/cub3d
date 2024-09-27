@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:58:37 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/20 14:24:04 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/27 14:21:30 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	transition_door(t_door *door, t_door_state state)
 	if (door->state == DOOR_CLOSED)
 	{
 		if (state == DOOR_CLOSING || state == DOOR_OPEN)
-		return ;
+			return ;
 	}
 	door->state = state;
 }

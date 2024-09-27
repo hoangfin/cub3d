@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 12:57:11 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/26 15:21:19 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/27 14:14:13 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ void	process_inputs(t_cub3D *cub3d)
 	if (mlx_is_mouse_down(cub3d->mlx, MLX_MOUSE_BUTTON_LEFT))
 	{
 		player_state = PLAYER_ATTACKING;
-		init_ray(
-			&ray,
-			cub3d->player.x + MAP_PLAYER_SIZE / 2,
-			cub3d->player.y + MAP_PLAYER_SIZE / 2,
-			cub3d->player.angle
+		init_ray(\
+			&ray, \
+			cub3d->player.x + MAP_PLAYER_SIZE / 2, \
+			cub3d->player.y + MAP_PLAYER_SIZE / 2, \
+			cub3d->player.angle \
 		);
 		find_hit_point(&ray, cub3d, is_hit);
 		door = get_door(ray.hit_row, ray.hit_col, cub3d);

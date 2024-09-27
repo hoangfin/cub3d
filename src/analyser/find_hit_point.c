@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 13:15:34 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/26 19:43:48 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/27 16:14:01 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ static void	init_dist_and_step_y(
 }
 
 void	find_hit_point(
-			t_ray *ray,
-			t_cub3D *cub3d,
-			bool (*is_hit)(int32_t , int32_t , void *)
+	t_ray *ray,
+	t_cub3D *cub3d,
+	bool (*is_hit)(int32_t, int32_t, void *)
 )
 {
 	double	distance_by_dx;

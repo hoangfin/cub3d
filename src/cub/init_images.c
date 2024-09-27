@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 12:44:59 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/26 23:15:44 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/27 14:07:45 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static void	fill_map_elements(mlx_image_t *map, char element, t_cub3D *cub3d)
 	asset = &cub3d->asset;
 	if (element == MAP_WALL)
 		copy_pixels(map, asset->obstacle, MAP_CELL_SIZE, MAP_CELL_SIZE);
-	// if (element == MAP_DOOR)
-	// 	copy_pixels(map, asset->door, MAP_CELL_SIZE, MAP_CELL_SIZE);
+	if (element == MAP_DOOR)
+		copy_pixels(map, asset->door, MAP_CELL_SIZE, MAP_CELL_SIZE);
 }
 
 static void	fill_map(mlx_image_t *map, char **grid, t_cub3D *cub3d)

@@ -6,14 +6,14 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 09:26:40 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/27 13:40:20 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/27 13:51:30 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include "cub3D.h"
 
-static int	get_row_count(t_map *map, char *data, int fd)
+static int	get_row_count(t_map *map, int fd)
 {
 	int		status;
 	char	*line;
@@ -115,7 +115,7 @@ int	get_map(t_map *map, char *data, int fd, char *pathname)
 
 	map->row_count = 1;
 	map->col_count = ft_strlen(data) - 1;
-	if (map->col_count < 3 || get_row_count(map, data, fd) > 0)
+	if (map->col_count < 3 || get_row_count(map, fd) > 0)
 		return (1);
 	map->width = map->col_count * MAP_CELL_SIZE;
 	map->height = map->row_count * MAP_CELL_SIZE;

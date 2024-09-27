@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:29:43 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/25 14:31:32 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/27 14:00:48 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,4 @@ void	draw_scene(t_cub3D *cub3d)
 		draw_texture(cub3d, i, wall_height, scale);
 		i++;
 	}
-	//copy_pixels(cub3d->image.scene, cub3d->doors[0].image, cub3d->doors[0].image->width, cub3d->doors[0].image->height);
 }

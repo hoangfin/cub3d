@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 14:10:09 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/26 16:51:01 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/27 17:59:58 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,11 @@ static void	handle_movement(t_player *player, double elapsed_time)
 static void	handle_attacking(t_player *player, double elapsed_time)
 {
 	player->elapsed_time += elapsed_time;
-	player->frame_index = player->elapsed_time / 0.099;
+	if (player->elapsed_time >= 0.099)
+	{
+		player->frame_index++;
+		player->elapsed_time -= 0.099;
+	}
 	if (player->frame_index == (int32_t)player->sprite->col_count - 1)
 	{
 		player->state = PLAYER_IDLE;
@@ -97,7 +101,9 @@ void	update_player(t_player *player, double elapsed_time)
 		| PLAYER_MOVING_LEFT \
 		| PLAYER_MOVING_RIGHT \
 	);
-	if (player->state & move_mask)
+	if (player->state == PLAYER_IDLE)
+		player->frame_index = 0;
+	else if (player->state & move_mask)
 		handle_movement(player, elapsed_time);
 	else if (player->state == PLAYER_ATTACKING)
 		handle_attacking(player, elapsed_time);

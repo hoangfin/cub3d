@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 12:57:11 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/27 17:34:13 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/27 22:15:40 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static void	process_keypress(t_player_state *state, mlx_t *mlx, t_cub3D *cub3d)
 		| PLAYER_MOVING_BACKWARD \
 		| PLAYER_MOVING_LEFT \
 		| PLAYER_MOVING_RIGHT \
-/* 		| PLAYER_TURNING_LEFT \
-		| PLAYER_TURNING_RIGHT \ */
+		| PLAYER_TURNING_LEFT \
+		| PLAYER_TURNING_RIGHT \
 	);
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 	{
@@ -48,10 +48,10 @@ static void	process_keypress(t_player_state *state, mlx_t *mlx, t_cub3D *cub3d)
 		*state |= PLAYER_MOVING_LEFT;
 	if (mlx_is_key_down(mlx, MLX_KEY_D))
 		*state |= PLAYER_MOVING_RIGHT;
-/* 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
+	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
 		*state |= PLAYER_TURNING_RIGHT;
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		*state |= PLAYER_TURNING_LEFT; */
+		*state |= PLAYER_TURNING_LEFT;
 }
 
 static bool	is_hit(int32_t row, int32_t col, void *data)

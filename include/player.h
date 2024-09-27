@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 13:33:27 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/23 23:39:05 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/26 21:35:56 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ typedef struct s_player
 	double			elapsed_time;
 	double			speed;
 	double			angle;
-	mlx_image_t		*image;
 	int32_t			frame_index;
 	t_sprite		*sprite;
 	t_player_state	state;

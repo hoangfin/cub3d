@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_hit_texture.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 19:42:17 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/25 09:26:19 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:08:43 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,20 @@ static void	set_wall_texture(t_ray *ray, mlx_image_t *walls[])
 	}
 }
 
-static void	set_door_texture(t_ray *ray, mlx_image_t *door)
+static void	set_door_texture(t_ray *ray, t_door	*door)
 {
+	int32_t	row;
+	int32_t	col;
 	int32_t	pos_index;
 
-	// printf("door:width=%d, height=%d\n", door->width, door->height);
-	ray->hit_texture = door;
+	row = door->frame_index / door->sprite->col_count;
+	col = door->frame_index % door->sprite->col_count;
+	ray->hit_texture = door->sprite->frames[row][col];
 	if (ray->hit_side == 0)
-	{
 		pos_index = (int32_t)ray->y_end % MAP_CELL_SIZE;
-		ray->hit_texture_pos_x = pos_index * door->width / MAP_CELL_SIZE;
-	}
 	else
-	{
 		pos_index = (int32_t)ray->x_end % MAP_CELL_SIZE;
-		ray->hit_texture_pos_x = pos_index * door->width / MAP_CELL_SIZE;
-	}
+	ray->hit_texture_pos_x = pos_index * door->sprite->frame_w / MAP_CELL_SIZE;
 }
 
 void	set_hit_texture(int32_t row, int32_t col, t_ray *ray, t_cub3D *cub3d)
@@ -61,7 +59,7 @@ void	set_hit_texture(int32_t row, int32_t col, t_ray *ray, t_cub3D *cub3d)
 	if (cub3d->map->grid[row][col] == MAP_DOOR)
 	{
 		door = get_door(row, col, cub3d);
-		set_door_texture(ray, door->image);
+		set_door_texture(ray, door);
 	}
 	else if (cub3d->map->grid[row][col] == MAP_WALL)
 		set_wall_texture(ray, cub3d->asset.walls);

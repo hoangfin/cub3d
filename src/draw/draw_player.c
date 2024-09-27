@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 22:51:05 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/23 23:48:47 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/26 23:13:42 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	draw_player(t_cub3D *cub3d)
 
 	row = player->frame_index / sprite->col_count;
 	col = player->frame_index % sprite->col_count;
-	copy_pixels(
-		player->image,
-		sprite->frames[row][col],
-		player->image->width,
-		player->image->height
+	copy_pixels(\
+		cub3d->image.player, \
+		sprite->frames[row][col], \
+		cub3d->image.player->width, \
+		cub3d->image.player->height \
 	);
 }

@@ -1,29 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_wall.c                                          :+:      :+:    :+:   */
+/*   clear_pixels.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/01 21:39:22 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/05 23:29:51 by hoatran          ###   ########.fr       */
+/*   Created: 2024/09/25 00:00:11 by hoatran           #+#    #+#             */
+/*   Updated: 2024/09/25 15:12:37 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "utility.h"
 
-bool	is_wall(int32_t x, int32_t y, t_cub3D *cub3d)
+void	clear_pixels(
+			uint8_t *start,
+			uint32_t image_width,
+			int32_t offset_x,
+			int32_t offset_y
+)
 {
-	int32_t	row;
-	int32_t	col;
+	int32_t		x;
+	int32_t		y;
+	uint32_t	*pixels;
 
-	if (x < 0 || (uint32_t)x >= cub3d->map->width)
-		return (false);
-	if (y < 0 || (uint32_t)y >= cub3d->map->height)
-		return (false);
-	row = y / MAP_CELL_SIZE;
-	col = x / MAP_CELL_SIZE;
-	if (cub3d->map->grid[row][col] == MAP_WALL)
-		return (true);
-	return (false);
+	y = 0;
+	while (y < offset_y)
+	{
+		x = 0;
+		while (x < offset_x)
+		{
+			pixels = (uint32_t *)(start + (y * image_width + x) * 4);
+			*pixels = 0;
+			x++;
+		}
+		y++;
+	}
 }

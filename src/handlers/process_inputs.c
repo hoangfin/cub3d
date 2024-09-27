@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_inputs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 12:57:11 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/27 09:40:50 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:31:40 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,42 @@ static void	process_keypress(t_player_state *state, mlx_t *mlx, t_cub3D *cub3d)
 		*state |= PLAYER_TURNING_LEFT; */
 }
 
+static bool	is_hit(int32_t row, int32_t col, void *data)
+{
+	t_cub3D	*cub3d;
+
+	cub3d = (t_cub3D *)data;
+	if (row < 0 || (uint32_t)row >= cub3d->map->row_count)
+		return (false);
+	if (col < 0 || (uint32_t)col >= cub3d->map->col_count)
+		return (false);
+	if (cub3d->map->grid[row][col] == MAP_DOOR)
+		return (true);
+	return (cub3d->map->grid[row][col] == MAP_WALL);
+}
+
 void	process_inputs(t_cub3D *cub3d)
 {
 	t_player_state	player_state;
+	t_ray			ray;
+	t_door			*door;
 
 	player_state = cub3d->player.state;
 	process_mouse_move(&player_state, cub3d);
 	if (mlx_is_mouse_down(cub3d->mlx, MLX_MOUSE_BUTTON_LEFT))
 	{
-		printf("You've clicked left mouse\n");
 		player_state = PLAYER_ATTACKING;
+		init_ray(\
+			&ray, \
+			cub3d->player.x + MAP_PLAYER_SIZE / 2, \
+			cub3d->player.y + MAP_PLAYER_SIZE / 2, \
+			cub3d->player.angle \
+		);
+		find_hit_point(&ray, cub3d, is_hit);
+		door = get_door(ray.hit_row, ray.hit_col, cub3d);
+		if (door != NULL)
+			transition_door(door, DOOR_CLOSING);
 	}
 	process_keypress(&player_state, cub3d->mlx, cub3d);
 	transition_player(&cub3d->player, player_state);
 }
-

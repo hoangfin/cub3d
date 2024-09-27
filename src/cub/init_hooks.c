@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update_doors.c                                     :+:      :+:    :+:   */
+/*   init_hooks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 18:32:19 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/24 12:26:35 by emansoor         ###   ########.fr       */
+/*   Created: 2024/09/26 21:46:42 by hoatran           #+#    #+#             */
+/*   Updated: 2024/09/26 21:47:19 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-void	update_doors(t_cub3D *cub3d, double elapsed_time)
+void	init_hooks(t_cub3D *cub3d)
 {
-	uint32_t	i;
-
-	i = 0;
-	while (i < cub3d->map->door_count)
+	if (mlx_loop_hook(cub3d->mlx, loop_handler, cub3d) == false)
 	{
-		transition_door(cub3d->doors + i, DOOR_OPENING);
-		update_door(cub3d->doors + i, elapsed_time);
-		i++;
+		ft_fprintf(STDERR_FILENO, "Error\n%s\n", mlx_strerror(mlx_errno));
+		destroy(cub3d);
+		exit(1);
 	}
+	mlx_close_hook(cub3d->mlx, close_handler, cub3d);
 }

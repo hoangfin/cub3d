@@ -6,11 +6,11 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/20 21:39:24 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/20 22:14:58 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/26 14:55:06 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3D.h"
+#include "utility.h"
 
 void	delete_sprite(t_sprite *sprite, mlx_t *mlx)
 {

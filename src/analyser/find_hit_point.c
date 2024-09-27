@@ -6,26 +6,12 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 13:15:34 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/21 12:02:03 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/27 16:14:01 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <float.h>
 #include "cub3D.h"
-
-static bool	is_hit(int32_t row, int32_t col, t_cub3D *cub3d)
-{
-	if (row < 0 || (uint32_t)row >= cub3d->map->row_count)
-		return (false);
-	if (col < 0 || (uint32_t)col >= cub3d->map->col_count)
-		return (false);
-	if (
-		cub3d->map->grid[row][col] == MAP_DOOR
-		&& get_door(row, col, cub3d)->state != DOOR_OPEN
-	)
-		return (true);
-	return (cub3d->map->grid[row][col] == MAP_WALL);
-}
 
 static void	init_dist_and_step_x(
 	double *dist_by_dx,
@@ -65,27 +51,33 @@ static void	init_dist_and_step_y(
 		*dist_by_dy = fabs((MAP_CELL_SIZE - cur_pos_y) / ray->dir_y);
 }
 
-void	find_hit_point(int32_t *row, int32_t *col, t_ray *ray, t_cub3D *cub3d)
+void	find_hit_point(
+	t_ray *ray,
+	t_cub3D *cub3d,
+	bool (*is_hit)(int32_t, int32_t, void *)
+)
 {
 	double	distance_by_dx;
 	double	distance_by_dy;
 	int32_t	row_step;
 	int32_t	col_step;
 
+	ray->hit_row = ray->y_start / MAP_CELL_SIZE;
+	ray->hit_col = ray->x_start / MAP_CELL_SIZE;
 	init_dist_and_step_x(&distance_by_dx, &col_step, ray);
 	init_dist_and_step_y(&distance_by_dy, &row_step, ray);
-	while (!is_hit(*row, *col, cub3d))
+	while (!is_hit(ray->hit_row, ray->hit_col, cub3d))
 	{
 		if (distance_by_dx < distance_by_dy)
 		{
 			distance_by_dx += fabs(MAP_CELL_SIZE / ray->dir_x);
-			*col += col_step;
+			ray->hit_col += col_step;
 			ray->hit_side = 0;
 		}
 		else
 		{
 			distance_by_dy += fabs(MAP_CELL_SIZE / ray->dir_y);
-			*row += row_step;
+			ray->hit_row += row_step;
 			ray->hit_side = 1;
 		}
 	}

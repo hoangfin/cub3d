@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   is_enclosed.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 11:40:59 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/23 11:41:39 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/25 00:32:14 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static t_bool	check_first_row(t_map *map, char *row, uint32_t row_id)
+static bool	check_first_row(t_map *map, char *row, uint32_t row_id)
 {
 	int	col;
 
@@ -41,7 +41,7 @@ static t_bool	check_first_row(t_map *map, char *row, uint32_t row_id)
 	return (true);
 }
 
-static t_bool	check_last_row(t_map *map, char *row, uint32_t row_id)
+static bool	check_last_row(t_map *map, char *row, uint32_t row_id)
 {
 	int	col;
 
@@ -70,7 +70,7 @@ static t_bool	check_last_row(t_map *map, char *row, uint32_t row_id)
 	return (true);
 }
 
-static t_bool	check_ends(t_map *map, char *row, uint32_t row_id)
+static bool	check_ends(t_map *map, char *row, uint32_t row_id)
 {
 	if (row_id == 0)
 		return (check_first_row(map, row, row_id));
@@ -79,7 +79,7 @@ static t_bool	check_ends(t_map *map, char *row, uint32_t row_id)
 	return (false);
 }
 
-static t_bool	check_edges(t_map *map, char *row)
+static bool	check_edges(t_map *map, char *row)
 {
 	int	col;
 
@@ -102,7 +102,7 @@ static t_bool	check_edges(t_map *map, char *row)
 	return (true);
 }
 
-t_bool	is_enclosed(t_map *map)
+bool	is_enclosed(t_map *map)
 {
 	uint32_t	row;
 

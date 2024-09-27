@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_doors.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 08:39:52 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/23 14:40:12 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:09:02 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	init_door(t_door *door, int32_t row, int32_t col, t_cub3D *cub3d)
 	door->y = row * MAP_CELL_SIZE;
 	door->state = DOOR_CLOSED;
 	door->sprite = cub3d->asset.sprite_door;
-	door->image = door->sprite->frames[0][0];
+	door->frame_index = 0;
 }
 
 void	init_doors(t_cub3D *cub3d)

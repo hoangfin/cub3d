@@ -6,10 +6,11 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 14:10:09 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/23 23:54:28 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/26 16:51:01 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <math.h>
 #include "player.h"
 
@@ -27,22 +28,50 @@ static void	handle_turn(t_player *player)
 		player->angle -= 2 * M_PI;
 }
 
+static void	set_direction(double *dir_x, double *dir_y, t_player *player)
+{
+	if (player->state & PLAYER_MOVING_FORWARD)
+	{
+		*dir_x += cos(player->angle);
+		*dir_y -= sin(player->angle);
+	}
+	if (player->state & PLAYER_MOVING_BACKWARD)
+	{
+		*dir_x += cos(player->angle + M_PI);
+		*dir_y -= sin(player->angle + M_PI);
+	}
+	if (player->state & PLAYER_MOVING_RIGHT)
+	{
+		*dir_x += cos(player->angle + 3 * M_PI / 2);
+		*dir_y -= sin(player->angle + 3 * M_PI / 2);
+	}
+	if (player->state & PLAYER_MOVING_LEFT)
+	{
+		*dir_x += cos(player->angle + M_PI / 2);
+		*dir_y -= sin(player->angle + M_PI / 2);
+	}
+}
+
 static void	handle_movement(t_player *player, double elapsed_time)
 {
 	const double	distance = player->speed * elapsed_time;
-	double			move_angle;
+	double			dir_x;
+	double			dir_y;
+	double			magnitude;
 
-	move_angle = player->angle;
-	if (player->state & PLAYER_MOVING_BACKWARD)
-		move_angle += M_PI;
-	else if (player->state & PLAYER_MOVING_LEFT)
-		move_angle += M_PI / 2;
-	else if (player->state & PLAYER_MOVING_RIGHT)
-		move_angle += 3 * M_PI / 2;
+	dir_x = 0;
+	dir_y = 0;
+	set_direction(&dir_x, &dir_y, player);
+	magnitude = sqrt(dir_x * dir_x + dir_y * dir_y);
+	if (magnitude - 0.0 > 1e-9)
+	{
+		dir_x /= magnitude;
+		dir_y /= magnitude;
+	}
 	player->prev_x = player->x;
 	player->prev_y = player->y;
-	player->x += distance * cos(move_angle);
-	player->y -= distance * sin(move_angle);
+	player->x += dir_x * distance;
+	player->y += dir_y * distance;
 }
 
 static void	handle_attacking(t_player *player, double elapsed_time)

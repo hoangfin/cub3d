@@ -11,9 +11,7 @@ VPATH :=	src \
 			src/draw \
 			src/handlers \
 			src/map \
-			src/sprite \
 			src/state_machine \
-			src/update \
 			src/utility
 
 BUILD_DIR := build
@@ -33,10 +31,14 @@ CFLAGS :=	-Wall -Wextra \
 SOURCES :=	main.c \
 			\
 			destroy.c \
+			init_assets.c \
 			init_doors.c \
-			create_images.c \
+			init_hooks.c \
+			init_images.c \
 			init_player.c \
+			init_ray.c \
 			init.c \
+			render_images.c \
 			\
 			dda.c \
 			find_hit_point.c \
@@ -57,15 +59,17 @@ SOURCES :=	main.c \
 			update.c \
 			\
 			clear_image.c \
+			clear_pixels.c \
 			color.c \
 			copy_pixels.c \
+			delete_sprite.c \
 			fill.c \
 			get_door.c \
 			get_pixels.c \
 			is_equal.c \
 			is_valid_position.c \
-			is_wall.c \
 			load_png.c \
+			load_sprite.c \
 			max.c \
 			\
 			delete_map.c \
@@ -73,22 +77,17 @@ SOURCES :=	main.c \
 			get_texture.c \
 			input_validation_utils.c \
 			is_enclosed.c \
+			is_wall.c \
 			load_map.c \
 			map_validation.c \
 			parse_colors.c \
 			validate_file.c \
 			valid_door.c \
 			\
-			delete_sprite.c \
-			image_to_sprite.c \
-			\
 			transition_door.c \
 			transition_player.c \
 			update_door.c \
-			update_player.c \
-			\
-			update_doors.c \
-			update_rays.c
+			update_player.c
 
 OBJECTS := $(SOURCES:%.c=$(BUILD_DIR)/%.o)
 

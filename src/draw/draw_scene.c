@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_scene.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:29:43 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/25 14:31:32 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:10:27 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	draw_scene(t_cub3D *cub3d)
 	i = 0;
 	camera_plane_dist = (WIDTH / 2) / tan(M_PI / 6);
 	clear_image(cub3d->image.scene);
+	// printf("draw_scene::clear_image runs in %f ms\n", ((double)(end - start)) / CLOCKS_PER_SEC * 1000);
 	while (i < WIDTH)
 	{
 		wall_height = (MAP_CELL_SIZE / cub3d->rays[i].distance)
@@ -85,5 +86,4 @@ void	draw_scene(t_cub3D *cub3d)
 		draw_texture(cub3d, i, wall_height, scale);
 		i++;
 	}
-	//copy_pixels(cub3d->image.scene, cub3d->doors[0].image, cub3d->doors[0].image->width, cub3d->doors[0].image->height);
 }

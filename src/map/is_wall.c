@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprite.h                                           :+:      :+:    :+:   */
+/*   is_wall.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/20 15:15:15 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/26 15:11:36 by hoatran          ###   ########.fr       */
+/*   Created: 2024/09/01 21:39:22 by hoatran           #+#    #+#             */
+/*   Updated: 2024/09/25 21:17:55 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPRITE_H
-# define SPRITE_H
+#include "cub3D.h"
 
-# include "MLX42.h"
-
-typedef struct s_sprite
+bool	is_wall(int32_t x, int32_t y, t_map *map)
 {
-	mlx_image_t	***frames;
-	uint32_t	frame_w;
-	uint32_t	frame_h;
-	uint32_t	row_count;
-	uint32_t	col_count;
-}	t_sprite;
+	int32_t	row;
+	int32_t	col;
 
-#endif
+	if (x < 0 || (uint32_t)x >= map->width)
+		return (false);
+	if (y < 0 || (uint32_t)y >= map->height)
+		return (false);
+	row = y / MAP_CELL_SIZE;
+	col = x / MAP_CELL_SIZE;
+	if (map->grid[row][col] == MAP_WALL)
+		return (true);
+	return (false);
+}

@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 09:24:10 by emansoor          #+#    #+#             */
-/*   Updated: 2024/08/27 14:30:22 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:22:42 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,19 +76,19 @@ int	get_texture(t_map *map, char *data, int *error)
 
 	content = data;
 	content = ft_strnstr(content, "NO", 2);
-	if (content)
+	if (content && is_clean_texture(data, "NO") == true)
 		return (extract_texture(map, content, 1, error));
 	content = data;
 	content = ft_strnstr(content, "EA", 2);
-	if (content)
+	if (content && is_clean_texture(data, "EA") == true)
 		return (extract_texture(map, content, 2, error));
 	content = data;
 	content = ft_strnstr(content, "SO", 2);
-	if (content)
+	if (content && is_clean_texture(data, "SO") == true)
 		return (extract_texture(map, content, 3, error));
 	content = data;
 	content = ft_strnstr(content, "WE", 2);
-	if (content)
+	if (content && is_clean_texture(data, "WE") == true)
 		return (extract_texture(map, content, 4, error));
-	return (0);
+	return (2);
 }

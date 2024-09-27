@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   destroy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 20:08:54 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/23 14:39:51 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:56:22 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@ static void	delete_assets(t_cub3D *cub3d)
 	mlx_delete_image(cub3d->mlx, cub3d->asset.obstacle);
 	mlx_delete_image(cub3d->mlx, cub3d->asset.navigator);
 	delete_sprite(cub3d->asset.sprite_door, cub3d->mlx);
+	delete_sprite(cub3d->asset.sprite_wand, cub3d->mlx);
 }
 
 static void	delete_images(t_cub3D *cub3d)
 {
 	mlx_delete_image(cub3d->mlx, cub3d->image.ceiling);
 	mlx_delete_image(cub3d->mlx, cub3d->image.floor);
+	mlx_delete_image(cub3d->mlx, cub3d->image.player);
 	mlx_delete_image(cub3d->mlx, cub3d->image.scene);
 	mlx_delete_image(cub3d->mlx, cub3d->image.minimap);
 	mlx_delete_image(cub3d->mlx, cub3d->image.minimap_bg);

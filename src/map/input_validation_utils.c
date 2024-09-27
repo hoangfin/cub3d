@@ -6,20 +6,20 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 10:01:10 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/25 00:22:59 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/27 16:31:22 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-bool	ft_has_spaces_only_cubed(char *str)
+bool	has_spaces_only(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (str[i] != '\n')
+	while (str[i] != '\n' && str[i] != '\0')
 	{
-		if (!ft_isspace(str[i]))
+		if (str[i] != MAP_SPACE)
 			return (false);
 		i++;
 	}
@@ -71,20 +71,20 @@ int	map_edge(char *line)
 	return (0);
 }
 
-bool	too_many_commas(char *str)
+bool	is_clean_texture(char *data, char *str)
 {
 	int	index;
-	int	commas;
 
 	index = 0;
-	commas = 0;
-	while (str[index])
+	if (data)
 	{
-		if (str[index] == ',')
-			commas++;
-		index++;
-	}
-	if (commas != 2)
+		while (ft_strncmp(data + index, str, 2) != 0)
+		{
+			if (data[index] != MAP_SPACE)
+				return (false);
+			index++;
+		}
 		return (true);
+	}
 	return (false);
 }

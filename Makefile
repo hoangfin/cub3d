@@ -83,6 +83,7 @@ SOURCES :=	main.c \
 			parse_colors.c \
 			validate_file.c \
 			valid_door.c \
+			validate_color.c \
 			\
 			transition_door.c \
 			transition_player.c \

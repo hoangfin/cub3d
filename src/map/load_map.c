@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:32:55 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/25 00:32:20 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/27 16:29:42 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,30 +38,30 @@ static bool	has_all_walls(t_map *map)
 	return (false);
 }
 
-static char	*get_wall_specs(t_map *map, int fd, int *error)
+static char	*collect_world_info(t_map *map, int fd, int *error)
 {
-	char	*data;
+	char	*line;
 	int		status;
-	int		colors;
+	int		color_status;
 
-	colors = 0;
-	status = get_next_line(fd, &data);
-	while (status > -1 && data)
+	color_status = 0;
+	status = get_next_line(fd, &line);
+	while (status > -1 && line)
 	{
-		if (ft_strcmp(data, "\n") != 0 && !ft_has_spaces_only_cubed(data)
-			&& !*error)
+		if (ft_strcmp(line, "\n") != 0 && !*error)
 		{
-			if (map_edge(data) == 0)
+			if (map_edge(line) == 0)
 				break ;
-			get_texture(map, data, error);
-			get_color(map, data, error, &colors);
+			if (get_texture(map, line, error) == 2
+				&& get_color(map, line, error, &color_status) == 2)
+				print_content_error(NULL, error);
 		}
-		free(data);
-		status = get_next_line(fd, &data);
+		free(line);
+		status = get_next_line(fd, &line);
 	}
-	if (colors >= 2 && has_all_walls(map) && !*error)
-		return (data);
-	free(data);
+	if (color_status >= 2 && has_all_walls(map) && !*error)
+		return (line);
+	free(line);
 	check_file_end(fd);
 	return (NULL);
 }
@@ -72,7 +72,7 @@ static int	process_mapfile(t_map *map, int fd, char *pathname)
 	int		error;
 
 	error = 0;
-	first_map_row = get_wall_specs(map, fd, &error);
+	first_map_row = collect_world_info(map, fd, &error);
 	if (first_map_row)
 	{
 		if (get_map(map, first_map_row, fd, pathname) > 0)

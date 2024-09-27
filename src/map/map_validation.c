@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 07:13:14 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/25 15:34:47 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/27 16:29:32 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,24 @@ static bool	is_player(int c)
 	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 		return (true);
 	return (false);
+}
+
+bool	is_valid_row(char *line)
+{
+	int	index;
+
+	index = 0;
+	while (line[index] != '\n' && line[index] != '\0')
+	{
+		if (is_player(line[index]) == false
+			&& line[index] != MAP_DOOR
+			&& line[index] != MAP_PATH
+			&& line[index] != MAP_SPACE
+			&& line[index] != MAP_WALL)
+			return (false);
+		index++;
+	}
+	return (true);
 }
 
 static bool	has_one_player(t_map *map)
@@ -43,35 +61,9 @@ static bool	has_one_player(t_map *map)
 	return (player);
 }
 
-static bool	has_valid_chars(t_map *map)
-{
-	int		row;
-	int		col;
-
-	row = 0;
-	while (map->grid[row])
-	{
-		col = 0;
-		while (map->grid[row][col])
-		{
-			if (is_player(map->grid[row][col]) == false
-				&& map->grid[row][col] != MAP_DOOR
-				&& map->grid[row][col] != MAP_FOE
-				&& map->grid[row][col] != MAP_PATH
-				&& map->grid[row][col] != MAP_SPACE
-				&& map->grid[row][col] != MAP_WALL)
-				return (false);
-			col++;
-		}
-		row++;
-	}
-	return (true);
-}
-
 int	validate_map(t_map *map)
 {
-	if (has_valid_chars(map)
-		&& is_enclosed(map)
+	if (is_enclosed(map)
 		&& has_one_player(map)
 		&& door_check(map))
 		return (0);

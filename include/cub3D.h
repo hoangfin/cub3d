@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/26 22:08:17 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/27 16:39:47 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 # define MAP_WALL '1'
 # define MAP_PLAYER "NSEW"
 # define MAP_DOOR 'D'
-# define MAP_FOE 'F'
 # define MAP_CELL_SIZE 20
 # define MAP_PLAYER_SIZE 16
 

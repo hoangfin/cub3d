@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/27 16:39:47 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/28 21:11:59 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ typedef struct s_image
 	mlx_image_t	*minimap_bg;
 	mlx_image_t	*map;
 }	t_image;
-
-
 
 typedef struct s_cub3D
 {

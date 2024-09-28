@@ -30,7 +30,9 @@ CFLAGS :=	-Wall -Wextra \
 
 SOURCES :=	main.c \
 			\
+			is_valid_position.c \
 			destroy.c \
+			get_door.c \
 			init_assets.c \
 			init_doors.c \
 			init_hooks.c \
@@ -64,10 +66,8 @@ SOURCES :=	main.c \
 			copy_pixels.c \
 			delete_sprite.c \
 			fill.c \
-			get_door.c \
 			get_pixels.c \
 			is_equal.c \
-			is_valid_position.c \
 			load_png.c \
 			load_sprite.c \
 			max.c \
@@ -77,7 +77,6 @@ SOURCES :=	main.c \
 			get_texture.c \
 			input_validation_utils.c \
 			is_enclosed.c \
-			is_wall.c \
 			load_map.c \
 			map_validation.c \
 			parse_colors.c \

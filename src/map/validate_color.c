@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_color.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 14:41:17 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/27 10:52:42 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/09/28 21:33:53 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,15 @@ bool	too_many_commas(char *str)
 	return (false);
 }
 
-int32_t	validate_color(char *cleaned_color)
+int	validate_color(char *cleaned_color)
 {
 	char	*verifier;
 	int		overflow;
-	int32_t	color;
+	int		color;
 
 	verifier = NULL;
 	overflow = 0;
-	color = (int32_t)ft_atoi(cleaned_color, &overflow);
+	color = (int)ft_atoi(cleaned_color, &overflow);
 	verifier = (char *)malloc(sizeof(char) * (ft_strlen(cleaned_color) + 1));
 	if (!verifier)
 	{

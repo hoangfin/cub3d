@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 12:57:11 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/28 21:57:56 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/28 22:30:04 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ static void	process_keypress(t_player_state *state, mlx_t *mlx, t_cub3D *cub3d)
 		destroy(cub3d);
 		exit(EXIT_SUCCESS);
 	}
+	if (*state == PLAYER_ATTACKING)
+		return ;
 	if (mlx_is_key_down(mlx, MLX_KEY_W))
 		*state |= PLAYER_MOVING_FORWARD;
 	if (mlx_is_key_down(mlx, MLX_KEY_S))

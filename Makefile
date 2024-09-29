@@ -31,6 +31,7 @@ CFLAGS :=	-Wall -Wextra \
 SOURCES :=	main.c \
 			\
 			is_valid_position.c \
+			is_door.c \
 			destroy.c \
 			get_door.c \
 			init_assets.c \

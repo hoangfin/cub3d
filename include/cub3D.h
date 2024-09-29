@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/28 21:11:59 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/29 13:11:56 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,6 @@ void	update_ui(t_cub3D *cub3d);
 
 t_door	*get_door(int32_t row, int32_t col, t_cub3D *cub3d);
 bool	is_valid_position(int32_t x, int32_t y, t_cub3D *cub3d);
+bool	is_door(int32_t x, int32_t y, t_cub3D *cub3d);
 
 #endif

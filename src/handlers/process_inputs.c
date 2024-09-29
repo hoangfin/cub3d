@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 12:57:11 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/28 22:30:04 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/29 13:17:15 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,12 @@ static void	process_mouse_move(t_player_state *state, t_cub3D *cub3d)
 		*state |= PLAYER_TURNING_RIGHT;
 }
 
-static void	process_mouse_press(t_player_state *state, t_cub3D *cub3d)
+static void	process_mouse_press(
+	t_player_state *state,
+	int32_t x,
+	int32_t y,
+	t_cub3D *cub3d
+)
 {
 	t_ray	ray;
 	t_door	*door;
@@ -54,7 +59,13 @@ static void	process_mouse_press(t_player_state *state, t_cub3D *cub3d)
 		);
 		find_hit_point(&ray, cub3d, is_hit);
 		door = get_door(ray.hit_row, ray.hit_col, cub3d);
-		if (door != NULL)
+		if (
+			door != NULL
+			&& !is_door(x, y, cub3d)
+			&& !is_door(x + MAP_PLAYER_SIZE, y, cub3d)
+			&& !is_door(x, y + MAP_PLAYER_SIZE, cub3d)
+			&& !is_door(x + MAP_PLAYER_SIZE, y + MAP_PLAYER_SIZE, cub3d)
+		)
 			transition_door(door, DOOR_CLOSING);
 	}
 }
@@ -84,11 +95,11 @@ static void	process_keypress(t_player_state *state, mlx_t *mlx, t_cub3D *cub3d)
 
 void	process_inputs(t_cub3D *cub3d)
 {
-	t_player_state	player_state;
+	t_player_state	state;
 
-	player_state = PLAYER_IDLE;
-	process_mouse_move(&player_state, cub3d);
-	process_mouse_press(&player_state, cub3d);
-	process_keypress(&player_state, cub3d->mlx, cub3d);
-	transition_player(&cub3d->player, player_state);
+	state = PLAYER_IDLE;
+	process_mouse_move(&state, cub3d);
+	process_mouse_press(&state, cub3d->player.x, cub3d->player.y, cub3d);
+	process_keypress(&state, cub3d->mlx, cub3d);
+	transition_player(&cub3d->player, state);
 }

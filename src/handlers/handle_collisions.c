@@ -6,7 +6,7 @@
 /*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/22 10:37:07 by hoatran           #+#    #+#             */
-/*   Updated: 2024/09/28 21:26:33 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/09/29 13:23:19 by hoatran          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	handle_x_collision(int32_t x, int32_t y, t_cub3D *cub3d)
 	const int32_t	col = x / MAP_CELL_SIZE;
 	t_door			*door;
 
+	door = NULL;
 	if (player->prev_x > x)
 	{
 		player->x = (col + 1) * MAP_CELL_SIZE;
@@ -52,6 +53,7 @@ static void	handle_y_collision(int32_t x, int32_t y, t_cub3D *cub3d)
 	const int32_t	col = x / MAP_CELL_SIZE;
 	t_door			*door;
 
+	door = NULL;
 	if (player->prev_y > player->y)
 	{
 		player->y = (row + 1) * MAP_CELL_SIZE;
@@ -62,7 +64,6 @@ static void	handle_y_collision(int32_t x, int32_t y, t_cub3D *cub3d)
 		player->y = (row + 1) * MAP_CELL_SIZE - 1 - MAP_PLAYER_SIZE;
 		door = get_door(row + 1, col, cub3d);
 	}
-	door = get_door(row, col, cub3d);
 	if (door != NULL)
 		transition_door(door, DOOR_OPENING);
 }

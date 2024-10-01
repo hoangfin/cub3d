@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:32:55 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/27 16:29:42 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/01 18:31:33 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static char	*collect_world_info(t_map *map, int fd, int *error)
 		free(line);
 		status = get_next_line(fd, &line);
 	}
-	if (color_status >= 2 && has_all_walls(map) && !*error)
+	if (color_status == 2 && has_all_walls(map) && !*error)
 		return (line);
 	free(line);
 	check_file_end(fd);

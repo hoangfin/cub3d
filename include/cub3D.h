@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:22:06 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/29 13:11:56 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/01 18:35:57 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ void	dda(t_ray *ray, t_cub3D *cub3d);
 void	find_hit_point(
 			t_ray *ray,
 			t_cub3D *cub3d,
-			bool (*is_hit)(int32_t , int32_t , void *)
-		);
+			bool (*is_hit)(int32_t, int32_t, void *)
+			);
 void	set_distance(t_ray *ray, t_cub3D *cub3d);
 void	set_end_point(int32_t row_hit, int32_t col_hit, t_ray *ray);
 void	set_hit_texture(int32_t row, int32_t col, t_ray *ray, t_cub3D *cub3d);
@@ -103,9 +103,9 @@ void	draw_minimap(mlx_image_t *minimap, t_cub3D *cub3D);
 void	draw_player(t_cub3D *cub3d);
 void	draw_scene(t_cub3D *cub3d);
 
-void 	close_handler(void	*param);
+void	close_handler(void	*param);
 void	handle_collisions(t_cub3D *cub3d);
-void 	loop_handler(void *param);
+void	loop_handler(void *param);
 void	process_inputs(t_cub3D *cub3D);
 void	update(t_cub3D *cub3d, double elapsed_time);
 void	update_ui(t_cub3D *cub3d);

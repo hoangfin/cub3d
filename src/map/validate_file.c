@@ -6,7 +6,7 @@
 /*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 06:52:15 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/27 13:43:46 by emansoor         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:32:09 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	validate(char *map_file)
 {
 	if (map_file[0] == '\0' || verify_fileformat(map_file, ".cub") != 0)
 	{
-		write(STDERR_FILENO, "Error\nInvalid map file format\n", 30);
+		write(STDERR_FILENO, "Error\nInvalid map file type\n", 28);
 		return (-1);
 	}
 	return (check_file_permissions(map_file));

@@ -3,123 +3,98 @@
 /*                                                        :::      ::::::::   */
 /*   is_enclosed.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoatran <hoatran@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: emansoor <emansoor@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 11:40:59 by emansoor          #+#    #+#             */
-/*   Updated: 2024/09/27 16:30:39 by hoatran          ###   ########.fr       */
+/*   Updated: 2024/10/01 18:30:58 by emansoor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-static bool	check_first_row(t_map *map, char *row, uint32_t row_id)
+static void	copy_map_row(char *to, char *from)
 {
-	int	col;
+	uint32_t	index;
 
-	col = 0;
-	while (row[col])
+	index = 0;
+	while (from[index])
 	{
-		if (row[col] == MAP_SPACE)
+		to[index] = from[index];
+		index++;
+	}
+	to[index] = '\0';
+}
+
+static char	**copy_matrix(t_map *map)
+{
+	char		**copy;
+	uint32_t	rows;
+
+	rows = 0;
+	copy = (char **)ft_calloc(map->row_count + 1, sizeof(char *));
+	if (!copy)
+		return (NULL);
+	while (rows < map->row_count)
+	{
+		copy[rows] = (char *)ft_calloc(map->col_count + 1, sizeof(char));
+		if (!copy[rows])
 		{
-			row_id = 1;
-			while (row_id < map->row_count)
-			{
-				if (map->grid[row_id][col] == MAP_SPACE)
-					row_id++;
-				else if (map->grid[row_id][col] == MAP_WALL)
-					break ;
-				else
-					return (false);
-			}
-			if (row_id == map->row_count)
-				return (false);
+			ft_del_str_arr(&copy);
+			return (NULL);
 		}
-		else if (row[col] != MAP_WALL)
-			return (false);
-		col++;
+		copy_map_row(copy[rows], map->grid[rows]);
+		rows++;
 	}
-	return (true);
+	copy[rows] = NULL;
+	return (copy);
 }
 
-static bool	check_last_row(t_map *map, char *row, uint32_t row_id)
+static bool	floodfill(t_map *map, char **grid, int32_t row, int32_t col)
 {
-	int	col;
-
-	col = 0;
-	while (row[col])
-	{
-		if (row[col] == MAP_SPACE)
-		{
-			row_id = map->row_count - 2;
-			while (row_id > 0)
-			{
-				if (map->grid[row_id][col] == MAP_SPACE)
-					row_id--;
-				else if (map->grid[row_id][col] == MAP_WALL)
-					break ;
-				else
-					return (false);
-			}
-			if (row_id < 1)
-				return (false);
-		}
-		else if (row[col] != MAP_WALL)
-			return (false);
-		col++;
-	}
-	return (true);
-}
-
-static bool	check_ends(t_map *map, char *row, uint32_t row_id)
-{
-	if (row_id == 0)
-		return (check_first_row(map, row, row_id));
-	if (row_id == map->row_count - 1)
-		return (check_last_row(map, row, row_id));
-	return (false);
-}
-
-static bool	check_edges(t_map *map, char *row)
-{
-	int	col;
-
-	col = 0;
-	if (col == 0 && row[col] == MAP_SPACE)
-	{
-		while (row[col] == MAP_SPACE)
-			col++;
-	}
-	if (row[col] != MAP_WALL)
+	if (
+		row < 0 || (uint32_t)row >= map->row_count
+		|| col < 0 || (uint32_t)col >= map->col_count
+	)
 		return (false);
-	col = map->col_count - 1;
-	if (row[col] == MAP_SPACE)
-	{
-		while (row[col] == MAP_SPACE)
-			col--;
-	}
-	if (row[col] != MAP_WALL)
+	if (grid[row][col] == MAP_WALL || grid[row][col] == 'X')
+		return (true);
+	grid[row][col] = 'X';
+	if (floodfill(map, grid, row - 1, col) == false)
+		return (false);
+	if (floodfill(map, grid, row + 1, col) == false)
+		return (false);
+	if (floodfill(map, grid, row, col - 1) == false)
+		return (false);
+	if (floodfill(map, grid, row, col + 1) == false)
 		return (false);
 	return (true);
 }
 
 bool	is_enclosed(t_map *map)
 {
+	char		**grid_copy;
+	uint32_t	col;
 	uint32_t	row;
 
+	grid_copy = copy_matrix(map);
+	if (!grid_copy)
+		return (false);
 	row = 0;
-	while (map->grid[row])
+	while (row < map->row_count)
 	{
-		if (row == 0 || row == map->row_count - 1)
+		col = 0;
+		while (col < map->col_count)
 		{
-			if (check_ends(map, map->grid[row], row) == false)
+			if (grid_copy[row][col] == MAP_PATH
+				&& floodfill(map, grid_copy, row, col) == false)
+			{				
+				ft_del_str_arr(&grid_copy);
 				return (false);
-		}
-		if (row > 0 && row < map->row_count - 1)
-		{
-			if (check_edges(map, map->grid[row]) == false)
-				return (false);
+			}
+			col++;
 		}
 		row++;
 	}
+	ft_del_str_arr(&grid_copy);
 	return (true);
 }

@@ -14,3 +14,5 @@ Run executable `cub3D` with any of the maps found in the maps folder within the 
 ./cub3D assets/maps/good/tunnel.cub
 ```
 Use `AWSD` keys to move left, right, forwards and backwards. Use arrow keys and/or mouse to rotate player view. Doors can be opened by running the player front-first towards the door which will launch its opening. Open doorways can be closed by casting a spell with a left mouse click and aiming the magic wand towards the door.
+
+[![cub3D gameplay](https://img.youtube.com/vi/ThJYJcNBb5A/0.jpg)](https://www.youtube.com/watch?v=ThJYJcNBb5A)
